@@ -1,3 +1,4 @@
+from typing import Tuple
 import numpy as np
 
 """
@@ -13,7 +14,7 @@ into the main evolutionary algorithms.
 # SELECTION OPERATORS
 
 
-def tournament_selection(population, fitness_values, tournament_size=3):
+def tournament_selection(population: np.ndarray, fitness_values: np.ndarray, tournament_size: int = 3) -> np.ndarray:
     """
     Selects a single individual from the population using tournament selection.
     
@@ -42,7 +43,7 @@ def tournament_selection(population, fitness_values, tournament_size=3):
     return population[winner_global_index]
 
 
-def roulette_wheel_selection(population, fitness_values):
+def roulette_wheel_selection(population: np.ndarray, fitness_values: np.ndarray) -> np.ndarray:
     """
     Selects an individual using stochastic sampling with replacement (Roulette Wheel).
     
@@ -75,7 +76,7 @@ def roulette_wheel_selection(population, fitness_values):
     return population[selected_index]
 
 
-def boltzmann_selection(population, fitness_values, temperature):
+def boltzmann_selection(population: np.ndarray, fitness_values: np.ndarray, temperature: float) -> np.ndarray:
     """
     Selects an individual using Boltzmann distribution probabilities.
     
@@ -108,7 +109,7 @@ def boltzmann_selection(population, fitness_values, temperature):
 # CROSSOVER OPERATORS (REAL RECOMBINATION)
 
 
-def arithmetic_crossover(parent_a, parent_b):
+def arithmetic_crossover(parent_a: np.ndarray, parent_b: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
     Performs arithmetic crossover between two continuous vectors.
     
@@ -133,7 +134,7 @@ def arithmetic_crossover(parent_a, parent_b):
     return child_a, child_b
 
 
-def uniform_crossover(parent_a, parent_b, crossover_rate=0.5):
+def uniform_crossover(parent_a: np.ndarray, parent_b: np.ndarray, crossover_rate: float = 0.5) -> Tuple[np.ndarray, np.ndarray]:
     """
     Executes uniform crossover by randomly swapping alleles between parents.
     
@@ -161,7 +162,7 @@ def uniform_crossover(parent_a, parent_b, crossover_rate=0.5):
     return child_a, child_b
 
 
-def one_point_crossover(parent_a, parent_b):
+def one_point_crossover(parent_a: np.ndarray, parent_b: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
     Applies classical single-point crossover to continuous vectors.
     
@@ -194,7 +195,7 @@ def one_point_crossover(parent_a, parent_b):
 # MUTATION OPERATORS (REAL CODING)
 
 
-def gaussian_mutation(individual, bounds, mutation_probability, sigma=0.1):
+def gaussian_mutation(individual: np.ndarray, bounds: np.ndarray, mutation_probability: float, sigma: float = 0.1) -> np.ndarray:
     """
     Perturbs an individual using a Gaussian distribution.
     
@@ -227,7 +228,7 @@ def gaussian_mutation(individual, bounds, mutation_probability, sigma=0.1):
     return mutated_individual
 
 
-def uniform_mutation(individual, bounds, mutation_probability):
+def uniform_mutation(individual: np.ndarray, bounds: np.ndarray, mutation_probability: float) -> np.ndarray:
     """
     Replaces an individual's gene with a completely random value.
     
@@ -254,7 +255,7 @@ def uniform_mutation(individual, bounds, mutation_probability):
     return mutated_individual
 
 
-def non_uniform_mutation(individual, bounds, current_iteration, max_iterations, b_parameter=2):
+def non_uniform_mutation(individual: np.ndarray, bounds: np.ndarray, current_iteration: int, max_iterations: int, b_parameter: float = 2) -> np.ndarray:
     """
     Applies dynamic mutation that decreases in magnitude over generations.
     

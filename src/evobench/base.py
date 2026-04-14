@@ -1,3 +1,4 @@
+from typing import Callable, List, Tuple
 import numpy as np
 from abc import ABC, abstractmethod
 
@@ -12,7 +13,7 @@ class EvolutionaryAlgorithm(ABC):
     for executing rigorous statistical benchmarking over continuous search spaces.
     """
 
-    def __init__(self, objective_function, bounds, population_size=50, max_iterations=100):
+    def __init__(self, objective_function: Callable, bounds: List, population_size: int = 50, max_iterations: int = 100) -> None:
         """
         Initializes the fundamental hyperparameters and state variables required 
         for the optimization process.
@@ -45,7 +46,7 @@ class EvolutionaryAlgorithm(ABC):
         # which is later utilized to generate convergence plots and statistical analysis
         self.fitness_history = []
 
-    def _initialize_population(self):
+    def _initialize_population(self) -> np.ndarray:
         """
         Generates the initial set of candidate solutions.
 
@@ -71,7 +72,7 @@ class EvolutionaryAlgorithm(ABC):
         return initial_population
 
     @abstractmethod
-    def run(self):
+    def run(self) -> Tuple[np.ndarray, float]:
         """
         Executes the core evolutionary loop.
 

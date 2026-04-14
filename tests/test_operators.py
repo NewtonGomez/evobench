@@ -1,3 +1,4 @@
+from typing import Tuple, List, Callable
 import inspect
 import numpy as np
 import pytest
@@ -15,7 +16,7 @@ while preserving the continuous search space dimensionality.
 
 # TEST CROSSOVER FUNCTIONS
 
-def get_crossover_functions():
+def get_crossover_functions() -> List[Callable]:
     """
     Dynamically retrieves all functions from the operators module designed 
     for genetic recombination.
@@ -39,7 +40,7 @@ def get_crossover_functions():
 
 
 @pytest.fixture
-def synthetic_parents_data():
+def synthetic_parents_data() -> Tuple[np.ndarray, np.ndarray]:
     """
     Pytest fixture supplying standardized parent vectors for recombination tests.
 
@@ -63,7 +64,8 @@ def synthetic_parents_data():
 
 
 @pytest.mark.parametrize("crossover_function", get_crossover_functions())
-def test_crossover_operators_validity(crossover_function, synthetic_parents_data):
+def test_crossover_operators_validity(crossover_function: Callable, 
+                                      synthetic_parents_data: Tuple[np.ndarray, np.ndarray]) -> None:
     """
     Validates the structural and dimensional integrity of crossover operators.
 
@@ -112,7 +114,7 @@ def test_crossover_operators_validity(crossover_function, synthetic_parents_data
 
 # TEST SELECTION FUNCTIONS
 
-def get_selection_functions():
+def get_selection_functions() -> List[Callable]:
     """
     Dynamically retrieves all functions from the operators module that are 
     intended for selection purposes.
@@ -137,7 +139,7 @@ def get_selection_functions():
 
 
 @pytest.fixture
-def synthetic_population_data():
+def synthetic_population_data() -> Tuple[np.ndarray, np.ndarray]:
     """
     Pytest fixture providing a standardized synthetic population and corresponding 
     fitness values for testing purposes.
@@ -166,7 +168,8 @@ def synthetic_population_data():
 
 
 @pytest.mark.parametrize("selection_function", get_selection_functions())
-def test_selection_operators_validity(selection_function, synthetic_population_data):
+def test_selection_operators_validity(selection_function: Callable, 
+                                      synthetic_population_data: Tuple[np.ndarray, np.ndarray]) -> None:
     """
     Validates the execution and output integrity of discovered selection functions.
 
@@ -214,7 +217,7 @@ def test_selection_operators_validity(selection_function, synthetic_population_d
 # TEST MUTATION FUNCTIONS
 
 
-def get_mutation_functions():
+def get_mutation_functions() -> List[Callable]:
     """
     Dynamically extracts all functions related to mutation from the operators module.
 
@@ -238,7 +241,7 @@ def get_mutation_functions():
 
 
 @pytest.fixture
-def synthetic_individual_data():
+def synthetic_individual_data() -> Tuple[np.ndarray, np.ndarray]:
     """
     Pytest fixture providing a standardized candidate vector and search space boundaries.
 
@@ -266,7 +269,8 @@ def synthetic_individual_data():
 
 
 @pytest.mark.parametrize("mutation_function", get_mutation_functions())
-def test_mutation_operators_validity(mutation_function, synthetic_individual_data):
+def test_mutation_operators_validity(mutation_function: Callable, 
+                                     synthetic_individual_data: Tuple[np.ndarray, np.ndarray]) -> None:
     """
     Validates the mathematical and structural integrity of mutation operators.
 
