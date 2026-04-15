@@ -2,7 +2,7 @@ import numpy as np
 from evobench.benchmarks import sphere_function, ackley_function
 from evobench.algorithms.eda import EstimationOfDistributionAlgorithm as EDA
 from evobench.algorithms.pso import ParticleSwarmOptimization as PSO
-#from evobench.algorithms.bee import ArtificialBeeColony as ABC # Alias seguro
+from evobench.algorithms.bee import ArtificialBeeColony as ABC # Alias seguro
 from evobench.tools.statistics import analyze, stat_report 
 from evobench.tools.plotter import plot_all
 
@@ -18,7 +18,7 @@ def run_terna_experiment():
     algorithms = [
         {"name": "EDA", "class": EDA, "params": {"selection_ratio": 0.5}},
         {"name": "PSO", "class": PSO, "params": {"inertia_weight": 0.7}},
-    #    {"name": "ABC", "class": ABC, "params": {"limit": 20}}
+        {"name": "ABC", "class": ABC, "params": {"limit": 20}}
     ]
     all_results = []
     al_names = [alg["name"] for alg in algorithms]
