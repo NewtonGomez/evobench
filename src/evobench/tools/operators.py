@@ -42,6 +42,43 @@ def tournament_selection(population: np.ndarray, fitness_values: np.ndarray, tou
     
     return population[winner_global_index]
 
+import numpy as np
+
+def roulette_wheel_selection_index(population: np.ndarray, fitness_values: np.ndarray) -> int:
+    """
+    Selects the index of an individual using stochastic sampling with replacement (Roulette Wheel).
+    
+    Since the objective is minimization, the fitness values are inverted so that 
+    lower objective values correspond to higher probabilities of selection.
+    
+    Args:
+        population (numpy.ndarray): The current matrix of candidate solutions.
+        fitness_values (numpy.ndarray): The corresponding objective function values.
+
+    Returns:
+        int: The index of the selected candidate solution.
+    """
+    
+    # Identify the worst fitness in the current generation to baseline the inversion
+    maximum_fitness = np.max(fitness_values)
+    # Invert the fitness landscape to favor smaller values during minimization
+    inverted_fitness = maximum_fitness - fitness_values
+    # Calculate the sum of all inverted values to create a normalized probability mass
+    total_fitness = np.sum(inverted_fitness)
+    
+    # Handle mathematical edge cases such as uniform populations or zero variance
+    if total_fitness == 0:
+        # Distribute selection probability equally among all existing candidates
+        population_size = len(fitness_values)
+        selection_probabilities = np.ones(population_size) / population_size
+    else:
+        # Normalize the inverted values to build the discrete probability distribution
+        selection_probabilities = inverted_fitness / total_fitness
+
+    # Perform the weighted random choice to select a single array index
+    selected_index = np.random.choice(len(population), p=selection_probabilities)
+    # Cast the numpy integer type to a standard Python integer for broad compatibility
+    return int(selected_index)
 
 def roulette_wheel_selection(population: np.ndarray, fitness_values: np.ndarray) -> np.ndarray:
     """

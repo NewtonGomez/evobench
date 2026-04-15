@@ -109,7 +109,7 @@ class ArtificialBeeColony(EvolutionaryAlgorithm):
                 # Use the roulette selection from operators.py to favor better sources
                 # We pass the full matrix and fitness values to pick a winning source index
                 # Note: We simulate the selection of a source for additional local search
-                selected_idx = ops.roulette_wheel_selection(food_sources, fitness_values)
+                selected_idx = ops.roulette_wheel_selection_index(food_sources, fitness_values)
                 
                 # Repeat the local search logic for the chosen source
                 neighbor_idx = np.random.choice([idx for idx in range(self.food_sources_count) if idx != selected_idx])
