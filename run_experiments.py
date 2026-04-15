@@ -32,7 +32,7 @@ if __name__ == "__main__":
         # Define the number of candidate solutions (agents) evaluated per generation
         "population_size": 50,
         # Determine the total number of independent executions to ensure statistical robustness
-        "independent_runs": 5,
+        "independent_runs": 30,
         # Define the list of continuous benchmark functions used to evaluate the algorithms
         "benchmarks": [
             {
@@ -111,5 +111,5 @@ if __name__ == "__main__":
         # Output a formatted statistical report summarizing the analysis outcomes
         stat_report(result)
         # Render visual plots comparing algorithm performance for the current benchmark
-        # plot_all(bench_func, alg_names, all_data)
+        plot_all(bench_func, alg_names, all_data)
         
