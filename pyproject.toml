@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evobench"
+version = "0.1.0"
+authors = [
+  { name = "Enrique Gómez Linares" },
+  { name = "Victoria Galván Delgadillo" }
+]
+description = "A benchmarking suite for evolutionary algorithms and metaheuristics"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.4.0",
+]
+
+[tool.setuptools.packages.find]
+# Indica que el código fuente real vive dentro de la carpeta 'src'
+where = ["src"]
+
+[tool.pytest.ini_options]
+# Esta línea es la que permite quitar el prefijo 'src.' de tus imports
+# ya que añade 'src' automáticamente al path de búsqueda de Python
+pythonpath = ["src"]
+testpaths = ["tests"]

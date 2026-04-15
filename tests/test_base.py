@@ -3,9 +3,9 @@ import pytest
 import numpy as np
 import inspect
 
-from src.evobench.base import EvolutionaryAlgorithm
+from evobench.base import EvolutionaryAlgorithm
 
-from src.evobench.algorithms.eda import EDA
+from evobench.algorithms.eda import EDA
 
 """
 Unit testing module for the EvolutionaryAlgorithm abstract base class.

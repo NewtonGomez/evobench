@@ -1,7 +1,7 @@
 import numpy as np
 from typing import Callable, Tuple
-from src.evobench.base import EvolutionaryAlgorithm
-import src.evobench.tools.operators as ops
+from evobench.base import EvolutionaryAlgorithm
+import evobench.tools.operators as ops
 
 class EDA(EvolutionaryAlgorithm):
     """

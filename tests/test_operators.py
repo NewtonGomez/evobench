@@ -3,7 +3,7 @@ import inspect
 import numpy as np
 import pytest
 
-import src.evobench.tools.operators as ops 
+import evobench.tools.operators as ops 
 
 """
 Unit testing module for Evolutionary Crossover Operators.

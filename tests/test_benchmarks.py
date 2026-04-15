@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from typing import Callable, List, Tuple
 
-from src.evobench.benchmarks import (
+from evobench.benchmarks import (
     ackley_function,
     rosenbrock_function,
     sphere_function,
