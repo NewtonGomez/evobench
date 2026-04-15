@@ -5,8 +5,7 @@ import inspect
 
 from src.evobench.base import EvolutionaryAlgorithm
 
-# import mccma_evolucion_u2.algorithms.eda 
-# import mccma_evolucion_u2.algorithms.pso
+from src.evobench.algorithms.eda import EDA
 
 """
 Unit testing module for the EvolutionaryAlgorithm abstract base class.
