@@ -201,16 +201,28 @@ def test_selection_operators_validity(selection_function: Callable,
         # Standard execution for operators like roulette wheel
         selected_individual = selection_function(population, fitness_values)
         
-    # Assertion: Verify that the function returned an array
-    assert isinstance(selected_individual, np.ndarray), "The selection operator must return a numpy array."
+    # Extract the function name to determine the expected return signature
+    operator_name = selection_function.__name__
     
-    # Assertion: Verify that the returned array matches the problem dimensionality
+    # Assertion branch: Handle operators specifically designed to return indices
+    if 'index' in operator_name:
+        
+        assert isinstance(selected_individual, int), "Index selection operators must return an integer."
+        assert 0 <= selected_individual < len(population), "The returned index is out of array bounds."
+        
+        # Map the valid index back to the population matrix for dimensional testing
+        selected_individual = population[selected_individual]
+        
+    # Assertion branch: Handle standard operators returning full genotype vectors
+    else:
+        assert isinstance(selected_individual, np.ndarray), "The selection operator must return a numpy array."
+    
+    # Assertion: Verify that the resulting candidate matches the problem dimensionality
     assert selected_individual.shape == (dimension,), "The selected individual has an incorrect dimension."
     
-    # Assertion: Verify that the selected individual actually exists within the source population
-    # This checks that the operator is not fabricating data or altering the genes during selection
+    # Assertion: Verify that the candidate genetically exists within the source population
     is_in_population = any(np.array_equal(selected_individual, row) for row in population)
-    assert is_in_population, "The selected individual must be a member of the original population."
+    assert is_in_population, "The selected individual must be a true member of the original population." 
 
 
 
