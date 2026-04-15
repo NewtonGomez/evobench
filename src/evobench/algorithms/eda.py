@@ -3,7 +3,7 @@ from typing import Callable, Tuple
 from evobench.base import EvolutionaryAlgorithm
 import evobench.tools.operators as ops
 
-class EDA(EvolutionaryAlgorithm):
+class EstimationOfDistributionAlgorithm(EvolutionaryAlgorithm):
     """
     Continuous Estimation of Distribution Algorithm (EDA) with static typing.
 

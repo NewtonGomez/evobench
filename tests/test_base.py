@@ -5,7 +5,9 @@ import inspect
 
 from evobench.base import EvolutionaryAlgorithm
 
-from evobench.algorithms.eda import EDA
+from evobench.algorithms.eda import EstimationOfDistributionAlgorithm
+from evobench.algorithms.pso import ParticleSwarmOptimization
+from evobench.algorithms.bee import ArtificialBeeColony
 
 """
 Unit testing module for the EvolutionaryAlgorithm abstract base class.
