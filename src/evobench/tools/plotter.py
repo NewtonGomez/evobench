@@ -12,20 +12,24 @@ functions. For each objective function, two plots are generated:
 """
 
 # Color assigned to each algorithm for visual consistency across plots
-ALGORITHM_COLORS = ["steelblue", "darkorange", "mediumseagreen"]
+ALGORITHM_COLORS = ["cadetblue", "slategray", "midnightblue", "steelblue"]
 
 
 def plot_histograms(func_name: str, algorithm_names: list, result_list: list) -> None:
     """
-    Plots one histogram per algorithm, all in the same window as subplots.
- 
-    Each subplot shows the fitness distribution of a single algorithm,
-    making it easy to read without overlapping bars.
- 
+    Plot one histogram per algorithm in a shared figure.
+
+    Each subplot visualizes the distribution of best fitness values for a
+    single algorithm, allowing direct comparison across all algorithms
+    on the same benchmark function.
+
     Args:
-        func_name       : Name of the objective function (e.g. "Ackley").
-        algorithm_names : List of algorithm names (e.g. ["EDA", "PSO", "BEE"]).
-        result_list     : List of 1D arrays, one per algorithm, with best_fitness values.
+        func_name (str): Name of the objective function (e.g. "Ackley").
+        algorithm_names (list): Names of the algorithms to plot.
+        result_list (list): One 1D array of best fitness values per algorithm.
+
+    Returns:
+        None
     """
     n_algos = len(algorithm_names)
     fig, axes = plt.subplots(1, n_algos, figsize=(5 * n_algos, 4), sharey=True)
@@ -60,24 +64,27 @@ def plot_histograms(func_name: str, algorithm_names: list, result_list: list) ->
     )
  
     plt.tight_layout()
+    #plt.savefig(f"histogram_{func_name}.png", dpi=300, bbox_inches='tight') # download the histogram images from the "results" folder instead of saving them here
     plt.show()
     plt.close(fig)
 
 
 def plot_boxplot(func_name: str, algorithm_names: list, result_list: list) -> None:
     """
-    Plots a grouped boxplot comparing best_fitness distributions per algorithm.
+    Draw a grouped boxplot comparing algorithm fitness distributions.
 
-    Each box shows the median, interquartile range, and outliers for a given
-    algorithm on a specific objective function.
+    Each boxplot displays the median, interquartile range, and outliers for a
+    given algorithm on the specified benchmark function.
 
     Args:
-        func_name       : Name of the objective function (e.g. "sphere").
-        algorithm_names : List of algorithm name strings (e.g. ["EDA", "PSO", "ABC"]).
-        result_list     : List of 1D arrays, one per algorithm, with best_fitness values.
+        func_name (str): Name of the objective function (e.g. "sphere").
+        algorithm_names (list): List of algorithm name strings.
+        result_list (list): One 1D array of best fitness values per algorithm.
+
+    Returns:
+        None
     """
     data = [np.asarray(v, dtype=float) for v in result_list]
-
     fig, ax = plt.subplots(figsize=(8, 5))
 
     bp = ax.boxplot(
@@ -85,7 +92,9 @@ def plot_boxplot(func_name: str, algorithm_names: list, result_list: list) -> No
         patch_artist=True,   # fills boxes with color
         notch=False,
         vert=True,
-        widths=0.5
+        widths=0.5,
+        showfliers=True,
+        flierprops=dict(marker="o", color="red", alpha=0.6, markersize=4)   
     )
 
     # Apply consistent colors to each box
@@ -96,7 +105,17 @@ def plot_boxplot(func_name: str, algorithm_names: list, result_list: list) -> No
     if func_name.lower() == "trid":
         ax.set_yscale("linear")
     else:
-        ax.set_yscale("symlog", linthresh=1e-5)  # Log scale helps visualize wide fitness ranges
+        min_val = min([np.min(d) for d in data])
+        if min_val > 0:
+            ax.set_yscale("log")    
+        else:
+            #max_abs = max([np.max(np.abs(d)) for d in data])
+            #umbral = max_abs * 0.01 if max_abs > 0 else 1e-4
+
+            #umbral= max(umbral, 1e-2)
+            ax.set_yscale("symlog", linthresh=1e-8)
+
+
     ax.set_title(f"Fitness Boxplot — {func_name.capitalize()}", fontsize=13, fontweight="bold")
     ax.set_xlabel("Algorithm", fontsize=11)
     ax.set_ylabel("Best Fitness", fontsize=11)
@@ -105,23 +124,24 @@ def plot_boxplot(func_name: str, algorithm_names: list, result_list: list) -> No
     ax.grid(axis="y", linestyle="--", alpha=0.4)
 
     plt.tight_layout()
+    #plt.savefig(f"boxplot_{func_name}.png", dpi=300, bbox_inches='tight') #download the boxplot images from the "results" folder instead of saving them here
     plt.show()
     plt.close(fig)
 
 
 def plot_all(func_name: str, algorithm_names: list, result_list: list) -> None:
     """
-    Generates both histogram and boxplot for a given objective function.
+    Generate both histogram and boxplot visualizations for a benchmark.
 
-    This is the main entry point called from run_experiments.py after
-    collecting the best_fitness results of all algorithms on one function.
+    This function is the primary entry point after collecting best fitness
+    results for each algorithm on a given objective function.
 
     Args:
-        func_name       : Name of the objective function (e.g. "sphere").
-        algorithm_names : List of algorithm name strings (e.g. ["EDA", "PSO", "ABC"]).
-        result_list     : List of 1D arrays, one per algorithm, with best_fitness values.
+        func_name (str): Name of the objective function (e.g. "sphere").
+        algorithm_names (list): List of algorithm name strings.
+        result_list (list): One 1D array of best fitness values per algorithm.
 
-    Example usage in run_experiments.py:
+    Example:
         from evobench.tools.plotter import plot_all
 
         plot_all(
@@ -129,6 +149,9 @@ def plot_all(func_name: str, algorithm_names: list, result_list: list) -> None:
             algorithm_names = ["EDA", "PSO", "ABC"],
             result_list     = [eda_results, pso_results, abc_results]
         )
+
+    Returns:
+        None
     """
     plot_histograms(func_name, algorithm_names, result_list)
     plot_boxplot(func_name, algorithm_names, result_list)

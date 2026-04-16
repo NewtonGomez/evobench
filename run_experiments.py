@@ -28,9 +28,9 @@ if __name__ == "__main__":
         # Set the number of decision variables for the optimization algorithms
         "dimensions": dimension,
         # Specify the maximum number of iterations (generations) per algorithm run
-        "max_iterations": 100,
+        "max_iterations": 200,
         # Define the number of candidate solutions (agents) evaluated per generation
-        "population_size": 50,
+        "population_size": 100,
         # Determine the total number of independent executions to ensure statistical robustness
         "independent_runs": 30,
         # Define the list of continuous benchmark functions used to evaluate the algorithms
