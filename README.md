@@ -82,7 +82,7 @@ pip install -e .
 
 ---
 
-## Quickstart
+## [Quickstart](docs/SETUP_CONFIG.md)
 
 ### 1. Define Your Custom Algorithm
 
@@ -302,6 +302,8 @@ evobench/
 
 ### Pattern 1: Comparing Two Algorithms on a Single Benchmark
 
+To see all the benchmark functions, [click here](docs/benchmarks.md).
+
 ```python
 from evobench.algorithms import PSO, ABC
 from evobench.benchmarks import rosenbrock_function
@@ -424,7 +426,7 @@ unpack_fitness_results(json_path: str,
 
 ## Contributing
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
+Contributions are welcome! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines on:
 - Code style (PEP 8)
 - Testing requirements
 - Documentation standards
@@ -453,16 +455,6 @@ If you use evobench in your research, please cite:
 - Benchmark functions are limited to 1000-dimensional spaces for numerical stability
 - Statistical tests currently assume normal distribution of fitness values
 - DEAP integration and third-party operator libraries are planned for future releases
-
----
-
-## Roadmap
-
-- **v0.2.0**: Discrete optimization support
-- **v0.3.0**: Parallelization via multiprocessing
-- **v0.4.0**: Web-based result visualization dashboard
-- **v0.5.0**: Hyperparameter auto-tuning capabilities
-- **v1.0.0**: Full production stability and API freeze
 
 ---
 
