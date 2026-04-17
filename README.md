@@ -193,47 +193,26 @@ run_automated_experiment(experiment_config, output_file="results.json")
 ### 3. Analyze Results Statistically
 
 ```python
-import json
-import numpy as np
-from scipy import stats
 from evobench.tools.experiment_engine import unpack_fitness_results
+from evobench.tools.experiment_engine import stat_report
+from evobench.tools.experiment_engine import analyze
 
-# Load experimental results
-with open("results.json", "r") as f:
-    experiment_results = json.load(f)
-
-# Extract fitness vectors for a specific benchmark
+# Load experimental results and extract fitness vectors for a specific benchmark
 sphere_results = unpack_fitness_results("results.json", "Sphere")
-
-print("Algorithm Performance on Sphere Function (10D)")
-print("=" * 60)
-
-for algorithm_name, fitness_vector in sphere_results.items():
-    mean_fitness = np.mean(fitness_vector)
-    std_fitness = np.std(fitness_vector)
-    min_fitness = np.min(fitness_vector)
-    
-    print(f"\n{algorithm_name}:")
-    print(f"  Mean fitness:     {mean_fitness:.2e}")
-    print(f"  Std deviation:    {std_fitness:.2e}")
-    print(f"  Best result:      {min_fitness:.2e}")
-
-# Perform ANOVA test to check for significant differences
-fitness_arrays = list(sphere_results.values())
-algorithm_names = list(sphere_results.keys())
-
-f_statistic, p_value = stats.f_oneway(*fitness_arrays)
-
-print(f"\n{'='*60}")
-print(f"ANOVA Test Results:")
-print(f"  F-statistic:      {f_statistic:.4f}")
-print(f"  p-value:          {p_value:.4e}")
-print(f"  Significant:      {'Yes' if p_value < 0.05 else 'No'} (α=0.05)")
+# Extract the algorithm names and their corresponding fitness arrays.
+algo_names = list(fitness_dict.keys())
+fitness_data = list(fitness_dict.values())
+# Run the statistical analysis.
+# The 'analyze' function will calculate descriptive stats, run normality checks, 
+# and execute the appropriate hypothesis test. You can optionally adjust 'alpha' (default: 0.05).
+result_dict = analyze("Sphere Function (10D)", fitness_data, algo_names, alpha=0.05)
+# Print the beautifully formatted, color-coded performance report.
+stat_report(result_dict)
 ```
 
 **Output:**
 ```
-Algorithm Performance on Sphere Function (10D)
+Algorithm Performance on Sphere Function 
 ============================================================
 
 PSO:
@@ -400,7 +379,7 @@ class EvolutionaryAlgorithm(ABC):
         """Execute the algorithm and return best solution and fitness."""
 ```
 
-### Benchmark Functions
+### [Benchmark Functions](docs/BENCHMARKS.md)
 
 All functions have signature `fn(x: np.ndarray) -> float`:
 

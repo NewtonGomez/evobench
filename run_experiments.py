@@ -97,7 +97,7 @@ if __name__ == "__main__":
     # Parse the JSON file to retrieve a collection of all evaluated benchmark functions
     benchmarks = get_evaluated_benchmarks(json_path)
     # Output the detected benchmarks to the console for monitoring and logging purposes
-    print(f"Benchmarks detected: {benchmarks}\n")
+    print(f"\n\nBenchmarks detected: {benchmarks}\n")
     # Iterate through each identified benchmark function to process and evaluate its respective data
     for bench_func in benchmarks:
         # Extract the dictionary mapping algorithms to their fitness results for the current benchmark
@@ -111,5 +111,5 @@ if __name__ == "__main__":
         # Output a formatted statistical report summarizing the analysis outcomes
         stat_report(result)
         # Render visual plots comparing algorithm performance for the current benchmark
-        plot_all(bench_func, alg_names, all_data)
+        #plot_all(bench_func, alg_names, all_data)
         

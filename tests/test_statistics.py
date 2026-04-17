@@ -225,7 +225,6 @@ def test_kruskal_rejects_different_groups(different_groups: List[np.ndarray]) ->
  
 # ANALYZE FUNCTION
  
- 
 def test_analyze_selects_anova_when_all_normal() -> None:
     """
     Verify analyze() chooses ANOVA for all-normal groups.
@@ -235,13 +234,13 @@ def test_analyze_selects_anova_when_all_normal() -> None:
     """
     rng = np.random.default_rng(42)
     groups = [rng.normal(0.0, 1.0, 30) for _ in range(3)]
- 
+
     # Analyze groups that should all pass the normality checks.
     result = analyze("sphere", groups, ["EDA", "PSO", "ABC"])
- 
-    assert result[3] == "ANOVA", "analyze() must select ANOVA when all groups are normal."
- 
- 
+
+    assert result["test_used"] == "ANOVA", "analyze() must select ANOVA when all groups are normal."
+
+
 def test_analyze_selects_kruskal_when_not_normal() -> None:
     """
     Verify analyze() chooses Kruskal-Wallis when normality fails.
@@ -257,7 +256,7 @@ def test_analyze_selects_kruskal_when_not_normal() -> None:
     # Analyze a mixture of normal and non-normal groups.
     result = analyze("ackley", [normal_a, normal_b, skewed], ["EDA", "PSO", "ABC"])
  
-    assert result[3] == "Kruskal-Wallis", "analyze() must select Kruskal-Wallis when normality fails."
+    assert result["test_used"] == "Kruskal-Wallis", "analyze() must select Kruskal-Wallis when normality fails."
  
  
 def test_analyze_returns_correct_structure() -> None:
@@ -273,10 +272,15 @@ def test_analyze_returns_correct_structure() -> None:
  
     result = analyze("trid", groups, names)
  
-    assert isinstance(result, list),       "analyze() must return a list."
-    assert len(result) == 5,               "Result must have 5 elements."
-    assert result[0] == "trid",            "Index 0 must be the function name."
-    assert result[1] == names,             "Index 1 must be the algorithm names."
-    assert isinstance(result[2], list),    "Index 2 must be the normality results list."
-    assert result[3] in ("ANOVA", "Kruskal-Wallis"), "Index 3 must be the test name."
-    assert isinstance(result[4], list),    "Index 4 must be the hypothesis result list."
+    assert isinstance(result, dict), "analyze() must return a dictionary."
+    assert len(result) == 8, "Result dictionary must have exactly 8 keys."
+    assert result["func_name"] == "trid", "The 'func_name' key must match the provided function name."
+    
+    # Verify all expected keys are present in the dictionary
+    expected_keys = {"func_name", "stats", "test_used", "stat_name", "stat_val", "p_val", "significant", "alpha"}
+    assert set(result.keys()) == expected_keys, f"Result must contain exactly the keys: {expected_keys}"
+    
+    # Verify the nested 'stats' structure
+    for name in names:
+        assert name in result["stats"], f"'{name}' must be present in the 'stats' dictionary."
+        assert isinstance(result["stats"][name], dict), "Each algorithm's stats must be a dictionary."
