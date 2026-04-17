@@ -3,6 +3,7 @@ import json
 import time
 import platform
 from datetime import datetime
+from evobench.benchmarks import get_benchmark
 from typing import List, Dict, Any
 
 def get_evaluated_benchmarks(json_path: str) -> list:
@@ -123,7 +124,7 @@ def run_automated_experiment(config: Dict[str, Any], output_file: str = "results
     for benchmark in config["benchmarks"]:
         # Retrieve benchmark function metadata and references
         function_name = benchmark["name"]
-        function_reference = benchmark["func"]
+        function_reference = get_benchmark(function_name)
         search_space_bounds = np.array(benchmark["bounds"])
         
         print(f"\n>>> Evaluating Benchmark: {function_name}")

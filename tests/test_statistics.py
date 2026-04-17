@@ -1,8 +1,9 @@
 import numpy as np
 import pytest
 from typing import List
- 
-from evobench.tools.statistics import normality_test, anova_test, kruskal_test, analyze
+
+from evobench.stats.core_tests import normality_test, anova_test, kruskal_test
+from evobench.stats.analyzer import analyze
  
 """
 Unit testing module for the Statistical Analysis functions.

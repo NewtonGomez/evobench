@@ -2,13 +2,7 @@ import numpy as np
 import pytest
 from typing import Callable, List, Tuple
 
-from evobench.benchmarks import (
-    ackley_function,
-    rosenbrock_function,
-    sphere_function,
-    schwefel_1_2_function,
-    trid_function
-)
+from evobench.benchmarks import ackley, rosenbrock, sphere, schwefel, trid
 
 """
 Unit testing module for Evolutionary Benchmarking Functions.
@@ -51,11 +45,11 @@ def generate_benchmark_test_cases() -> List[Tuple[Callable[[np.ndarray], float],
     trid_expected_minimum = -(dimension * (dimension + 4) * (dimension - 1)) / 6.0
     
     test_cases = [
-        (sphere_function, origin_vector, 0.0),
-        (ackley_function, origin_vector, 0.0),
-        (rosenbrock_function, ones_vector, 0.0),
-        (schwefel_1_2_function, origin_vector, 0.0),
-        (trid_function, trid_optimal_coordinates, trid_expected_minimum)
+        (sphere, origin_vector, 0.0),
+        (ackley, origin_vector, 0.0),
+        (rosenbrock, ones_vector, 0.0),
+        (schwefel, origin_vector, 0.0),
+        (trid, trid_optimal_coordinates, trid_expected_minimum)
     ]
     
     return test_cases

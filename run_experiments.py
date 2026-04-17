@@ -1,22 +1,7 @@
-from evobench.algorithms.eda import EstimationOfDistributionAlgorithm as EDA
-from evobench.algorithms.pso import ParticleSwarmOptimization as PSO
-from evobench.algorithms.bee import ArtificialBeeColony as ABC
-from evobench.tools.statistics import analyze, stat_report
-from evobench.tools.plotter import plot_all
-
-from evobench.benchmarks import (
-    ackley_function, 
-    rosenbrock_function, 
-    sphere_function, 
-    schwefel_1_2_function, 
-    trid_function
-)
-
-from evobench.tools.experiment_engine import (
-    run_automated_experiment, 
-    unpack_fitness_results,
-    get_evaluated_benchmarks
-)
+from evobench.benchmarks import ackley, rosenbrock, sphere, schwefel, trid
+from evobench.algorithms import EDA, PSO, ABC
+from evobench.stats import analyze, stat_report
+from evobench.tools import xe
 
 from numpy import random
 
@@ -39,7 +24,7 @@ if __name__ == "__main__":
                 # Identify the benchmark function by its standard academic name
                 "name": "Ackley", 
                 # Provide the callable function reference for fitness evaluation
-                "func": ackley_function, 
+                "func": ackley, 
                 # Define the continuous search space boundaries for all dimensions
                 "bounds": [[-10.0, 10.0]] * dimension
             },
@@ -47,7 +32,7 @@ if __name__ == "__main__":
                 # Configure the Rosenbrock function evaluation setup
                 "name": "Rosenbrock",
                 # Pass the callable Rosenbrock objective function
-                "func": rosenbrock_function,
+                "func": rosenbrock,
                 # Set the valid parameter range constraints across the specified dimensions
                 "bounds": [[-10.0, 10.0]] * dimension
             },
@@ -55,7 +40,7 @@ if __name__ == "__main__":
                 # Configure the Sphere function evaluation setup
                 "name": "Sphere",
                 # Pass the callable Sphere objective function
-                "func": sphere_function,
+                "func": sphere,
                 # Define the corresponding expanded search space limits for the Sphere landscape
                 "bounds": [[-600.0, 600.0]] * dimension
             },
@@ -63,7 +48,7 @@ if __name__ == "__main__":
                 # Configure the Schwefel 1.2 function evaluation setup
                 "name": "Schwefel 1.2",
                 # Pass the callable Schwefel 1.2 objective function
-                "func": schwefel_1_2_function,
+                "func": schwefel,
                 # Assign the asymmetric search space boundaries specific to this problem
                 "bounds": [[-40.0, 60.0]] * dimension
             },
@@ -71,7 +56,7 @@ if __name__ == "__main__":
                 # Configure the Trid function evaluation setup
                 "name": "Trid",
                 # Pass the callable Trid objective function
-                "func": trid_function,
+                "func": trid,
                 # Dynamically calculate and assign scaled bounds based on the dimensionality squared
                 "bounds": [[-float(dimension**2), float(dimension**2)]] * dimension
             }
@@ -93,15 +78,15 @@ if __name__ == "__main__":
     # Initialize the random number generator with a fixed seed to ensure experimental reproducibility
     random.seed(20260415) 
     # Execute the core automation engine and output the generated configuration results to the specified JSON file
-    run_automated_experiment(experiment_config, output_file=json_path)
+    xe.run_automated_experiment(experiment_config, output_file=json_path)
     # Parse the JSON file to retrieve a collection of all evaluated benchmark functions
-    benchmarks = get_evaluated_benchmarks(json_path)
+    benchmarks = xe.get_evaluated_benchmarks(json_path)
     # Output the detected benchmarks to the console for monitoring and logging purposes
     print(f"\n\nBenchmarks detected: {benchmarks}\n")
     # Iterate through each identified benchmark function to process and evaluate its respective data
     for bench_func in benchmarks:
         # Extract the dictionary mapping algorithms to their fitness results for the current benchmark
-        data = unpack_fitness_results(json_path, bench_func)
+        data = xe.unpack_fitness_results(json_path, bench_func)
         # Extract the names of the evaluated algorithms into a list to serve as data labels
         alg_names = list(data.keys())
         # Directly extract the corresponding fitness result datasets for all algorithms into a flat list
