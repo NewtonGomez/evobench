@@ -9,9 +9,12 @@ Benchmark functions are standardized test problems for evaluating evolutionary a
 - **Diverse behaviors**: Range from simple to complex landscapes
 
 The five functions implemented represent different optimization problem classes, enabling comprehensive algorithm evaluation across varying difficulty levels.
+
+**Import alias format:** `from evobench.benchmarks import sphere, ackley, rosenbrock, schwefel, trid`
+
 ---
 
-## Sphere Function
+## Sphere
 
 **Function:**
 $$F(\mathbf{x}) = \sum_{i=1}^{d} x_i^2$$
@@ -34,7 +37,7 @@ $$F(\mathbf{x}) = \sum_{i=1}^{d} x_i^2$$
 - Good baseline for performance comparison
 ---
 
-## Rosenbrock Function
+## Rosenbrock
 
 **Function:**
 $$F(\mathbf{x}) = \sum_{i=1}^{d-1} \left[ 100(x_{i+1} - x_i^2)^2 + (1 - x_i)^2 \right]$$
@@ -57,7 +60,7 @@ $$F(\mathbf{x}) = \sum_{i=1}^{d-1} \left[ 100(x_{i+1} - x_i^2)^2 + (1 - x_i)^2 \
 - Evaluates algorithm efficiency in non-convex landscapes with poor conditioning
 ---
 
-## Ackley Function
+## Ackley
 
 **Function:**
 $$F(\mathbf{x}) = -20 \exp\left(-0.2\sqrt{\frac{1}{d}\sum_{i=1}^{d} x_i^2}\right) - \exp\left(\frac{1}{d}\sum_{i=1}^{d} \cos(2\pi x_i)\right) + 20 + e$$
@@ -81,7 +84,7 @@ $$F(\mathbf{x}) = -20 \exp\left(-0.2\sqrt{\frac{1}{d}\sum_{i=1}^{d} x_i^2}\right
 - Evaluates exploration-exploitation balance in multimodal landscapes
 ---
 
-## Schwefel 1.2 Function
+## Schwefel 1.2
 
 **Function:**
 $$F(\mathbf{x}) = \sum_{i=1}^{d} \left(\sum_{j=1}^{i} x_j\right)^2$$
@@ -106,7 +109,7 @@ $$F(\mathbf{x}) = \sum_{i=1}^{d} \left(\sum_{j=1}^{i} x_j\right)^2$$
 - Assesses whether algorithm maintains population diversity and structure
 ---
 
-## Trid Function
+## Trid
 
 **Function:**
 $$F(\mathbf{x}) = \sum_{i=1}^{d} (x_i - 1)^2 - \sum_{i=2}^{d} x_i \cdot x_{i-1}$$

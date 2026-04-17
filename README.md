@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PyPI version](https://img.shields.io/badge/PyPI-v0.1.0-brightgreen.svg)](https://pypi.org/project/evobench/)
 [![Documentation](https://img.shields.io/badge/docs-available-blue.svg)](https://evobench.readthedocs.io/)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/NewtonGomez/evobench)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/NewtonGomez/evolutionary-benchmarking)
 
 ---
 
@@ -53,6 +53,7 @@ The scientific literature on evolutionary computation suffers from inconsistenci
 ### Statistical Analysis
 - Fitness vector extraction and organization for arbitrary algorithm combinations
 - Parametric (ANOVA) and non-parametric (Kruskal-Wallis) significance testing
+- Colored ANSI reporting with dynamic α support for customized significance levels
 - Convergence curve visualization and statistical reporting
 - Effect size computation (Cohen's d) for practical significance assessment
 
@@ -69,7 +70,7 @@ pip install evobench
 ### From Source
 
 ```bash
-git clone https://github.com/NewtonGomez/evobench.git
+git clone https://github.com/NewtonGomez/evolutionary-benchmarking.git
 cd evobench
 pip install -e .
 ```
@@ -135,11 +136,9 @@ class MyCustomAlgorithm(EvolutionaryAlgorithm):
 
 ```python
 import numpy as np
-from evobench.benchmarks import sphere_function, ackley_function
+from evobench.benchmarks import sphere, ackley
+from evobench.algorithms import PSO, EDA, ABC
 from evobench.tools.experiment_engine import run_automated_experiment
-from evobench.algorithms.pso import PSO
-from evobench.algorithms.eda import EDA
-from evobench.algorithms.bee import ArtificialBeeColony
 from my_algorithm import MyCustomAlgorithm
 
 # Define experiment configuration
@@ -152,12 +151,12 @@ experiment_config = {
     "benchmarks": [
         {
             "name": "Sphere",
-            "func": sphere_function,
+            "func": sphere,
             "bounds": [[-600, 600]] * 10
         },
         {
             "name": "Ackley",
-            "func": ackley_function,
+            "func": ackley,
             "bounds": [[-10, 10]] * 10
         }
     ],
@@ -175,7 +174,7 @@ experiment_config = {
         },
         {
             "name": "ABC",
-            "class": ArtificialBeeColony,
+            "class": ABC,
             "params": {"limit": 50}
         },
         {
@@ -194,11 +193,10 @@ run_automated_experiment(experiment_config, output_file="results.json")
 
 ```python
 from evobench.tools.experiment_engine import unpack_fitness_results
-from evobench.tools.experiment_engine import stat_report
-from evobench.tools.experiment_engine import analyze
+from evobench.stats import analyze, stat_report
 
 # Load experimental results and extract fitness vectors for a specific benchmark
-sphere_results = unpack_fitness_results("results.json", "Sphere")
+fitness_dict = unpack_fitness_results("results.json", "Sphere")
 # Extract the algorithm names and their corresponding fitness arrays.
 algo_names = list(fitness_dict.keys())
 fitness_data = list(fitness_dict.values())
@@ -206,7 +204,7 @@ fitness_data = list(fitness_dict.values())
 # The 'analyze' function will calculate descriptive stats, run normality checks, 
 # and execute the appropriate hypothesis test. You can optionally adjust 'alpha' (default: 0.05).
 result_dict = analyze("Sphere Function (10D)", fitness_data, algo_names, alpha=0.05)
-# Print the beautifully formatted, color-coded performance report.
+# Print the beautifully formatted, color-coded performance report (ANSI colors).
 stat_report(result_dict)
 ```
 
@@ -249,19 +247,26 @@ ANOVA Test Results:
 ```
 evobench/
 ├── src/evobench/
-│   ├── __init__.py
+│   ├── __init__.py                # Facade: exposes main APIs
 │   ├── base.py                    # Abstract base class for evolutionary algorithms
-│   ├── benchmarks.py              # Mathematical test functions
 │   ├── algorithms/
-│   │   ├── __init__.py
+│   │   ├── __init__.py            # Facade: PSO, EDA, ABC
 │   │   ├── eda.py                 # Estimation of Distribution Algorithm
 │   │   ├── pso.py                 # Particle Swarm Optimization
 │   │   └── bee.py                 # Artificial Bee Colony
+│   ├── benchmarks/                # Benchmark function modules
+│   │   ├── __init__.py            # Facade: sphere, ackley, rosenbrock, schwefel, trid
+│   │   ├── unimodal.py            # Unimodal functions (sphere, rosenbrock, schwefel, trid)
+│   │   └── multimodal.py          # Multimodal functions (ackley)
+│   ├── stats/                     # Statistical analysis tools
+│   │   ├── __init__.py            # Facade: analyze, stat_report
+│   │   ├── core_test.py           # Normality and hypothesis tests
+│   │   ├── reporter.py            # Colored ANSI reporting
+│   │   └── analyzer.py            # Fitness data analysis
 │   └── tools/
 │       ├── __init__.py
 │       ├── operators.py           # Genetic operators (selection, crossover, mutation)
-│       ├── experiment_engine.py   # Automated experiment orchestration
-│       └── statistics.py          # Statistical analysis utilities
+│       └── experiment_engine.py   # Automated experiment orchestration
 ├── tests/
 │   ├── __init__.py
 │   ├── test_base.py              # Unit tests for base class
@@ -270,9 +275,8 @@ evobench/
 ├── docs/                          # Sphinx/MkDocs documentation
 ├── README.md
 ├── LICENSE
-├── setup.py
 ├── pyproject.toml
-└── requirements.txt
+└── CONTRIBUTING.md
 ```
 
 ---
@@ -285,7 +289,7 @@ To see all the benchmark functions, [click here](docs/benchmarks.md).
 
 ```python
 from evobench.algorithms import PSO, ABC
-from evobench.benchmarks import rosenbrock_function
+from evobench.benchmarks import rosenbrock
 from evobench.tools.experiment_engine import run_automated_experiment
 
 config = {
@@ -296,7 +300,7 @@ config = {
     "benchmarks": [
         {
             "name": "Rosenbrock",
-            "func": rosenbrock_function,
+            "func": rosenbrock,
             "bounds": [[-10, 10]] * 5
         }
     ],
@@ -383,11 +387,11 @@ class EvolutionaryAlgorithm(ABC):
 
 All functions have signature `fn(x: np.ndarray) -> float`:
 
-- `sphere_function(x)`: Convex, unimodal baseline
-- `rosenbrock_function(x)`: Non-convex valley topology
-- `ackley_function(x)`: Multimodal with shallow exterior
-- `schwefel_1_2_function(x)`: Non-separable, quadratic
-- `trid_function(x)`: Highly interdependent variables
+- `sphere(x)`: Convex, unimodal baseline
+- `rosenbrock(x)`: Non-convex valley topology
+- `ackley(x)`: Multimodal with shallow exterior
+- `schwefel(x)`: Non-separable, quadratic
+- `trid(x)`: Highly interdependent variables
 
 ### Experiment Engine
 
@@ -422,7 +426,7 @@ If you use evobench in your research, please cite:
   title={evobench: Standardized Benchmarking for Evolutionary Algorithms},
   author={Gómez, Enrique and Galván, Victoria},
   year={2026},
-  url={https://github.com/NewtonGomez/evobench}
+  url={https://github.com/NewtonGomez/evolutionary-benchmarking}
 }
 ```
 
@@ -445,9 +449,9 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) file for 
 
 ## Support
 
-For bug reports and feature requests, please open an issue on [GitHub](https://github.com/NewtonGomez/evobench/issues).
+For bug reports and feature requests, please open an issue on [GitHub](https://github.com/NewtonGomez/evolutionary-benchmarking/issues).
 
-For questions and discussions, visit our [Discussions Forum](https://github.com/NewtonGomez/evobench/discussions).
+For questions and discussions, visit our [Discussions Forum](https://github.com/NewtonGomez/evolutionary-benchmarking/discussions).
 
 ---
 

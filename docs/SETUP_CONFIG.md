@@ -58,35 +58,41 @@ pip install .
 ```
 evobench/
 ├── src/
-│   └── evobench/                 # Main package
-│       ├── __init__.py
-│       ├── base.py               # Abstract base class
-│       ├── benchmarks.py          # Test functions
-│       ├── algorithms/            # Algorithm implementations
-│       │   ├── __init__.py
+│   └── evobench/                     # Main package
+│       ├── __init__.py               # Facade: exposes main APIs
+│       ├── base.py                   # Abstract base class
+│       ├── algorithms/               # Algorithm implementations
+│       │   ├── __init__.py           # Facade: PSO, EDA, ABC
 │       │   ├── eda.py
 │       │   ├── pso.py
-│       │   └── abc.py
-│       └── tools/                 # Utility functions
+│       │   └── bee.py
+│       ├── benchmarks/               # Benchmark function modules
+│       │   ├── __init__.py           # Facade: sphere, ackley, rosenbrock, schwefel, trid
+│       │   ├── unimodal.py           # Unimodal functions
+│       │   └── multimodal.py         # Multimodal functions
+│       ├── stats/                    # Statistical analysis tools
+│       │   ├── __init__.py           # Facade: analyze, stat_report
+│       │   ├── core_test.py          # Normality and hypothesis tests
+│       │   ├── reporter.py           # Colored ANSI reporting
+│       │   └── analyzer.py           # Fitness data analysis
+│       └── tools/                    # Utility functions
 │           ├── __init__.py
 │           ├── operators.py
 │           └── experiment_engine.py
-├── tests/                         # Test suite
+├── tests/                            # Test suite
 │   ├── __init__.py
 │   ├── test_base.py
 │   ├── test_operators.py
 │   └── test_benchmarks.py
-├── docs/                          # Documentation (to be created)
-├── examples/                      # Example scripts
-├── pyproject.toml                 # Modern Python packaging
-├── setup.py                       # Legacy setup script (optional)
-├── setup.cfg                      # Configuration for setup tools
-├── MANIFEST.in                    # Include non-Python files
-├── README.md                      # Project documentation
-├── LICENSE                        # MIT License
-├── CONTRIBUTING.md               # Contribution guidelines
-├── CHANGELOG.md                  # Version history
-└── .gitignore                     # Git ignore patterns
+├── docs/                             # Documentation
+├── pyproject.toml                    # Modern Python packaging
+├── setup.cfg                         # Configuration for setup tools
+├── MANIFEST.in                       # Include non-Python files
+├── README.md                         # Project documentation
+├── LICENSE                           # MIT License
+├── CONTRIBUTING.md                  # Contribution guidelines
+├── CHANGELOG.md                      # Version history
+└── .gitignore                        # Git ignore patterns
 ```
 
 ---
@@ -97,170 +103,46 @@ The modern approach using `pyproject.toml`:
 
 ```toml
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "evobench"
 version = "0.1.0"
-description = "Standardized benchmarking framework for evolutionary algorithms"
-readme = "README.md"
-requires-python = ">=3.8"
-license = {text = "MIT"}
 authors = [
-    {name = "Enrique Gómez", email = "ing.enrique_gomez@outlook.com"},
-    {name = "Victoria Galván", email = "galvand.victoria@gmail.com"}
+  { name = "Enrique Gómez Linares" },
+  { name = "Victoria Galván Delgadillo" }
 ]
-keywords = [
-    "evolutionary-algorithms",
-    "benchmarking",
-    "optimization",
-    "metaheuristics",
-    "research"
-]
+description = "A benchmarking suite for evolutionary algorithms and metaheuristics"
+readme = "README.md"
+requires-python = ">=3.9"
 classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Science/Research",
-    "Topic :: Scientific/Engineering",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Mathematics",
 ]
-
 dependencies = [
-    "numpy>=1.19",
+    "numpy>=1.24.0",
+    "scipy>=1.9.0",
+    "matplotlib>=3.5.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=6.0",
-    "pytest-cov>=2.12",
-    "black>=21.0",
-    "flake8>=3.9",
-    "isort>=5.0",
-    "mypy>=0.900",
-    "pre-commit>=2.10",
-]
-docs = [
-    "sphinx>=3.0",
-    "sphinx_rtd_theme>=1.0",
-    "sphinx-autodoc-typehints>=1.0",
-]
-sci = [
-    "scipy>=1.5",
-    "scikit-learn>=0.24",
-    "pandas>=1.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
 ]
 
-[project.urls]
-Homepage = "https://github.com/NewtonGomez/evobench"
-Documentation = "https://evobench.readthedocs.io"
-Repository = "https://github.com/NewtonGomez/evobench"
-"Bug Tracker" = "https://github.com/NewtonGomez/evobench/issues"
-
-[tool.setuptools]
-packages = ["evobench"]
-
-[tool.setuptools.package-data]
-evobench = ["py.typed"]
-
-[tool.black]
-line-length = 100
-target-version = ['py38']
-
-[tool.isort]
-profile = "black"
-line_length = 100
-
-[tool.mypy]
-python_version = "3.8"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = false
-disallow_incomplete_defs = false
+[tool.setuptools.packages.find]
+# Indica que el código fuente real vive dentro de la carpeta 'src'
+where = ["src"]
 
 [tool.pytest.ini_options]
+# Esta línea es la que permite quitar el prefijo 'src.' de tus imports
+# ya que añade 'src' automáticamente al path de búsqueda de Python
+pythonpath = ["src"]
 testpaths = ["tests"]
-addopts = "-v --cov=evobench --cov-report=term-missing"
-
-[tool.coverage.run]
-branch = true
-source = ["evobench"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if __name__ == .__main__.:",
-]
-```
-
----
-
-## Configuration File: setup.cfg
-
-For backward compatibility:
-
-```ini
-[metadata]
-name = evobench
-version = 0.1.0
-author = Enrique Gómez
-author_email = ing.enrique_gomez@outlook.com
-description = Standardized benchmarking framework for evolutionary algorithms
-long_description = file: README.md
-long_description_content_type = text/markdown
-url = https://github.com/NewtonGomez/evobench
-project_urls =
-    Bug Tracker = https://github.com/NewtonGomez/evobench/issues
-    Documentation = https://evobench.readthedocs.io
-classifiers =
-    Development Status :: 4 - Beta
-    Intended Audience :: Science/Research
-    Topic :: Scientific/Engineering
-    License :: OSI Approved :: MIT License
-    Programming Language :: Python :: 3
-    Programming Language :: Python :: 3.8
-    Programming Language :: Python :: 3.9
-    Programming Language :: Python :: 3.10
-    Programming Language :: Python :: 3.11
-    Programming Language :: Python :: 3.12
-
-[options]
-packages = find:
-python_requires = >=3.8
-install_requires =
-    numpy>=1.19
-
-[options.packages.find]
-where = src
-
-[options.extras_require]
-dev =
-    pytest>=6.0
-    pytest-cov>=2.12
-    black>=21.0
-    flake8>=3.9
-    isort>=5.0
-    mypy>=0.900
-    pre-commit>=2.10
-docs =
-    sphinx>=3.0
-    sphinx_rtd_theme>=1.0
-    sphinx-autodoc-typehints>=1.0
-sci =
-    scipy>=1.5
-    scikit-learn>=0.24
-    pandas>=1.0
-
-[bdist_wheel]
-universal = 0
 ```
 
 ---
@@ -314,20 +196,26 @@ twine upload --repository testpypi dist/*
 
 ## Package Imports
 
-After installation, users should be able to:
+After installation, users can import using the simplified Facade pattern:
 
 ```python
-# Import main algorithm classes
+# Import main algorithm classes (via Facade)
 from evobench.algorithms import PSO, EDA, ABC
 
-# Import benchmark functions
+# Import benchmark functions (via Facade, with short aliases)
 from evobench.benchmarks import (
-    sphere_function,
-    rosenbrock_function,
-    ackley_function,
-    schwefel_1_2_function,
-    trid_function
+    sphere,
+    rosenbrock,
+    ackley,
+    schwefel,
+    trid
 )
+
+# Import statistical analysis tools (via Facade)
+from evobench.stats import analyze, stat_report
+
+# Alternative: Import directly from top-level Facade
+from evobench import PSO, EDA, ABC, analyze, stat_report
 
 # Import operators
 from evobench.tools.operators import (

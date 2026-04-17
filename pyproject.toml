@@ -31,11 +31,27 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-# Indica que el código fuente real vive dentro de la carpeta 'src'
+# Designates the 'src' directory as the primary location for package source discovery.
 where = ["src"]
 
 [tool.pytest.ini_options]
-# Esta línea es la que permite quitar el prefijo 'src.' de tus imports
-# ya que añade 'src' automáticamente al path de búsqueda de Python
+# Extends the Python search path to include the 'src' directory, enabling cleaner
+# absolute imports and facilitating proper module resolution during testing.
 pythonpath = ["src"]
 testpaths = ["tests"]
+
+[tool.setuptools]
+# Enables automatic discovery and inclusion of non-Python resource files 
+# located within the package subdirectories.
+include-package-data = true
+
+[tool.setuptools.package-data]
+# Identifies specific non-source assets, such as metadata and configuration files, 
+# that are required to be bundled within the package distribution for runtime access.
+"evobench" = ["*.json", "*.txt", "py.typed"]
+
+[tool.setuptools.data-files]
+# Manages the distribution of auxiliary files intended for placement outside the core 
+# package structure, such as system-level documentation or configuration templates.
+# Note: Direct environmental modification is handled with caution; standard 
+# source distributions typically utilize MANIFEST.in for non-essential assets.
