@@ -1,6 +1,7 @@
 from evobench.benchmarks import ackley, rosenbrock, sphere, schwefel, trid
 from evobench.algorithms import EDA, PSO, ABC
 from evobench.stats import analyze, stat_report
+from evobench.tools.plotter import plot_all
 from evobench.tools import xe
 
 from numpy import random
@@ -96,5 +97,5 @@ if __name__ == "__main__":
         # Output a formatted statistical report summarizing the analysis outcomes
         stat_report(result)
         # Render visual plots comparing algorithm performance for the current benchmark
-        #plot_all(bench_func, alg_names, all_data)
+        plot_all(bench_func, alg_names, all_data)
         

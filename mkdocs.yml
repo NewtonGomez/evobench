@@ -1,0 +1,63 @@
+site_name: evobench
+site_description: Benchmarking framework for evolutionary algorithms
+site_author: Enrique Gómez & Victoria Galván
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: orange
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+  locale: en
+  palette:
+    # Configuración para el modo claro (o cuando el sistema lo prefiera)
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Configuración para el modo oscuro (o cuando el sistema lo prefiera)
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation & Setup: getting-started/SETUP_CONFIG.md
+      - Examples Gallery: EXAMPLES_GALLERY.md
+  - Scientific Theory:
+      - Overview: theory/index.md
+      - Benchmark Functions: theory/benchmark-functions.md
+      - Statistical Methodology: theory/statistical-testing.md
+  - API Reference:
+      - Overview: reference/index.md
+      - Core Architecture: reference/base.md
+      - Benchmarks API: reference/benchmarks.md
+      - Algorithms:
+          - Overview: reference/algorithms/index.md
+          - Particle Swarm (PSO): reference/algorithms/pso.md
+          - Estimation of Distribution (EDA): reference/algorithms/eda.md
+          - Artificial Bee Colony (ABC): reference/algorithms/abc.md
+  - Project Info:
+      - Changelog: changelog/v0.1.0.md
+      - Contributing: developer/CONTRIBUTING.md
+      - Research FAQ: faq/research_faq.md
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
