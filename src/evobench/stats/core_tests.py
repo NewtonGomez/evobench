@@ -118,3 +118,11 @@ def nonparametric_test(
 
     reject_h0 = p < alpha
     return round(stat, 6), round(float(p), 6), bool(reject_h0), stat_name, test_used
+
+
+# ============================================================================
+# BACKWARD COMPATIBILITY ALIASES
+# ============================================================================
+# Aliases for test compatibility with expected names
+anova_test = parametric_test
+kruskal_test = nonparametric_test

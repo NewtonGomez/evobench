@@ -26,12 +26,14 @@ __license__ = "MIT"
 # ============================================================================
 # ALGORITHM EXPORTS
 # ============================================================================
-from .algorithms import PSO, EDA, ABC, EvolutionaryAlgorithm
+from evobench.algorithms import PSO, EDA, ABC
+
+from evobench.base import EvolutionaryAlgorithm
 
 # ============================================================================
 # BENCHMARK FUNCTION EXPORTS
 # ============================================================================
-from .benchmarks import (
+from evobench.benchmarks import (
     sphere,
     rosenbrock,
     ackley,
@@ -49,7 +51,7 @@ from .stats import analyze, stat_report
 # ============================================================================
 # UTILITIES EXPORTS
 # ============================================================================
-from .tools import run_automated_experiment
+from .tools import run as run_automated_experiment
 
 # ============================================================================
 # PUBLIC API DEFINITION
@@ -74,4 +76,5 @@ __all__ = [
     "stat_report",
     # Experiment tools
     "run_automated_experiment",
+
 ]

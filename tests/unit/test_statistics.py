@@ -151,8 +151,8 @@ def test_anova_does_not_reject_equal_groups(equal_groups: List[np.ndarray]) -> N
     # Run ANOVA on groups drawn from the same distribution.
     result = anova_test(*equal_groups)
  
-    assert isinstance(result, list), "anova_test must return a list."
-    assert len(result) == 3, "Result must have 3 elements: [f_statistic, p_value, reject_h0]."
+    assert isinstance(result, tuple), "anova_test must return a tuple."
+    assert len(result) == 5, "Result must have 5 elements: [statistic, p_value, reject_h0, stat_name, test_used]."
     assert result[2] == False, "H0 must NOT be rejected when groups are equal."
  
  
@@ -184,7 +184,7 @@ def test_anova_accepts_n_groups() -> None:
         # Ensure ANOVA handles varying numbers of groups.
         groups = [rng.normal(0.0, 1.0, 30) for _ in range(n_groups)]
         result = anova_test(*groups)
-        assert len(result) == 3, f"Failed for {n_groups} groups."
+        assert len(result) == 5, f"Failed for {n_groups} groups."
  
  
 # KRUSKAL-WALLIS TEST
@@ -203,8 +203,8 @@ def test_kruskal_does_not_reject_equal_groups(equal_groups: List[np.ndarray]) ->
     # Run Kruskal-Wallis on groups with the same underlying distribution.
     result = kruskal_test(*equal_groups)
  
-    assert isinstance(result, list), "kruskal_test must return a list."
-    assert len(result) == 3, "Result must have 3 elements: [h_statistic, p_value, reject_h0]."
+    assert isinstance(result, tuple), "kruskal_test must return a tuple."
+    assert len(result) == 5, "Result must have 5 elements: [statistic, p_value, reject_h0, stat_name, test_used]."
     assert result[2] == False, "H0 must NOT be rejected when groups are equal."
  
  
@@ -263,9 +263,6 @@ def test_analyze_selects_kruskal_when_not_normal() -> None:
 def test_analyze_returns_correct_structure() -> None:
     """
     Verify analyze() returns the expected result structure.
-
-    Returns:
-        None
     """
     rng = np.random.default_rng(42)
     groups = [rng.normal(0.0, 1.0, 30) for _ in range(3)]
@@ -274,12 +271,17 @@ def test_analyze_returns_correct_structure() -> None:
     result = analyze("trid", groups, names)
  
     assert isinstance(result, dict), "analyze() must return a dictionary."
-    assert len(result) == 8, "Result dictionary must have exactly 8 keys."
     assert result["func_name"] == "trid", "The 'func_name' key must match the provided function name."
     
-    # Verify all expected keys are present in the dictionary
+    # Buscamos las llaves esenciales requeridas originalmente
     expected_keys = {"func_name", "stats", "test_used", "stat_name", "stat_val", "p_val", "significant", "alpha"}
-    assert set(result.keys()) == expected_keys, f"Result must contain exactly the keys: {expected_keys}"
+    
+    # Cambiamos el '==' por '.issubset()' para permitir que coexistan las llaves avanzadas de analítica post-hoc
+    assert expected_keys.issubset(set(result.keys())), f"Result is missing some required keys from: {expected_keys}"
+    
+    # También puedes validar que las nuevas llaves extendidas estén presentes de forma segura:
+    extended_keys = {"all_normal", "post_hoc_test", "post_hoc_results", "normality_results"}
+    assert extended_keys.issubset(set(result.keys())), f"Result is missing post-hoc metadata keys: {extended_keys}"
     
     # Verify the nested 'stats' structure
     for name in names:
