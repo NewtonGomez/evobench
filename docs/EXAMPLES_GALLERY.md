@@ -412,7 +412,7 @@ Conclusion: There are statistically significant differences in algorithm perform
 
 ```bash
 # Install evobench
-pip install evobench
+pip install evobench-lib
 
 # Or, for development installation
 git clone https://github.com/NewtonGomez/evobench.git

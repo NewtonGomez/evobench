@@ -160,26 +160,26 @@ print(stat_report(analysis))
 ## Selection Guide
 
 ### Choose PSO When:
-- ✓ Working with smooth, continuous optimization landscapes
-- ✓ Seeking fast convergence on unimodal problems
-- ✓ Memory constraints limit population size
-- ✓ Hyperparameter tuning effort is acceptable
+- Working with smooth, continuous optimization landscapes
+- Seeking fast convergence on unimodal problems
+- Memory constraints limit population size
+- Hyperparameter tuning effort is acceptable
 
 **Benchmark recommendations**: Sphere, Rosenbrock
 
 ### Choose EDA When:
-- ✓ Problem has non-separable variables (variables interact)
-- ✓ Seeking robust exploration across diverse optima
-- ✓ Need probabilistic model interpretation
-- ✓ Population diversity is prioritized
+- Problem has non-separable variables (variables interact)
+- Seeking robust exploration across diverse optima
+- Need probabilistic model interpretation
+- Population diversity is prioritized
 
 **Benchmark recommendations**: Ackley, Schwefel 1.2, Trid
 
 ### Choose ABC When:
-- ✓ Dealing with highly multimodal landscapes
-- ✓ Need balanced exploration-exploitation dynamics
-- ✓ Seeking algorithm robustness across diverse problem classes
-- ✓ Simple hyperparameter tuning preferred
+- Dealing with highly multimodal landscapes
+- Need balanced exploration-exploitation dynamics
+- Seeking algorithm robustness across diverse problem classes
+- Simple hyperparameter tuning preferred
 
 **Benchmark recommendations**: Ackley, Trid
 

@@ -18,4 +18,4 @@
 Developed by **Enrique Gómez Linares** and **Victoria Galván Delgadillo**.
 
 ---
-*MIT License | [GitHub Repository](https://github.com/NewtonGomez/evobench)*
+*GPL-3 License | [GitHub Repository](https://github.com/NewtonGomez/evobench)*

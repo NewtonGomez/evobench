@@ -19,20 +19,20 @@ For advanced usage, reproducibility, and statistical comparison, see:
     - docs/reference/index.md
 """
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 __author__ = "Enrique Gómez Linares, Victoria Galván Delgadillo"
-__license__ = "MIT"
+__license__ = "GPL-3"
 
-# ============================================================================
+
 # ALGORITHM EXPORTS
-# ============================================================================
+
 from evobench.algorithms import PSO, EDA, ABC
 
 from evobench.base import EvolutionaryAlgorithm
 
-# ============================================================================
+
 # BENCHMARK FUNCTION EXPORTS
-# ============================================================================
+
 from evobench.benchmarks import (
     sphere,
     rosenbrock,
@@ -43,19 +43,19 @@ from evobench.benchmarks import (
     BENCHMARK_REGISTRY,
 )
 
-# ============================================================================
+
 # STATISTICAL ANALYSIS EXPORTS
-# ============================================================================
+
 from .stats import analyze, stat_report
 
-# ============================================================================
+
 # UTILITIES EXPORTS
-# ============================================================================
+
 from .tools import run as run_automated_experiment
 
-# ============================================================================
+
 # PUBLIC API DEFINITION
-# ============================================================================
+
 __all__ = [
     # Core algorithms
     "PSO",

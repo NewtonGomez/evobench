@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "evobench"
-version = "0.1.0"
+name = "evobench-lib"
+version = "1.0.0"
 authors = [
   { name = "Enrique Gómez Linares" },
   { name = "Victoria Galván Delgadillo" }
@@ -12,7 +12,7 @@ authors = [
 description = "A comprehensive benchmarking suite for evolutionary algorithms and metaheuristics with built-in statistical analysis and visualization"
 readme = "README.md"
 requires-python = ">=3.9"
-license = { text = "MIT" }
+license = { text = "GPL-3.0-only" }
 
 # Comprehensive PyPI classifiers for scientific computing
 classifiers = [
@@ -21,12 +21,13 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",  # ← Actualizado a Estable para la 1.0.0
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering",
@@ -51,6 +52,7 @@ dependencies = [
     "numpy>=1.24.0",
     "scipy>=1.9.0",
     "matplotlib>=3.5.0",
+    "pandas>=1.5.0",  # ← Mover aquí (Crucial para evitar fallos de importación)
 ]
 
 [project.urls]
@@ -58,7 +60,7 @@ dependencies = [
 "Documentation" = "https://newtongomez.github.io/evobench/reference/"
 "Repository" = "https://github.com/NewtonGomez/evobench.git"
 "Bug Tracker" = "https://github.com/NewtonGomez/evobench/issues"
-"Changelog" = "https://github.com/NewtonGomez/evobench/blob/main/docs/changelog/v0.1.0.md"
+"Changelog" = "https://github.com/NewtonGomez/evobench/blob/main/CHANGELOG.md"  # ← Enlace al archivo global
 
 [project.optional-dependencies]
 dev = [
@@ -77,34 +79,20 @@ docs = [
     "mkdocs>=1.4.0"
 ]
 science = [
-    "pandas>=1.5.0",
     "scikit-learn>=1.2.0",
     "jupyter>=1.0.0",
     "notebook>=6.5.0"
 ]
 
 [tool.setuptools.packages.find]
-# Designates the 'src' directory as the primary location for package source discovery.
 where = ["src"]
 
 [tool.pytest.ini_options]
-# Extends the Python search path to include the 'src' directory, enabling cleaner
-# absolute imports and facilitating proper module resolution during testing.
 pythonpath = ["src"]
 testpaths = ["tests"]
 
 [tool.setuptools]
-# Enables automatic discovery and inclusion of non-Python resource files 
-# located within the package subdirectories.
 include-package-data = true
 
 [tool.setuptools.package-data]
-# Identifies specific non-source assets, such as metadata and configuration files, 
-# that are required to be bundled within the package distribution for runtime access.
 "evobench" = ["*.json", "*.txt", "py.typed"]
-
-[tool.setuptools.data-files]
-# Manages the distribution of auxiliary files intended for placement outside the core 
-# package structure, such as system-level documentation or configuration templates.
-# Note: Direct environmental modification is handled with caution; standard 
-# source distributions typically utilize MANIFEST.in for non-essential assets.

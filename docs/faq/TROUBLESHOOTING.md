@@ -55,7 +55,7 @@ __all__ = [
 **Solution**: Install evobench:
 ```bash
 # From PyPI (recommended)
-pip install evobench
+pip install evobench-lib
 
 # From source (for development)
 git clone https://github.com/NewtonGomez/evobench.git
@@ -276,7 +276,7 @@ source venv/bin/activate  # macOS/Linux
 venv\Scripts\activate  # Windows
 
 # Install evobench
-pip install evobench
+pip install evobench-lib
 ```
 
 **Verify Python Version**:

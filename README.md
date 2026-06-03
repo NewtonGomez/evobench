@@ -1,7 +1,7 @@
 # evolutionary-benchmarking
 
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GLP-3](https://img.shields.io/badge/license-GNU%20GPLv3-brightgreen)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![PyPI version](https://img.shields.io/badge/PyPI-v0.1.0-brightgreen.svg)](https://pypi.org/project/evobench/)
 [![Documentation](https://img.shields.io/badge/docs-available-blue.svg)](https://evobench.readthedocs.io/)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/NewtonGomez/evolutionary-benchmarking)
@@ -64,7 +64,7 @@ The scientific literature on evolutionary computation suffers from inconsistenci
 ### From PyPI (Recommended)
 
 ```bash
-pip install evobench
+pip install evobench-lib
 ```
 
 ### From Source
@@ -443,7 +443,7 @@ If you use evobench in your research, please cite:
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL-3 License. See [LICENSE](LICENSE) file for details.
 
 ---
 

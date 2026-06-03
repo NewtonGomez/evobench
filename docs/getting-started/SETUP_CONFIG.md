@@ -40,7 +40,7 @@ pip install -e ".[dev]"
 
 ```bash
 # Once published to PyPI
-pip install evobench
+pip install evobench-lib
 ```
 
 ### Method 3: Installation from Source
