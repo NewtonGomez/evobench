@@ -1,4 +1,4 @@
-from evobench.benchmarks import ackley, rosenbrock, sphere, schwefel, trid
+from evobench.benchmarks import ackley, rosenbrock
 from evobench.algorithms import EDA, PSO, ABC
 from evobench.stats import analyze, stat_report
 from evobench.tools.plotter import plot_all
@@ -29,6 +29,7 @@ if __name__ == "__main__":
                 # Define the continuous search space boundaries for all dimensions
                 "bounds": [[-10.0, 10.0]] * dimension
             },
+
             {
                 # Configure the Rosenbrock function evaluation setup
                 "name": "Rosenbrock",
@@ -37,30 +38,6 @@ if __name__ == "__main__":
                 # Set the valid parameter range constraints across the specified dimensions
                 "bounds": [[-10.0, 10.0]] * dimension
             },
-            {
-                # Configure the Sphere function evaluation setup
-                "name": "Sphere",
-                # Pass the callable Sphere objective function
-                "func": sphere,
-                # Define the corresponding expanded search space limits for the Sphere landscape
-                "bounds": [[-600.0, 600.0]] * dimension
-            },
-            {
-                # Configure the Schwefel 1.2 function evaluation setup
-                "name": "Schwefel 1.2",
-                # Pass the callable Schwefel 1.2 objective function
-                "func": schwefel,
-                # Assign the asymmetric search space boundaries specific to this problem
-                "bounds": [[-40.0, 60.0]] * dimension
-            },
-            {
-                # Configure the Trid function evaluation setup
-                "name": "Trid",
-                # Pass the callable Trid objective function
-                "func": trid,
-                # Dynamically calculate and assign scaled bounds based on the dimensionality squared
-                "bounds": [[-float(dimension**2), float(dimension**2)]] * dimension
-            }
         ],
         
         # Define the suite of optimization algorithms and their specific hyperparameters
@@ -97,5 +74,5 @@ if __name__ == "__main__":
         # Output a formatted statistical report summarizing the analysis outcomes
         stat_report(result)
         # Render visual plots comparing algorithm performance for the current benchmark
-        plot_all(bench_func, alg_names, all_data)
+        #plot_all(bench_func, alg_names, all_data)
         

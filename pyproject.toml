@@ -28,7 +28,7 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
-    "mkdocs-material"
+    "mkdocs-material",
     "pymdown-extensions"
 ]
 
