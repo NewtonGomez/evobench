@@ -54,11 +54,11 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/yourusername/evobench-lib"
-"Documentation" = "https://evobench-lib.readthedocs.io"
-"Repository" = "https://github.com/yourusername/evobench-lib.git"
-"Bug Tracker" = "https://github.com/yourusername/evobench-lib/issues"
-"Changelog" = "https://github.com/yourusername/evobench-lib/blob/main/docs/changelog/v0.1.0.md"
+"Homepage" = "https://newtongomez.github.io/evobench/"
+"Documentation" = "https://newtongomez.github.io/evobench/reference/"
+"Repository" = "https://github.com/NewtonGomez/evobench.git"
+"Bug Tracker" = "https://github.com/NewtonGomez/evobench/issues"
+"Changelog" = "https://github.com/NewtonGomez/evobench/blob/main/docs/changelog/v0.1.0.md"
 
 [project.optional-dependencies]
 dev = [
