@@ -9,27 +9,78 @@ authors = [
   { name = "Enrique Gómez Linares" },
   { name = "Victoria Galván Delgadillo" }
 ]
-description = "A benchmarking suite for evolutionary algorithms and metaheuristics"
+description = "A comprehensive benchmarking suite for evolutionary algorithms and metaheuristics with built-in statistical analysis and visualization"
 readme = "README.md"
 requires-python = ">=3.9"
+license = { text = "MIT" }
+
+# Comprehensive PyPI classifiers for scientific computing
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+
+keywords = [
+    "evolutionary-algorithms",
+    "metaheuristics",
+    "optimization",
+    "benchmark",
+    "pso",
+    "artificial-bee-colony",
+    "eda",
+    "benchmarking-framework",
+    "swarm-intelligence"
+]
+
 dependencies = [
     "numpy>=1.24.0",
     "scipy>=1.9.0",
     "matplotlib>=3.5.0",
 ]
 
+[project.urls]
+"Homepage" = "https://github.com/yourusername/evobench-lib"
+"Documentation" = "https://evobench-lib.readthedocs.io"
+"Repository" = "https://github.com/yourusername/evobench-lib.git"
+"Bug Tracker" = "https://github.com/yourusername/evobench-lib/issues"
+"Changelog" = "https://github.com/yourusername/evobench-lib/blob/main/docs/changelog/v0.1.0.md"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
-    "mkdocs-material",
-    "pymdown-extensions"
+    "mkdocs-material>=9.0.0",
+    "pymdown-extensions>=9.0.0",
+    "mypy>=1.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "isort>=5.0.0"
+]
+docs = [
+    "mkdocs-material>=9.0.0",
+    "pymdown-extensions>=9.0.0",
+    "mkdocs>=1.4.0"
+]
+science = [
+    "pandas>=1.5.0",
+    "scikit-learn>=1.2.0",
+    "jupyter>=1.0.0",
+    "notebook>=6.5.0"
 ]
 
 [tool.setuptools.packages.find]
