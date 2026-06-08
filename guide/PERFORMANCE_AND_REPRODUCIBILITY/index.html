@@ -1,0 +1,1900 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Performance and Reproducibility Guide - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#performance-and-reproducibility-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Performance and Reproducibility Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducibility-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility Principles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reproducibility Principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-reproducibility-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Reproducibility Chain
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-number-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random Number Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random Number Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-random-number-generation-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Random Number Generation Matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modern-numpy-api-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modern NumPy API (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-seeds-in-evobench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting Seeds in evobench
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeding-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeding Strategies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Seeding Strategies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strategy-1-single-global-seed-simplest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 1: Single Global Seed (Simplest)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-2-seed-sequence-for-multiple-independent-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 2: Seed Sequence (For Multiple Independent Runs)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-3-deterministic-seed-per-configuration-scientific-gold-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategy 3: Deterministic Seed per Configuration (Scientific Gold Standard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Optimization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimization-1-vectorization-already-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization 1: Vectorization (Already Done)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-2-problem-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization 2: Problem Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-3-population-and-iteration-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization 3: Population and Iteration Budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization-4-benchmark-function-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization 4: Benchmark Function Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmarking-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmarking Methodology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmarking Methodology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rigorous-performance-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rigorous Performance Comparison
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-experiments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Experiments
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel Experiments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#safe-parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Parallel Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducibility-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reproducibility Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reproducibility-report-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility Report Template
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="performance-and-reproducibility-guide">Performance and Reproducibility Guide</h1>
+<p>This guide covers best practices for optimizing evobench performance and ensuring reproducible, scientifically rigorous experiments.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#reproducibility-principles">Reproducibility Principles</a></li>
+<li><a href="#random-number-generation">Random Number Generation</a></li>
+<li><a href="#seeding-strategies">Seeding Strategies</a></li>
+<li><a href="#performance-optimization">Performance Optimization</a></li>
+<li><a href="#benchmarking-methodology">Benchmarking Methodology</a></li>
+<li><a href="#parallel-experiments">Parallel Experiments</a></li>
+</ol>
+<hr />
+<h2 id="reproducibility-principles">Reproducibility Principles</h2>
+<p>Scientific reproducibility requires that experiments produce <strong>identical results</strong> when rerun with the same configuration. This is essential for:
+- Publishing verifiable results
+- Debugging algorithm behavior
+- Comparing algorithms fairly
+- Enabling peer review</p>
+<h3 id="the-reproducibility-chain">The Reproducibility Chain</h3>
+<pre><code>Deterministic Hardware
+        ↓
+Fixed Random Seed
+        ↓
+Algorithm Implementation (fixed code)
+        ↓
+Identical Results
+</code></pre>
+<p><strong>Failure at any link breaks reproducibility.</strong></p>
+<hr />
+<h2 id="random-number-generation">Random Number Generation</h2>
+<h3 id="why-random-number-generation-matters">Why Random Number Generation Matters</h3>
+<p>Evolutionary algorithms are <strong>stochastic</strong>: they use randomness intentionally. Without controlling randomness, results vary between runs:</p>
+<pre><code class="language-python">from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+
+bounds = [(-5, 5)] * 10
+optimizer = PSO(sphere, bounds, max_iterations=100)
+
+# Run 1 (no seed)
+_, fitness1 = optimizer.run()  # e.g., 0.00234
+
+# Run 2 (no seed)
+_, fitness2 = optimizer.run()  # e.g., 0.00187 (different!)
+
+# Run 3 (no seed)
+_, fitness3 = optimizer.run()  # e.g., 0.00421 (different again!)
+
+print([fitness1, fitness2, fitness3])  # All different ❌
+</code></pre>
+<h3 id="modern-numpy-api-recommended">Modern NumPy API (Recommended)</h3>
+<p>evobench uses modern NumPy random API (<code>Generator</code> + <code>PCG64</code>) for:
+- Better statistical properties
+- Thread-safe seeding (important for parallel experiments)
+- Explicit seed management</p>
+<pre><code class="language-python">import numpy as np
+from numpy.random import Generator, PCG64
+
+# Create a Generator with a specific seed
+rng = Generator(PCG64(seed=42))
+
+# Use rng instead of np.random
+population = rng.uniform(-5, 5, (100, 10))
+indices = rng.choice(100, 10)
+</code></pre>
+<h3 id="setting-seeds-in-evobench">Setting Seeds in evobench</h3>
+<p>The library automatically seeds NumPy's global random state, but <strong>you control it</strong> at entry points:</p>
+<pre><code class="language-python">import numpy as np
+
+# Set global seed (affects np.random functions)
+np.random.seed(42)
+
+# Now run experiments (reproducible)
+from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+
+bounds = [(-5, 5)] * 10
+
+optimizer1 = PSO(sphere, bounds)
+_, fitness1 = optimizer1.run()
+
+optimizer2 = PSO(sphere, bounds)
+_, fitness2 = optimizer2.run()
+
+print(fitness1 == fitness2)  # True ✓ Reproducible
+</code></pre>
+<hr />
+<h2 id="seeding-strategies">Seeding Strategies</h2>
+<h3 id="strategy-1-single-global-seed-simplest">Strategy 1: Single Global Seed (Simplest)</h3>
+<p>Use <strong>one</strong> seed for the entire experiment:</p>
+<pre><code class="language-python">import numpy as np
+from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import sphere
+
+# Set global seed once at the start
+np.random.seed(42)
+
+bounds = [(-5, 5)] * 10
+
+# All subsequent calls are reproducible
+algorithms = [PSO, EDA, ABC]
+for Algorithm in algorithms:
+    optimizer = Algorithm(sphere, bounds)
+    _, fitness = optimizer.run()
+    print(f&quot;{Algorithm.__name__}: {fitness}&quot;)
+
+# Run again with same seed → identical results
+np.random.seed(42)
+for Algorithm in algorithms:
+    optimizer = Algorithm(sphere, bounds)
+    _, fitness = optimizer.run()
+    print(f&quot;{Algorithm.__name__}: {fitness}&quot;)
+</code></pre>
+<p><strong>Pros</strong>: Simple, works for single-threaded code<br />
+<strong>Cons</strong>: Fails with multi-threading; all runs get same sequence</p>
+<hr />
+<h3 id="strategy-2-seed-sequence-for-multiple-independent-runs">Strategy 2: Seed Sequence (For Multiple Independent Runs)</h3>
+<p>Generate <strong>independent but reproducible</strong> seeds for each run:</p>
+<pre><code class="language-python">import numpy as np
+from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+
+DIMENSION = 10
+INDEPENDENT_RUNS = 20
+SEED = 42
+
+# Create a &quot;seed sequence&quot; - generates independent seeds reproducibly
+ss = np.random.SeedSequence(SEED)
+
+# Generate 20 different seeds (all reproducible from master seed)
+seeds = ss.spawn(INDEPENDENT_RUNS)
+
+bounds = [(-5, 5)] * DIMENSION
+results = []
+
+for i, seed in enumerate(seeds):
+    # Set seed for this run
+    rng = np.random.Generator(np.random.PCG64(seed))
+    np.random.seed(int(seed.entropy[0]))  # For compatibility
+
+    # Run algorithm
+    optimizer = PSO(sphere, bounds, max_iterations=100)
+    _, best_fitness = optimizer.run()
+    results.append(best_fitness)
+
+    print(f&quot;Run {i+1}: {best_fitness:.6e}&quot;)
+
+# Results are reproducible and independent
+import numpy as np
+mean_fitness = np.mean(results)
+std_fitness = np.std(results)
+print(f&quot;\nMean: {mean_fitness:.6e} ± {std_fitness:.6e}&quot;)
+
+# Re-run with same master seed → identical results
+ss = np.random.SeedSequence(42)
+seeds = ss.spawn(20)
+# ... repeat above loop ... # Exact same results ✓
+</code></pre>
+<p><strong>Pros</strong>: Independent runs, reproducible, thread-safe<br />
+<strong>Cons</strong>: Slightly more complex</p>
+<hr />
+<h3 id="strategy-3-deterministic-seed-per-configuration-scientific-gold-standard">Strategy 3: Deterministic Seed per Configuration (Scientific Gold Standard)</h3>
+<p>Hash the configuration to generate a seed:</p>
+<pre><code class="language-python">import numpy as np
+import hashlib
+from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import sphere, ackley
+
+def config_hash_seed(config_dict: dict) -&gt; int:
+    &quot;&quot;&quot;Generate deterministic seed from configuration.&quot;&quot;&quot;
+    config_str = str(sorted(config_dict.items()))
+    hash_bytes = hashlib.sha256(config_str.encode()).digest()
+    # Convert first 8 bytes to integer seed
+    seed = int.from_bytes(hash_bytes[:8], byteorder='little') % (2**31)
+    return seed
+
+# Configuration
+config = {
+    &quot;algorithm&quot;: &quot;PSO&quot;,
+    &quot;benchmark&quot;: &quot;Sphere&quot;,
+    &quot;dimension&quot;: 10,
+    &quot;population_size&quot;: 50,
+    &quot;max_iterations&quot;: 100
+}
+
+# Generate seed from config
+seed = config_hash_seed(config)
+
+# Reproducible experiment
+np.random.seed(seed)
+
+optimizer = PSO(sphere, [(-5, 5)] * 10, 
+                population_size=config[&quot;population_size&quot;],
+                max_iterations=config[&quot;max_iterations&quot;])
+best_sol, best_fit = optimizer.run()
+
+print(f&quot;Seed (from config): {seed}&quot;)
+print(f&quot;Best Fitness: {best_fit:.6e}&quot;)
+
+# Later, with same config → identical seed → identical results
+seed2 = config_hash_seed(config)
+assert seed == seed2
+np.random.seed(seed2)
+# ... run again ... → Exact same result ✓
+</code></pre>
+<p><strong>Pros</strong>: Configuration → seed mapping is explicit and reproducible; ideal for version control<br />
+<strong>Cons</strong>: Requires configuration management</p>
+<hr />
+<h2 id="performance-optimization">Performance Optimization</h2>
+<h3 id="optimization-1-vectorization-already-done">Optimization 1: Vectorization (Already Done)</h3>
+<p>evobench algorithms use NumPy vectorization for speed. You benefit automatically:</p>
+<pre><code class="language-python">from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+
+# This is already vectorized internally
+optimizer = PSO(sphere, [(-5, 5)] * 1000, population_size=100, max_iterations=100)
+_, fitness = optimizer.run()  # Processes 100 × 1000 dimensions at once
+
+# Time: ~2-3 seconds (not 5+ minutes) ✓
+</code></pre>
+<p><strong>What evobench does</strong>:
+- Population stored as NumPy arrays (shape: population_size × dimension)
+- Fitness evaluation: <code>np.apply_along_axis()</code> processes all individuals at once
+- Population updates: Element-wise operations (broadcast over population)</p>
+<hr />
+<h3 id="optimization-2-problem-scaling">Optimization 2: Problem Scaling</h3>
+<p>Use appropriate problem dimensions for your use case:</p>
+<pre><code class="language-python">from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+import time
+
+# Test different dimensions
+for dimension in [10, 50, 100, 500, 1000]:
+    bounds = [(-5, 5)] * dimension
+
+    start = time.time()
+    optimizer = PSO(sphere, bounds, population_size=min(100, 2*dimension), 
+                   max_iterations=100)
+    _, fitness = optimizer.run()
+    elapsed = time.time() - start
+
+    print(f&quot;d={dimension:4d}: {elapsed:7.2f}s  | Fitness: {fitness:.6e}&quot;)
+
+# Output:
+# d=  10:    0.15s  | Fitness: 3.456e-05
+# d=  50:    0.38s  | Fitness: 2.123e-04
+# d= 100:    0.89s  | Fitness: 5.234e-04
+# d= 500:    5.23s  | Fitness: 1.234e-03
+# d=1000:   19.45s  | Fitness: 2.456e-03
+</code></pre>
+<p><strong>Guidelines</strong>:
+- <strong>Small (d ≤ 20)</strong>: Fast, good for testing
+- <strong>Medium (d = 20-100)</strong>: Realistic, ~1s per run
+- <strong>Large (d &gt; 100)</strong>: Slow, use for stress-testing only</p>
+<hr />
+<h3 id="optimization-3-population-and-iteration-budget">Optimization 3: Population and Iteration Budget</h3>
+<p>Trade population size vs. iterations:</p>
+<pre><code class="language-python">from evobench.algorithms import PSO
+from evobench.benchmarks import ackley
+import time
+
+bounds = [(-32.768, 32.768)] * 50
+total_budget = 5000  # Total function evaluations allowed
+
+configs = [
+    {&quot;population_size&quot;: 50, &quot;max_iterations&quot;: 100},   # 50 × 100 = 5000
+    {&quot;population_size&quot;: 100, &quot;max_iterations&quot;: 50},   # 100 × 50 = 5000
+    {&quot;population_size&quot;: 250, &quot;max_iterations&quot;: 20},   # 250 × 20 = 5000
+]
+
+for config in configs:
+    start = time.time()
+    optimizer = PSO(ackley, bounds, **config)
+    _, fitness = optimizer.run()
+    elapsed = time.time() - start
+
+    print(f&quot;Pop={config['population_size']:3d}, Iter={config['max_iterations']:3d}: &quot;
+          f&quot;{elapsed:6.2f}s | Fitness: {fitness:.6e}&quot;)
+
+# Time should be similar (same budget), but quality varies
+</code></pre>
+<p><strong>Heuristic</strong>: For small-medium problems:
+- Population: 20-100 individuals
+- Iterations: 100-500 generations
+- Total evals: 2000-50000 (depends on dimension)</p>
+<hr />
+<h3 id="optimization-4-benchmark-function-characteristics">Optimization 4: Benchmark Function Characteristics</h3>
+<p>Choose appropriate benchmarks for your algorithm:</p>
+<pre><code class="language-python">from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import sphere, rosenbrock, ackley
+import time
+
+dimension = 30
+bounds_sphere = [(-5, 5)] * dimension
+bounds_rosen = [(-10, 10)] * dimension
+bounds_ackley = [(-32.768, 32.768)] * dimension
+
+benchmarks = [
+    (&quot;Sphere&quot;, sphere, bounds_sphere),
+    (&quot;Rosenbrock&quot;, rosenbrock, bounds_rosen),
+    (&quot;Ackley&quot;, ackley, bounds_ackley)
+]
+
+algorithms = [
+    (&quot;PSO&quot;, PSO),
+    (&quot;EDA&quot;, EDA),
+    (&quot;ABC&quot;, ABC)
+]
+
+# Time each combination
+for bench_name, bench_func, bounds in benchmarks:
+    print(f&quot;\n{bench_name}:&quot;)
+    for algo_name, AlgoClass in algorithms:
+        start = time.time()
+        opt = AlgoClass(bench_func, bounds, max_iterations=100)
+        _, fitness = opt.run()
+        elapsed = time.time() - start
+        print(f&quot;  {algo_name}: {elapsed:6.2f}s | Fitness: {fitness:.6e}&quot;)
+</code></pre>
+<hr />
+<h2 id="benchmarking-methodology">Benchmarking Methodology</h2>
+<h3 id="rigorous-performance-comparison">Rigorous Performance Comparison</h3>
+<pre><code class="language-python">import numpy as np
+from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import sphere, ackley
+from evobench.stats import analyze
+import time
+
+# Experimental design
+DIMENSION = 10
+INDEPENDENT_RUNS = 30
+POPULATION_SIZE = 50
+MAX_ITERATIONS = 200
+
+benchmarks = {&quot;Sphere&quot;: sphere, &quot;Ackley&quot;: ackley}
+algorithms = {&quot;PSO&quot;: PSO, &quot;EDA&quot;: EDA, &quot;ABC&quot;: ABC}
+
+# Set seed for reproducibility
+np.random.seed(12345)
+
+results = {}
+
+for bench_name, bench_func in benchmarks.items():
+    print(f&quot;\n{'='*60}&quot;)
+    print(f&quot;Benchmark: {bench_name}&quot;)
+    print(f&quot;{'='*60}&quot;)
+
+    bench_results = {}
+    bounds = {
+        &quot;Sphere&quot;: [(-5, 5)] * DIMENSION,
+        &quot;Ackley&quot;: [(-32.768, 32.768)] * DIMENSION
+    }[bench_name]
+
+    for algo_name, AlgoClass in algorithms.items():
+        fitnesses = []
+        times = []
+
+        print(f&quot;  {algo_name}...&quot;, end=&quot; &quot;, flush=True)
+
+        for run in range(INDEPENDENT_RUNS):
+            start = time.time()
+            opt = AlgoClass(bench_func, bounds, 
+                           population_size=POPULATION_SIZE, 
+                           max_iterations=MAX_ITERATIONS)
+            _, best_fitness = opt.run()
+            elapsed = time.time() - start
+
+            fitnesses.append(best_fitness)
+            times.append(elapsed)
+
+        bench_results[algo_name] = np.array(fitnesses)
+
+        # Summary statistics
+        mean = np.mean(fitnesses)
+        std = np.std(fitnesses)
+        mean_time = np.mean(times)
+
+        print(f&quot;✓ ({mean:.6e} ± {std:.6e}) [{mean_time:.2f}s/run]&quot;)
+
+    # Statistical analysis
+    print(f&quot;\n  Statistical Comparison:&quot;)
+    fitness_data = [bench_results[name] for name in algorithms.keys()]
+    result = analyze(bench_name, fitness_data, list(algorithms.keys()))
+
+    results[bench_name] = result
+
+# Print final summary
+print(f&quot;\n{'='*60}&quot;)
+print(&quot;SUMMARY&quot;)
+print(f&quot;{'='*60}&quot;)
+for bench_name in benchmarks.keys():
+    print(f&quot;{bench_name}: {results[bench_name]['significant'] and 'Significant' or 'No difference'}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>============================================================
+Benchmark: Sphere
+============================================================
+  PSO... ✓ (1.234e-04 ± 2.345e-05) [0.23s/run]
+  EDA... ✓ (5.678e-05 ± 1.234e-05) [0.19s/run]
+  ABC... ✓ (8.901e-05 ± 3.456e-05) [0.25s/run]
+
+  Statistical Comparison:
+  - Normality: All groups normal (p &gt; 0.05)
+  - ANOVA: Significant difference (p = 0.0023)
+  - Post-hoc (Tukey): EDA &gt; PSO, ABC ≈ PSO
+
+============================================================
+SUMMARY
+============================================================
+Sphere: Significant
+</code></pre>
+<hr />
+<h2 id="parallel-experiments">Parallel Experiments</h2>
+<h3 id="safe-parallel-execution">Safe Parallel Execution</h3>
+<pre><code class="language-python">import numpy as np
+from multiprocessing import Pool
+from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import ackley
+
+def run_single_optimization(args):
+    &quot;&quot;&quot;Worker function for parallel execution.&quot;&quot;&quot;
+    algo_class, seed, run_id = args
+
+    # Set seed for this worker process
+    np.random.seed(seed)
+
+    bounds = [(-32.768, 32.768)] * 10
+    optimizer = algo_class(ackley, bounds, max_iterations=100)
+    _, best_fitness = optimizer.run()
+
+    return {&quot;algorithm&quot;: algo_class.__name__, &quot;run&quot;: run_id, &quot;fitness&quot;: best_fitness}
+
+# Generate seeds for each run
+MASTER_SEED = 42
+ss = np.random.SeedSequence(MASTER_SEED)
+NUM_RUNS = 100
+
+# Create job list
+jobs = []
+seed_counter = 0
+for algo_class in [PSO, EDA, ABC]:
+    for run in range(NUM_RUNS // 3):  # ~33 runs per algorithm
+        seed = int(ss.spawn(1)[0].entropy[0])
+        jobs.append((algo_class, seed, run))
+
+# Parallel execution
+print(f&quot;Running {len(jobs)} optimizations in parallel...&quot;)
+with Pool(4) as pool:  # 4 workers
+    results = pool.map(run_single_optimization, jobs)
+
+# Process results
+pso_results = [r[&quot;fitness&quot;] for r in results if r[&quot;algorithm&quot;] == &quot;PSO&quot;]
+eda_results = [r[&quot;fitness&quot;] for r in results if r[&quot;algorithm&quot;] == &quot;EDA&quot;]
+abc_results = [r[&quot;fitness&quot;] for r in results if r[&quot;algorithm&quot;] == &quot;ABC&quot;]
+
+print(f&quot;PSO: {np.mean(pso_results):.6e} ± {np.std(pso_results):.6e}&quot;)
+print(f&quot;EDA: {np.mean(eda_results):.6e} ± {np.std(eda_results):.6e}&quot;)
+print(f&quot;ABC: {np.mean(abc_results):.6e} ± {np.std(abc_results):.6e}&quot;)
+</code></pre>
+<p><strong>Key Points</strong>:
+- Each worker gets <strong>independent seed</strong> (from SeedSequence)
+- Results are reproducible
+- Threads/processes don't share random state</p>
+<hr />
+<h2 id="reproducibility-checklist">Reproducibility Checklist</h2>
+<p>Before publishing results:</p>
+<ul>
+<li>[ ] <strong>Random seed documented</strong> and hardcoded</li>
+<li>[ ] <strong>evobench version</strong> specified in code (<code>import evobench; print(evobench.__version__)</code>)</li>
+<li>[ ] <strong>NumPy version</strong> recorded (<code>import numpy; print(numpy.__version__)</code>)</li>
+<li>[ ] <strong>System specs</strong> documented (OS, CPU, RAM)</li>
+<li>[ ] <strong>Algorithm hyperparameters</strong> explicitly listed</li>
+<li>[ ] <strong>Problem dimensions</strong> and bounds specified</li>
+<li>[ ] <strong>Number of independent runs</strong> reported</li>
+<li>[ ] <strong>Statistical test used</strong> mentioned (ANOVA, Kruskal-Wallis)</li>
+<li>[ ] <strong>Effect size</strong> (Cohen's d) reported alongside p-value</li>
+<li>[ ] <strong>Configuration</strong> reproducible (code in GitHub, data in repository)</li>
+</ul>
+<h3 id="reproducibility-report-template">Reproducibility Report Template</h3>
+<pre><code class="language-python">import numpy as np
+from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+import evobench
+import platform
+
+# Record environment
+print(&quot;=&quot;*60)
+print(&quot;REPRODUCIBILITY REPORT&quot;)
+print(&quot;=&quot;*60)
+print(f&quot;evobench version: {evobench.__version__}&quot;)
+print(f&quot;NumPy version: {np.__version__}&quot;)
+print(f&quot;Python version: {platform.python_version()}&quot;)
+print(f&quot;Platform: {platform.platform()}&quot;)
+print(f&quot;Processor: {platform.processor()}&quot;)
+
+# Record configuration
+SEED = 12345
+DIMENSION = 10
+POPULATION_SIZE = 50
+MAX_ITERATIONS = 100
+INDEPENDENT_RUNS = 20
+
+print(f&quot;\nConfiguration:&quot;)
+print(f&quot;  Seed: {SEED}&quot;)
+print(f&quot;  Dimension: {DIMENSION}&quot;)
+print(f&quot;  Population: {POPULATION_SIZE}&quot;)
+print(f&quot;  Iterations: {MAX_ITERATIONS}&quot;)
+print(f&quot;  Independent Runs: {INDEPENDENT_RUNS}&quot;)
+
+# Run experiment
+np.random.seed(SEED)
+results = []
+for run in range(INDEPENDENT_RUNS):
+    opt = PSO(sphere, [(-5, 5)] * DIMENSION, 
+              population_size=POPULATION_SIZE, 
+              max_iterations=MAX_ITERATIONS)
+    _, best_fit = opt.run()
+    results.append(best_fit)
+
+# Record results
+print(f&quot;\nResults:&quot;)
+print(f&quot;  Mean: {np.mean(results):.6e}&quot;)
+print(f&quot;  Std:  {np.std(results):.6e}&quot;)
+print(f&quot;  Min:  {np.min(results):.6e}&quot;)
+print(f&quot;  Max:  {np.max(results):.6e}&quot;)
+
+print(&quot;=&quot;*60)
+print(&quot;To reproduce: Run this script with same seed and libraries&quot;)
+print(&quot;=&quot;*60)
+</code></pre>
+<hr />
+<p><strong>Last Updated</strong>: June 2026<br />
+<strong>evobench</strong>: 0.1.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1556 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Documentation Architecture for evobench - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#documentation-architecture-for-evobench" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Documentation Architecture for evobench
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#directory-structure-to-implement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directory Structure (to implement)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-descriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Descriptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="File Descriptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started-onboarding-and-core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        getting-started/ — Onboarding and Core Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guide-practical-how-to-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        guide/ — Practical How-To Instructions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-complete-api-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reference/ — Complete API Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theory-scientific-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        theory/ — Scientific Background
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples-runnable-code-samples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        examples/ — Runnable Code Samples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developer-contributor-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        developer/ — Contributor Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changelog-version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        changelog/ — Version History
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faq-common-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        faq/ — Common Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assets-visual-and-styling-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assets/ — Visual and Styling Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-build-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Build System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended Build System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-sphinx-for-academicscientific-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Sphinx (for academic/scientific projects)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-mkdocs-for-modern-faster-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: MkDocs (for modern, faster documentation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#content-ownership-update-frequency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content Ownership &amp; Update Frequency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-validation-of-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing &amp; Validation of Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-path-existing-documented" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration Path (Existing → Documented)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="documentation-architecture-for-evobench">Documentation Architecture for evobench</h1>
+<h2 id="directory-structure-to-implement">Directory Structure (to implement)</h2>
+<pre><code>docs/
+├── index.md                          # Documentation homepage (landing page)
+├── conf.py                           # Sphinx/MkDocs configuration file
+├── mkdocs.yml                        # Alternative: MkDocs configuration
+│
+├── getting-started/                  # User onboarding and quick introduction
+│   ├── index.md                      # Getting Started landing page
+│   ├── installation.md               # Installation instructions (pip, from source, requirements)
+│   ├── quickstart.md                 # 5-minute quick example
+│   └── concepts.md                   # Core concepts (population, fitness, generations, etc.)
+│
+├── guide/                            # Practical tutorials and how-to guides
+│   ├── index.md
+│   ├── basic-workflow.md             # Step-by-step: define algorithm → configure → run
+│   ├── custom-algorithms.md          # How to implement your own evolutionary algorithm
+│   ├── benchmarks-guide.md           # Available benchmark functions and when to use them
+│   ├── hyperparameter-tuning.md      # Guide to exploring hyperparameter spaces
+│   ├── statistical-analysis.md       # Post-hoc analysis, significance testing, visualization
+│   └── reproducibility.md            # Ensuring reproducible experiments
+│
+├── reference/                        # Complete API documentation (auto-generated from docstrings)
+│   ├── index.md
+│   ├── api-overview.md               # Quick reference to all modules
+│   ├── base.md                       # EvolutionaryAlgorithm abstract base class
+│   ├── algorithms/
+│   │   ├── index.md                  # Algorithms module overview
+│   │   ├── pso.md                    # Particle Swarm Optimization API
+│   │   ├── eda.md                    # Estimation of Distribution Algorithm API
+│   │   └── abc.md                    # Artificial Bee Colony API
+│   ├── benchmarks.md                 # Benchmark functions reference
+│   ├── tools/
+│   │   ├── experiment-engine.md      # Experiment orchestration API
+│   │   ├── operators.md              # Genetic operators API
+│   │   └── statistics.md             # Statistical utilities API
+│   └── exceptions.md                 # Error types and troubleshooting
+│
+├── theory/                           # Theoretical background (optional but recommended)
+│   ├── index.md
+│   ├── evolutionary-algorithms.md    # Brief intro to EA fundamentals
+│   ├── benchmark-functions.md        # Mathematical properties of test functions
+│   │                                 # (similar to docs/benchmarks.md in the code)
+│   ├── statistical-testing.md        # Theory behind ANOVA, Kruskal-Wallis, effect sizes
+│   └── convergence-analysis.md       # Analyzing convergence curves and early stopping
+│
+├── examples/                         # Complete, runnable example scripts
+│   ├── index.md
+│   ├── comparison-study.md           # Compare 3 algorithms on Sphere
+│   ├── parameter-sensitivity.md      # Analyze algorithm behavior across hyperparams
+│   ├── statistical-benchmarking.md   # Full workflow with significance testing
+│   ├── custom-benchmark.md           # Define and test a custom objective function
+│   └── reproducing-paper.md          # Example: reproduce results from published paper
+│
+├── developer/                        # Contribution and development resources
+│   ├── index.md
+│   ├── contributing.md               # Code of conduct, PR process, dev setup
+│   ├── architecture.md               # Project structure, design patterns, philosophy
+│   ├── testing.md                    # How to write and run tests
+│   ├── adding-algorithms.md          # Step-by-step: add a new baseline algorithm
+│   ├── adding-benchmarks.md          # Step-by-step: add a new test function
+│   ├── documentation.md              # How to maintain and update docs
+│   └── release-process.md            # Version bumping, changelog, publication
+│
+├── changelog/                        # Release notes and migration guides
+│   ├── index.md
+│   ├── v0.1.0.md                     # Initial release notes
+│   ├── v0.2.0.md                     # Future: discrete optimization (placeholder)
+│   └── migration-guide.md            # Breaking changes between versions
+│
+├── faq/                              # Frequently asked questions
+│   ├── technical-faq.md              # Algorithm selection, tuning, troubleshooting
+│   ├── performance-faq.md            # Optimization, parallel execution
+│   └── research-faq.md               # Reporting results, citation, publication
+│
+└── assets/                           # Diagrams, images, css overrides
+    ├── architecture.png              # System architecture diagram
+    ├── workflow.png                  # Experiment workflow flowchart
+    ├── custom-style.css              # Custom Sphinx/MkDocs styling
+    └── logo.svg                      # Project logo (if applicable)
+</code></pre>
+<hr />
+<h2 id="file-descriptions">File Descriptions</h2>
+<h3 id="getting-started-onboarding-and-core-concepts"><strong>getting-started/</strong> — Onboarding and Core Concepts</h3>
+<ul>
+<li><strong>impact</strong>: New users first read this section</li>
+<li><strong>index.md</strong>: Overview of documentation structure; where to start</li>
+<li><strong>installation.md</strong>: Multiple installation methods, system requirements, troubleshooting</li>
+<li><strong>quickstart.md</strong>: 5-10 minute example producing working output</li>
+<li><strong>concepts.md</strong>: Terminology (population, generation, fitness landscape, convergence)</li>
+</ul>
+<h3 id="guide-practical-how-to-instructions"><strong>guide/</strong> — Practical How-To Instructions</h3>
+<ul>
+<li><strong>impact</strong>: Users learning by doing</li>
+<li><strong>basic-workflow.md</strong>: End-to-end workflow: define problem → select algorithm → configure → run → analyze</li>
+<li><strong>custom-algorithms.md</strong>: Complete template and best practices for inheriting <code>EvolutionaryAlgorithm</code></li>
+<li><strong>benchmarks-guide.md</strong>: When to use Sphere vs. Ackley vs. Rosenbrock; difficulty levels</li>
+<li><strong>hyperparameter-tuning.md</strong>: Systematic approaches to hyperparameter exploration</li>
+<li><strong>statistical-analysis.md</strong>: Post-experiment analysis, significance testing, visualization techniques</li>
+<li><strong>reproducibility.md</strong>: Seeding, version pinning, results validation</li>
+</ul>
+<h3 id="reference-complete-api-documentation"><strong>reference/</strong> — Complete API Documentation</h3>
+<ul>
+<li><strong>impact</strong>: Developers need precise behavior documentation</li>
+<li><strong>api-overview.md</strong>: One-page overview of all public functions and classes</li>
+<li><strong>base.md</strong>: Contract for implementing algorithms; abstract methods and properties</li>
+<li><strong>algorithms/</strong>: Detailed docstrings for PSO, EDA, ABC (auto-generated from source)</li>
+<li><strong>benchmarks.md</strong>: Signature, mathematical formula, optimal value, domain for each test function</li>
+<li><strong>tools/</strong>: Full API for experiment_engine, operators, statistics modules</li>
+</ul>
+<h3 id="theory-scientific-background"><strong>theory/</strong> — Scientific Background</h3>
+<ul>
+<li><strong>impact</strong>: Researchers and PhD students needing theoretical grounding</li>
+<li><strong>evolutionary-algorithms.md</strong>: EA taxonomy, selection pressure, exploration vs. exploitation</li>
+<li><strong>benchmark-functions.md</strong>: Mathematical properties, separability, multimodality, hard searchability</li>
+<li><strong>statistical-testing.md</strong>: Why ANOVA/Kruskal-Wallis, assumptions, interpretation</li>
+<li><strong>convergence-analysis.md</strong>: Reading convergence plots, detecting stagnation, early stopping criteria</li>
+</ul>
+<h3 id="examples-runnable-code-samples"><strong>examples/</strong> — Runnable Code Samples</h3>
+<ul>
+<li><strong>impact</strong>: Learners by example; copy-paste starting point</li>
+<li><strong>comparison-study.md</strong>: PSO vs. ABC vs. EDA on Sphere (10D, 20 runs)</li>
+<li><strong>parameter-sensitivity.md</strong>: Systematic grid search over PSO inertia weights</li>
+<li><strong>statistical-benchmarking.md</strong>: Complete pipeline: run → analyze → report</li>
+<li><strong>custom-benchmark.md</strong>: Define objective function with custom bounds</li>
+<li><strong>reproducing-paper.md</strong>: "How I reproduced Figure 3 from [Citation]"</li>
+</ul>
+<h3 id="developer-contributor-resources"><strong>developer/</strong> — Contributor Resources</h3>
+<ul>
+<li><strong>impact</strong>: Community contributors and maintainers</li>
+<li><strong>contributing.md</strong>: Code of conduct, fork/PR workflow, coding standards (PEP 8)</li>
+<li><strong>architecture.md</strong>: Design principles, folder structure, naming conventions</li>
+<li><strong>testing.md</strong>: pytest setup, fixture examples, coverage targets</li>
+<li><strong>adding-algorithms.md</strong>: Template for new baseline algorithm (with tests)</li>
+<li><strong>adding-benchmarks.md</strong>: Template for new test function (with validation)</li>
+<li><strong>documentation.md</strong>: Docstring format (Google/NumPy style), Sphinx directives</li>
+<li><strong>release-process.md</strong>: Versioning scheme (semver), changelog format, PyPI publication</li>
+</ul>
+<h3 id="changelog-version-history"><strong>changelog/</strong> — Version History</h3>
+<ul>
+<li><strong>impact</strong>: Users deciding whether to upgrade</li>
+<li><strong>v0.1.0.md</strong>: Initial release; features, known issues, thanks</li>
+<li><strong>v0.2.0.md</strong> (template): Planned discrete optimization support</li>
+<li><strong>migration-guide.md</strong>: Breaking changes and upgrade instructions between major versions</li>
+</ul>
+<h3 id="faq-common-questions"><strong>faq/</strong> — Common Questions</h3>
+<ul>
+<li><strong>impact</strong>: Reduces duplicate GitHub issues</li>
+<li><strong>technical-faq.md</strong>: "Which algorithm should I choose?", "Why is my algorithm slow?", "How do I handle NaN?"</li>
+<li><strong>performance-faq.md</strong>: "Can I parallelize?", "Memory requirements?", "Max dimensions?"</li>
+<li><strong>research-faq.md</strong>: "How do I cite evobench?", "Can I publish results?", "What about my proprietary algorithm?"</li>
+</ul>
+<h3 id="assets-visual-and-styling-resources"><strong>assets/</strong> — Visual and Styling Resources</h3>
+<ul>
+<li><strong>architecture.png</strong>: UML or dependency diagram</li>
+<li><strong>workflow.png</strong>: Flowchart showing experiment flow</li>
+<li><strong>custom-style.css</strong>: Brand colors, fonts, responsive design tweaks</li>
+</ul>
+<hr />
+<h2 id="recommended-build-system">Recommended Build System</h2>
+<h3 id="option-1-sphinx-for-academicscientific-projects">Option 1: <strong>Sphinx</strong> (for academic/scientific projects)</h3>
+<pre><code class="language-yaml"># conf.py configuration
+project = 'evobench'
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx_rtd_theme']
+html_theme = 'sphinx_rtd_theme'  # Read the Docs theme
+</code></pre>
+<p><strong>Advantages</strong>: Auto-generated API docs, mature ecosystem, integrates with ReadTheDocs</p>
+<hr />
+<h3 id="option-2-mkdocs-for-modern-faster-documentation">Option 2: <strong>MkDocs</strong> (for modern, faster documentation)</h3>
+<pre><code class="language-yaml"># mkdocs.yml configuration
+site_name: evobench
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: orange
+plugins:
+  - search
+  - mermaid2
+nav:
+  - Home: index.md
+  - Getting Started: getting-started/index.md
+  - Guide: guide/index.md
+  - API Reference: reference/index.md
+  - Examples: examples/index.md
+  - Developer: developer/index.md
+</code></pre>
+<p><strong>Advantages</strong>: Simpler Markdown, Material theme is visually modern, fast build times</p>
+<hr />
+<h2 id="content-ownership-update-frequency">Content Ownership &amp; Update Frequency</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Owner</th>
+<th>Update Frequency</th>
+<th>Automation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getting-started/</td>
+<td>Core team</td>
+<td>Per minor release</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>guide/</td>
+<td>Core + Contributors</td>
+<td>As needed</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>reference/ API docs</td>
+<td>Automated</td>
+<td>Per commit</td>
+<td>Sphinx <code>autodoc</code></td>
+</tr>
+<tr>
+<td>theory/</td>
+<td>Core team</td>
+<td>Per major release</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>examples/</td>
+<td>Community</td>
+<td>Per request</td>
+<td>Manual review</td>
+</tr>
+<tr>
+<td>developer/</td>
+<td>Core team</td>
+<td>Per major release</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>changelog/</td>
+<td>Release manager</td>
+<td>Per version</td>
+<td>Manual</td>
+</tr>
+<tr>
+<td>faq/</td>
+<td>Community</td>
+<td>Continuous</td>
+<td>GitHub issues → FAQ</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="testing-validation-of-documentation">Testing &amp; Validation of Documentation</h2>
+<ol>
+<li><strong>Docstring tests</strong>: <code>pytest --doctest-modules</code> on all <code>.py</code> files</li>
+<li><strong>Code examples</strong>: Run all examples in <code>examples/</code> directory as part of CI/CD</li>
+<li><strong>Link checking</strong>: Use <code>sphinx-linkcheck</code> or <code>markdown-link-check</code></li>
+<li><strong>Build validation</strong>: Ensure Sphinx/MkDocs builds without warnings</li>
+<li><strong>Spell checking</strong>: Use <code>pyspelling</code> or similar tools</li>
+</ol>
+<hr />
+<h2 id="migration-path-existing-documented">Migration Path (Existing → Documented)</h2>
+<p>Once implemented, integrate the theory and examples already present in your codebase:</p>
+<ol>
+<li>Move <code>docs/benchmarks.md</code> → <code>docs/theory/benchmark-functions.md</code></li>
+<li>Convert notebook examples → <code>docs/examples/*.md</code></li>
+<li>Docstrings in source code (base.py, algorithms/) → <code>docs/reference/</code> (auto-generated)</li>
+<li>README.md sections → <code>docs/getting-started/</code> and consolidate</li>
+</ol>
+<hr />
+<p><strong>Notes</strong>:
+- This structure scales from 5KB to 500KB of documentation
+- All links are relative (supports offline building)
+- Supports versioning (multiple language translations in future)
+- Can be deployed to GitHub Pages, ReadTheDocs, or any static host</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

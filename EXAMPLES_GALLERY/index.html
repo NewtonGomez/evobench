@@ -1,0 +1,2404 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Practical examples demonstrating evobench usage patterns">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+        <link rel="prev" href="../getting-started/SETUP_CONFIG/">
+      
+      
+        <link rel="next" href="../theory/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Examples Gallery - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#examples-gallery" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Examples Gallery
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-1-basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Basic Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 1: Basic Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-2-multimodal-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multimodal Comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 2: Multimodal Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-structure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-variations_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-3-custom-algorithm-with-statistical-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Custom Algorithm with Statistical Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 3: Custom Algorithm with Statistical Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-structure_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-variations_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-redirection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Redirection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Reproducibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-independent-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Independent Runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-appropriate-hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Appropriate Hyperparameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-statistical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Statistical Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-problem-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Problem Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-1-basic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 1: Basic Usage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 1: Basic Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-2-multimodal-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 2: Multimodal Comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 2: Multimodal Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-structure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-variations_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-3-custom-algorithm-with-statistical-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 3: Custom Algorithm with Statistical Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example 3: Custom Algorithm with Statistical Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-objectives_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Objectives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-concepts_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-structure_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expected-output_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-variations_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-redirection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Redirection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Reproducibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-independent-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Independent Runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-appropriate-hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Appropriate Hyperparameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-statistical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Statistical Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-problem-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Problem Scaling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="examples-gallery">Examples Gallery</h1>
+<h2 id="overview">Overview</h2>
+<p>This section provides curated examples demonstrating how to use evobench for benchmarking evolutionary algorithms. Each example progressively builds complexity, from simple single-run optimizations to comprehensive comparative studies with statistical analysis.</p>
+<p>All example scripts follow the Facade API pattern, importing directly from the public module interface (e.g., <code>from evobench.benchmarks import sphere</code>) rather than accessing internal implementations.</p>
+<h2 id="accessing-examples">Accessing Examples</h2>
+<p>Complete example scripts are available in the <code>examples/</code> directory of the repository:</p>
+<pre><code class="language-bash">git clone https://github.com/NewtonGomez/evobench.git
+cd evolutionary-benchmarking/examples
+</code></pre>
+<hr />
+<h2 id="example-1-basic-usage">Example 1: Basic Usage</h2>
+<p><strong>File</strong>: <code>basic_usage.py</code></p>
+<h3 id="purpose">Purpose</h3>
+<p>Demonstrates the simplest workflow: single optimization run using one algorithm on one benchmark function.</p>
+<h3 id="learning-objectives">Learning Objectives</h3>
+<ul>
+<li>Import algorithms and benchmark functions</li>
+<li>Create an optimizer instance</li>
+<li>Execute optimization</li>
+<li>Access and interpret results</li>
+</ul>
+<h3 id="key-concepts">Key Concepts</h3>
+<ul>
+<li>Accessing benchmark functions via the Facade API</li>
+<li>Initializing an algorithm with bounds and hyperparameters</li>
+<li>Retrieving best solution and fitness value</li>
+<li>Examining convergence history</li>
+</ul>
+<h3 id="code-structure">Code Structure</h3>
+<pre><code class="language-python">from evobench.benchmarks import sphere
+from evobench.algorithms import PSO
+
+# Configuration
+bounds = [(-5, 5)] * 10
+max_iterations = 200
+population_size = 30
+
+# Algorithm instantiation
+optimizer = PSO(
+    objective_function=sphere,
+    bounds=bounds,
+    population_size=population_size,
+    max_iterations=max_iterations
+)
+
+# Optimization execution
+best_solution, best_fitness = optimizer.run()
+
+# Results interpretation
+print(f&quot;Best Fitness: {best_fitness:.6f}&quot;)
+print(f&quot;Best Solution (first 5 dims): {best_solution[:5]}&quot;)
+print(f&quot;Generations Run: {len(optimizer.fitness_history)}&quot;)
+</code></pre>
+<h3 id="expected-output">Expected Output</h3>
+<pre><code>Best Fitness: 0.001234
+Best Solution (first 5 dims): [-0.02134  0.01456 -0.00856  0.00234 -0.01023]
+Generations Run: 200
+</code></pre>
+<h3 id="common-variations">Common Variations</h3>
+<ul>
+<li><strong>Different Algorithm</strong>: Replace <code>PSO</code> with <code>EDA</code> or <code>ABC</code></li>
+<li><strong>Different Function</strong>: Replace <code>sphere</code> with <code>ackley</code>, <code>rosenbrock</code>, <code>schwefel</code>, or <code>trid</code></li>
+<li><strong>Adjusted Search Space</strong>: Modify bounds and iterations based on function characteristics</li>
+<li><strong>Convergence Visualization</strong>: Plot <code>optimizer.fitness_history</code> to visualize algorithm progression</li>
+</ul>
+<hr />
+<h2 id="example-2-multimodal-comparison">Example 2: Multimodal Comparison</h2>
+<p><strong>File</strong>: <code>multimodal_comparison.py</code></p>
+<h3 id="purpose_1">Purpose</h3>
+<p>Compares the performance of all three implemented algorithms (PSO, EDA, ABC) on multiple benchmark functions, demonstrating systematic comparative evaluation.</p>
+<h3 id="learning-objectives_1">Learning Objectives</h3>
+<ul>
+<li>Evaluate multiple algorithms on the same function</li>
+<li>Compare performance across different benchmark functions</li>
+<li>Conduct independent runs for robust performance estimation</li>
+<li>Use descriptive statistics to summarize results</li>
+</ul>
+<h3 id="key-concepts_1">Key Concepts</h3>
+<ul>
+<li>Systematic algorithm comparison across benchmarks</li>
+<li>Statistical aggregation of results</li>
+<li>Matrix-based results organization</li>
+<li>Generating comparison tables</li>
+</ul>
+<h3 id="code-structure_1">Code Structure</h3>
+<pre><code class="language-python">import numpy as np
+from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import sphere, ackley, rosenbrock
+
+# Algorithm and benchmark definitions
+algorithms = [
+    (&quot;PSO&quot;, PSO),
+    (&quot;EDA&quot;, EDA),
+    (&quot;ABC&quot;, ABC)
+]
+
+benchmarks = [
+    (&quot;sphere&quot;, sphere, [(-5, 5)] * 10),
+    (&quot;ackley&quot;, ackley, [(-32.768, 32.768)] * 10),
+    (&quot;rosenbrock&quot;, rosenbrock, [(-2.048, 2.048)] * 5)
+]
+
+# Comparative evaluation
+results_table = {}
+
+for func_name, func, bounds in benchmarks:
+    results_table[func_name] = {}
+
+    for algo_name, AlgoClass in algorithms:
+        # Multiple independent runs
+        run_results = []
+        for run in range(10):
+            optimizer = AlgoClass(func, bounds, max_iterations=300)
+            _, best_fitness = optimizer.run()
+            run_results.append(best_fitness)
+
+        # Aggregate statistics
+        results_table[func_name][algo_name] = {
+            &quot;mean&quot;: np.mean(run_results),
+            &quot;std&quot;: np.std(run_results),
+            &quot;best&quot;: np.min(run_results),
+            &quot;worst&quot;: np.max(run_results)
+        }
+
+# Display results
+print(&quot;\nMultimodal Comparison Results (10 runs per configuration)\n&quot;)
+for func_name, algo_results in results_table.items():
+    print(f&quot;{func_name.upper()}&quot;)
+    print(&quot;-&quot; * 70)
+    for algo_name, stats in algo_results.items():
+        print(f&quot;  {algo_name:6s} | Mean: {stats['mean']:.6e}  &quot;
+              f&quot;Std: {stats['std']:.6e}  &quot;
+              f&quot;Best: {stats['best']:.6e}&quot;)
+    print()
+</code></pre>
+<h3 id="expected-output_1">Expected Output</h3>
+<pre><code>Multimodal Comparison Results (10 runs per configuration)
+
+SPHERE
+------
+  PSO    | Mean: 1.234567e-03  Std: 2.345678e-04  Best: 8.234567e-04
+  EDA    | Mean: 2.345678e-03  Std: 3.456789e-04  Best: 1.234567e-03
+  ABC    | Mean: 3.456789e-03  Std: 4.567890e-04  Best: 2.345678e-03
+
+ACKLEY
+------
+  PSO    | Mean: 1.234567e-02  Std: 3.456789e-03  Best: 5.234567e-03
+  EDA    | Mean: 8.234567e-03  Std: 2.345678e-03  Best: 3.456789e-03
+  ABC    | Mean: 1.456789e-02  Std: 4.567890e-03  Best: 7.345678e-03
+
+ROSENBROCK
+----------
+  PSO    | Mean: 1.234567e+00  Std: 2.345678e-01  Best: 8.234567e-01
+  EDA    | Mean: 5.234567e-01  Std: 1.345678e-01  Best: 3.123456e-01
+  ABC    | Mean: 2.456789e+00  Std: 5.345678e-01  Best: 1.234567e+00
+</code></pre>
+<h3 id="common-variations_1">Common Variations</h3>
+<ul>
+<li><strong>Independent Runs Variation</strong>: Increase/decrease repetitions per configuration based on computational budget</li>
+<li><strong>Algorithmic Parameters</strong>: Tune <code>population_size</code> and <code>max_iterations</code> per algorithm</li>
+<li><strong>Result Export</strong>: Save results to CSV or JSON for external visualization</li>
+<li><strong>Batch Processing</strong>: Parallelize runs using <code>multiprocessing</code> or <code>concurrent.futures</code></li>
+</ul>
+<hr />
+<h2 id="example-3-custom-algorithm-with-statistical-testing">Example 3: Custom Algorithm with Statistical Testing</h2>
+<p><strong>File</strong>: <code>custom_algorithm.py</code></p>
+<h3 id="purpose_2">Purpose</h3>
+<p>Demonstrates how to implement a custom optimization algorithm by extending the <code>EvolutionaryAlgorithm</code> base class, then compare it statistically against baseline implementations.</p>
+<h3 id="learning-objectives_2">Learning Objectives</h3>
+<ul>
+<li>Understand the <code>EvolutionaryAlgorithm</code> contract</li>
+<li>Implement algorithm-specific logic through the <code>run()</code> method</li>
+<li>Conduct rigorous statistical hypothesis testing</li>
+<li>Generate and interpret statistical reports</li>
+</ul>
+<h3 id="key-concepts_2">Key Concepts</h3>
+<ul>
+<li>Algorithm inheritance and polymorphism</li>
+<li>State management during optimization</li>
+<li>Fitness history tracking</li>
+<li>Integration with evobench's statistical tools</li>
+<li>Interpretation of statistical test results</li>
+</ul>
+<h3 id="code-structure_2">Code Structure</h3>
+<pre><code class="language-python">import numpy as np
+from evobench.base import EvolutionaryAlgorithm
+from evobench.benchmarks import sphere, ackley
+from evobench.stats import analyze, stat_report
+
+# Custom algorithm: Random Search (baseline for comparison)
+class RandomSearch(EvolutionaryAlgorithm):
+    &quot;&quot;&quot;
+    Simple random search baseline for demonstrating custom algorithm implementation.
+    &quot;&quot;&quot;
+
+    def run(self):
+        &quot;&quot;&quot;Execute random search for max_iterations evaluations.&quot;&quot;&quot;
+        self.best_individual = None
+        self.best_fitness = float('inf')
+        self.fitness_history = []
+
+        lower_bounds = self.bounds[:, 0]
+        upper_bounds = self.bounds[:, 1]
+
+        for iteration in range(self.max_iterations):
+            # Generate random population
+            population = np.random.uniform(
+                low=lower_bounds,
+                high=upper_bounds,
+                size=(self.population_size, self.dimension)
+            )
+
+            # Evaluate fitness
+            fitness_values = np.array([
+                self.objective_function(individual) 
+                for individual in population
+            ])
+
+            # Update best if improved
+            best_in_generation = np.min(fitness_values)
+            if best_in_generation &lt; self.best_fitness:
+                self.best_fitness = best_in_generation
+                self.best_individual = population[np.argmin(fitness_values)]
+
+            self.fitness_history.append(self.best_fitness)
+
+        return self.best_individual, self.best_fitness
+
+
+# Comparative evaluation with statistical testing
+def run_comparative_study():
+    &quot;&quot;&quot;Execute comparative study and perform statistical analysis.&quot;&quot;&quot;
+
+    from evobench.algorithms import PSO, EDA, ABC
+
+    # Configuration
+    bounds = [(-5, 5)] * 10
+    num_runs = 30
+
+    algorithms = [
+        (&quot;PSO&quot;, PSO),
+        (&quot;EDA&quot;, EDA),
+        (&quot;ABC&quot;, ABC),
+        (&quot;RandomSearch&quot;, RandomSearch)
+    ]
+
+    # Test on sphere function
+    results_list = []
+    algo_names = []
+
+    print(&quot;Running 30 independent trials per algorithm on sphere function...&quot;)
+
+    for algo_name, AlgoClass in algorithms:
+        print(f&quot;  Optimizing with {algo_name}...&quot;, end=&quot; &quot;, flush=True)
+
+        results = []
+        for _ in range(num_runs):
+            optimizer = AlgoClass(sphere, bounds, max_iterations=500)
+            _, best_fitness = optimizer.run()
+            results.append(best_fitness)
+
+        results_list.append(results)
+        algo_names.append(algo_name)
+        print(&quot;✓&quot;)
+
+    # Statistical analysis
+    analysis = analyze(
+        func_name=&quot;sphere&quot;,
+        result_list=results_list,
+        algorithm_names=algo_names,
+        alpha=0.05
+    )
+
+    # Display results
+    print(&quot;\n&quot; + &quot;=&quot; * 70)
+    print(stat_report(analysis))
+    print(&quot;=&quot; * 70)
+
+    # Detailed interpretation
+    print(&quot;\nDetailed Results per Algorithm:&quot;)
+    for algo_name, stats in analysis['stats'].items():
+        print(f&quot;\n{algo_name}:&quot;)
+        print(f&quot;  Mean Fitness:      {stats['mean']:.6e}&quot;)
+        print(f&quot;  Std Dev:           {stats['std']:.6e}&quot;)
+        print(f&quot;  Best Found:        {stats['best']:.6e}&quot;)
+
+    print(f&quot;\nStatistical Test Used: {analysis['test_used']}&quot;)
+    print(f&quot;Hypothesis Test Result: p-value = {analysis['p_val']:.6e}&quot;)
+    if analysis['significant']:
+        print(&quot;Conclusion: There are statistically significant differences &quot;
+              &quot;in algorithm performance.&quot;)
+    else:
+        print(&quot;Conclusion: No statistically significant differences detected.&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    run_comparative_study()
+</code></pre>
+<h3 id="expected-output_2">Expected Output</h3>
+<pre><code>Running 30 independent trials per algorithm on sphere function...
+  Optimizing with PSO... ✓
+  Optimizing with EDA... ✓
+  Optimizing with ABC... ✓
+  Optimizing with RandomSearch... ✓
+
+======================================================================
+STATISTICAL ANALYSIS REPORT
+Function: sphere
+======================================================================
+
+Descriptive Statistics:
+  PSO           - Mean: 1.234567e-04  Std: 3.456789e-05  Best: 5.234567e-05
+  EDA           - Mean: 8.234567e-05  Std: 2.345678e-05  Best: 2.123456e-05
+  ABC           - Mean: 1.456789e-04  Std: 4.567890e-05  Best: 7.234567e-05
+  RandomSearch  - Mean: 2.345678e+01  Std: 1.234567e+01  Best: 5.234567e+00
+
+Hypothesis Test:
+  Test Used: Kruskal-Wallis
+  Statistic: H = 89.3421
+  p-value: 0.000001
+  Significant: Yes (α = 0.05)
+
+Conclusion:
+  There are statistically significant differences in performance.
+======================================================================
+
+Detailed Results per Algorithm:
+
+PSO:
+  Mean Fitness:      1.234567e-04
+  Std Dev:           3.456789e-05
+  Best Found:        5.234567e-05
+
+EDA:
+  Mean Fitness:      8.234567e-05
+  Std Dev:           2.345678e-05
+  Best Found:        2.123456e-05
+
+ABC:
+  Mean Fitness:      1.456789e-04
+  Std Dev:           4.567890e-05
+  Best Found:        7.234567e-05
+
+RandomSearch:
+  Mean Fitness:      2.345678e+01
+  Std Dev:           1.234567e+01
+  Best Found:        5.234567e+00
+
+Statistical Test Used: Kruskal-Wallis
+Hypothesis Test Result: p-value = 0.000001
+Conclusion: There are statistically significant differences in algorithm performance.
+</code></pre>
+<h3 id="common-variations_2">Common Variations</h3>
+<ul>
+<li><strong>Algorithm Modifications</strong>: Implement crossover operators, mutation strategies, or novel selection mechanisms</li>
+<li><strong>Hyperparameter Tuning</strong>: Systematically vary <code>population_size</code> and <code>max_iterations</code></li>
+<li><strong>Algorithm Portfolio</strong>: Compare multiple custom variants</li>
+<li><strong>Convergence Analysis</strong>: Plot fitness history curves to visualize algorithm behavior over time</li>
+<li><strong>Parallel Execution</strong>: Use <code>concurrent.futures</code> to parallelize independent runs</li>
+</ul>
+<hr />
+<h2 id="running-examples">Running Examples</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<pre><code class="language-bash"># Install evobench
+pip install evobench-lib
+
+# Or, for development installation
+git clone https://github.com/NewtonGomez/evobench.git
+cd evolutionary-benchmarking
+pip install -e .
+</code></pre>
+<h3 id="execution">Execution</h3>
+<pre><code class="language-bash"># Run individual example
+python examples/basic_usage.py
+
+# Run multimodal comparison
+python examples/multimodal_comparison.py
+
+# Run custom algorithm study
+python examples/custom_algorithm.py
+</code></pre>
+<h3 id="output-redirection">Output Redirection</h3>
+<p>Save results to files for later analysis:</p>
+<pre><code class="language-bash">python examples/multimodal_comparison.py &gt; results.txt 2&gt;&amp;1
+</code></pre>
+<hr />
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="1-reproducibility">1. Reproducibility</h3>
+<p>Always set random seeds for reproducible results:</p>
+<pre><code class="language-python">import numpy as np
+np.random.seed(42)
+</code></pre>
+<h3 id="2-independent-runs">2. Independent Runs</h3>
+<p>Conduct at least 25–30 independent runs per configuration to enable statistical testing:</p>
+<pre><code class="language-python">num_runs = 30
+results = [AlgoClass(benchmark, bounds).run()[1] for _ in range(num_runs)]
+</code></pre>
+<h3 id="3-appropriate-hyperparameters">3. Appropriate Hyperparameters</h3>
+<p>Match hyperparameters to problem difficulty:</p>
+<pre><code class="language-python"># Easy problems (e.g., Sphere)
+easy_config = {&quot;population_size&quot;: 30, &quot;max_iterations&quot;: 100}
+
+# Hard problems (e.g., Ackley, Rosenbrock)
+hard_config = {&quot;population_size&quot;: 50, &quot;max_iterations&quot;: 500}
+</code></pre>
+<h3 id="4-statistical-validation">4. Statistical Validation</h3>
+<p>Always apply statistical testing for comparative studies:</p>
+<pre><code class="language-python">from evobench.stats import analyze, stat_report
+
+analysis = analyze(&quot;sphere&quot;, results_list, algo_names)
+print(stat_report(analysis))
+</code></pre>
+<h3 id="5-problem-scaling">5. Problem Scaling</h3>
+<p>Test algorithms across multiple dimensions:</p>
+<pre><code class="language-python">for dim in [2, 5, 10, 20, 50]:
+    bounds = [(-5, 5)] * dim
+    optimizer = PSO(sphere, bounds)
+    _, best_fit = optimizer.run()
+</code></pre>
+<hr />
+<h2 id="further-resources">Further Resources</h2>
+<ul>
+<li><strong>Full API Reference</strong>: See <a href="API_REFERENCE.md">API Reference</a></li>
+<li><strong>Statistical Theory</strong>: See <a href="THEORY_AND_STATS.md">Statistical Theory and Analysis</a></li>
+<li><strong>Repository</strong>: https://github.com/NewtonGomez/evobench</li>
+<li><strong>Documentation</strong>: https://evobench.readthedocs.io/</li>
+</ul>
+<hr />
+<h2 id="contributing-examples">Contributing Examples</h2>
+<p>Have a great example? Contribute it to the repository!</p>
+<ol>
+<li>Place your script in <code>examples/</code></li>
+<li>Add comprehensive docstrings</li>
+<li>Include inline comments explaining key concepts</li>
+<li>Submit a pull request</li>
+</ol>
+<p>See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

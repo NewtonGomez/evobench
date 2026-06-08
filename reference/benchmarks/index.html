@@ -1,0 +1,3001 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+        <link rel="prev" href="../base/">
+      
+      
+        <link rel="next" href="../algorithms/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Benchmarks API - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#benchmark-functions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Benchmarks API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sphere-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sphere Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sphere Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rosenbrock-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rosenbrock Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rosenbrock Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ackley-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ackley Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ackley Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landscape-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schwefel-12-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schwefel 1.2 Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Schwefel 1.2 Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-interdependence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable Interdependence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trid-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trid Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trid Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-optimum-dimension-dependent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Optimum (Dimension-Dependent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-optimal-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Optimal Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landscape-features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparative-difficulty-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparative Difficulty Ranking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparative Difficulty Ranking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-evaluation-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Evaluation Sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selection-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Selection Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choose-sphere-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Sphere When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-rosenbrock-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Rosenbrock When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-ackley-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Ackley When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-schwefel-12-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Schwefel 1.2 When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-trid-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Trid When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-complete-benchmark-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Complete Benchmark Suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Registry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Benchmark Registry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sphere-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sphere Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sphere Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rosenbrock-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rosenbrock Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rosenbrock Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ackley-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ackley Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ackley Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landscape-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schwefel-12-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schwefel 1.2 Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Schwefel 1.2 Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variable-interdependence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variable Interdependence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trid-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trid Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trid Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-definition_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-optimum-dimension-dependent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Optimum (Dimension-Dependent)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-optimal-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Optimal Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landscape-features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-qualities_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Qualities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparative-difficulty-ranking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparative Difficulty Ranking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comparative Difficulty Ranking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-evaluation-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Evaluation Sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selection-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection Guide
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Selection Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choose-sphere-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Sphere When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-rosenbrock-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Rosenbrock When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-ackley-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Ackley When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-schwefel-12-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Schwefel 1.2 When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-trid-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose Trid When:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-complete-benchmark-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Complete Benchmark Suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="benchmark-functions">Benchmark Functions</h1>
+<h2 id="overview">Overview</h2>
+<p><strong>Benchmark functions</strong> are standardized test problems used to evaluate evolutionary algorithm performance. Each function has:</p>
+<ul>
+<li><strong>Known mathematical properties</strong>: Documented global optimum and landscape characteristics</li>
+<li><strong>Scalable dimensionality</strong>: Can be evaluated in different problem dimensions</li>
+<li><strong>Diverse behaviors</strong>: Range from simple convex to complex multimodal landscapes</li>
+</ul>
+<p>The five functions in evobench represent different optimization problem classes, enabling comprehensive algorithm evaluation across varying difficulty levels and landscape topologies.</p>
+<p><strong>Location</strong>: <code>evobench.benchmarks</code></p>
+<p><strong>Import Format</strong>: <code>from evobench.benchmarks import sphere, rosenbrock, ackley, schwefel, trid</code></p>
+<hr />
+<h2 id="benchmark-registry">Benchmark Registry</h2>
+<p>All benchmark functions are accessible through the centralized <code>BENCHMARK_REGISTRY</code>:</p>
+<pre><code class="language-python">from evobench.benchmarks import BENCHMARK_REGISTRY, get_benchmark
+
+# Direct access
+sphere_func = BENCHMARK_REGISTRY[&quot;sphere&quot;]
+
+# Programmatic access
+ackley_func = get_benchmark(&quot;ackley&quot;)
+</code></pre>
+<h3 id="supported-identifiers">Supported Identifiers</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Function</th>
+<th>Dimensionality</th>
+<th>Optimum</th>
+<th>Difficulty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"sphere"</code></td>
+<td>Sphere</td>
+<td>Any</td>
+<td>0.0</td>
+<td>Very Low</td>
+</tr>
+<tr>
+<td><code>"rosenbrock"</code></td>
+<td>Rosenbrock</td>
+<td>Any</td>
+<td>0.0</td>
+<td>Medium-High</td>
+</tr>
+<tr>
+<td><code>"ackley"</code></td>
+<td>Ackley</td>
+<td>Any</td>
+<td>0.0</td>
+<td>High</td>
+</tr>
+<tr>
+<td><code>"schwefel"</code></td>
+<td>Schwefel 1.2</td>
+<td>Any</td>
+<td>0.0</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><code>"trid"</code></td>
+<td>Trid</td>
+<td>Any</td>
+<td>Varies</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sphere-function">Sphere Function</h2>
+<h3 id="mathematical-definition">Mathematical Definition</h3>
+<div class="arithmatex">\[F(\mathbf{x}) = \sum_{i=1}^{d} x_i^2\]</div>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search Domain</strong></td>
+<td><span class="arithmatex">\([-5.12, 5.12]^d\)</span> (typical)</td>
+</tr>
+<tr>
+<td><strong>Global Optimum</strong></td>
+<td><span class="arithmatex">\(\mathbf{x}^* = (0, 0, \ldots, 0)\)</span></td>
+</tr>
+<tr>
+<td><strong>Optimum Value</strong></td>
+<td><span class="arithmatex">\(F(\mathbf{x}^*) = 0\)</span></td>
+</tr>
+<tr>
+<td><strong>Separability</strong></td>
+<td><strong>Fully separable</strong> (each dimension independent)</td>
+</tr>
+<tr>
+<td><strong>Modality</strong></td>
+<td><strong>Unimodal</strong> (single global minimum)</td>
+</tr>
+<tr>
+<td><strong>Convexity</strong></td>
+<td><strong>Strictly convex</strong> (quadratic)</td>
+</tr>
+<tr>
+<td><strong>Gradients</strong></td>
+<td>Everywhere smooth and informative</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage">Usage</h3>
+<pre><code class="language-python">from evobench.benchmarks import sphere
+
+# Direct call
+fitness = sphere(x)  # x is np.ndarray of shape (d,)
+
+# In an optimizer
+from evobench.algorithms import PSO
+
+bounds = [(-5.12, 5.12)] * 10
+optimizer = PSO(sphere, bounds)
+best_solution, best_fitness = optimizer.run()
+</code></pre>
+<h3 id="benchmark-qualities">Benchmark Qualities</h3>
+<ul>
+<li><strong>Simplest test function</strong>: Validates basic algorithm correctness</li>
+<li><strong>No local minima</strong>: Measures pure convergence speed</li>
+<li><strong>Fully separable</strong>: Each dimension can be optimized independently</li>
+<li><strong>Ideal baseline</strong>: Compare performance across algorithms on trivial problem</li>
+<li><strong>Expected convergence</strong>: All algorithms should reach <span class="arithmatex">\(F &lt; 10^{-4}\)</span> easily</li>
+</ul>
+<h3 id="when-to-use">When to Use</h3>
+<ul>
+<li>✓ Debugging algorithm implementation</li>
+<li>✓ Quick performance baseline</li>
+<li>✓ Validating that optimization loop works correctly</li>
+<li>✓ Measuring CPU time on simple problem</li>
+</ul>
+<hr />
+<h2 id="rosenbrock-function">Rosenbrock Function</h2>
+<h3 id="mathematical-definition_1">Mathematical Definition</h3>
+<div class="arithmatex">\[F(\mathbf{x}) = \sum_{i=1}^{d-1} \left[ 100(x_{i+1} - x_i^2)^2 + (1 - x_i)^2 \right]\]</div>
+<h3 id="properties_1">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search Domain</strong></td>
+<td><span class="arithmatex">\([-10, 10]^d\)</span> (typical)</td>
+</tr>
+<tr>
+<td><strong>Global Optimum</strong></td>
+<td><span class="arithmatex">\(\mathbf{x}^* = (1, 1, \ldots, 1)\)</span></td>
+</tr>
+<tr>
+<td><strong>Optimum Value</strong></td>
+<td><span class="arithmatex">\(F(\mathbf{x}^*) = 0\)</span></td>
+</tr>
+<tr>
+<td><strong>Separability</strong></td>
+<td><strong>Completely non-separable</strong> (all variables interact)</td>
+</tr>
+<tr>
+<td><strong>Modality</strong></td>
+<td><strong>Unimodal</strong> (single global minimum, no local optima)</td>
+</tr>
+<tr>
+<td><strong>Convexity</strong></td>
+<td><strong>Non-convex</strong> (variable curvature, narrow valley)</td>
+</tr>
+<tr>
+<td><strong>Structure</strong></td>
+<td>Optimal solution lies in a parabolic valley</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage_1">Usage</h3>
+<pre><code class="language-python">from evobench.benchmarks import rosenbrock
+
+# Direct call
+fitness = rosenbrock(x)
+
+# In optimizer
+from evobench.algorithms import EDA
+
+bounds = [(-2.048, 2.048)] * 5
+optimizer = EDA(rosenbrock, bounds, max_iterations=150)
+best_solution, best_fitness = optimizer.run()
+</code></pre>
+<h3 id="mathematical-properties">Mathematical Properties</h3>
+<p>The difficulty arises from the <em>parabolic valley</em>:</p>
+<ol>
+<li>The valley is easy to find: <span class="arithmatex">\(x_i \approx x_{i-1}^2\)</span></li>
+<li><strong>Convergence within the valley is hard</strong>: Small changes in early dimensions cause large changes in later ones</li>
+</ol>
+<p>For example, with <span class="arithmatex">\(d=2\)</span>:</p>
+<div class="arithmatex">\[F(x_1, x_2) = 100(x_2 - x_1^2)^2 + (1 - x_1)^2\]</div>
+<p>The contours form a narrow, curved channel that gradient-based and simple metaheuristics struggle to navigate efficiently.</p>
+<h3 id="benchmark-qualities_1">Benchmark Qualities</h3>
+<ul>
+<li><strong>Tests efficiency in non-convex spaces</strong>: Can algorithms navigate valley?</li>
+<li><strong>Detects premature convergence</strong>: Poor algorithms converge to suboptimal points in the valley</li>
+<li><strong>Variable coupling</strong>: Suboptimal early dimensions (close to 1) are needed</li>
+<li><strong>Exploitation challenge</strong>: Finding valley is easy; exploiting it requires fine control</li>
+</ul>
+<h3 id="when-to-use_1">When to Use</h3>
+<ul>
+<li>✓ Evaluating refinement ability and exploitation</li>
+<li>✓ Testing convergence in non-convex landscapes</li>
+<li>✓ Assessing efficiency on intermediate-difficulty problems</li>
+<li>✓ Comparing optimization speed in narrow regions</li>
+</ul>
+<hr />
+<h2 id="ackley-function">Ackley Function</h2>
+<h3 id="mathematical-definition_2">Mathematical Definition</h3>
+<div class="arithmatex">\[F(\mathbf{x}) = -20 \exp\left(-0.2\sqrt{\frac{1}{d}\sum_{i=1}^{d} x_i^2}\right) - \exp\left(\frac{1}{d}\sum_{i=1}^{d} \cos(2\pi x_i)\right) + 20 + e\]</div>
+<p>where <span class="arithmatex">\(e\)</span> is Euler's number (<span class="arithmatex">\(\approx 2.71828\)</span>).</p>
+<h3 id="properties_2">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search Domain</strong></td>
+<td><span class="arithmatex">\([-32.768, 32.768]^d\)</span> (typical)</td>
+</tr>
+<tr>
+<td><strong>Global Optimum</strong></td>
+<td><span class="arithmatex">\(\mathbf{x}^* = (0, 0, \ldots, 0)\)</span></td>
+</tr>
+<tr>
+<td><strong>Optimum Value</strong></td>
+<td><span class="arithmatex">\(F(\mathbf{x}^*) = 0\)</span></td>
+</tr>
+<tr>
+<td><strong>Separability</strong></td>
+<td><strong>Weakly non-separable</strong> (variables interact via norms)</td>
+</tr>
+<tr>
+<td><strong>Modality</strong></td>
+<td><strong>Highly multimodal</strong> (<span class="arithmatex">\(\approx 2^d\)</span> local minima)</td>
+</tr>
+<tr>
+<td><strong>Landscape Structure</strong></td>
+<td>Flat exterior, many shallow local minima, deep hole at center</td>
+</tr>
+<tr>
+<td><strong>Local Minima Count</strong></td>
+<td>Exponential in dimension (<span class="arithmatex">\(2^d\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage_2">Usage</h3>
+<pre><code class="language-python">from evobench.benchmarks import ackley
+
+# Direct call
+fitness = ackley(x)
+
+# In optimizer (multimodal benchmark)
+from evobench.algorithms import ABC
+
+bounds = [(-32.768, 32.768)] * 8
+optimizer = ABC(ackley, bounds, max_iterations=500)
+best_solution, best_fitness = optimizer.run()
+</code></pre>
+<h3 id="landscape-features">Landscape Features</h3>
+<p>The Ackley function exhibits unique characteristics:</p>
+<ol>
+<li><strong>Flat exterior regions</strong>: The first exponential term dominates far from origin, creating featureless plateaus</li>
+<li><strong>Many local minima</strong>: The cosine term creates shallow wells throughout the space</li>
+<li><strong>Global minimum at center</strong>: A deep "hole" exists at the origin (0, 0, ..., 0)</li>
+<li><strong>Deceptive structure</strong>: Gradients in flat regions are nearly zero, misleading gradient-based methods</li>
+</ol>
+<h3 id="benchmark-qualities_2">Benchmark Qualities</h3>
+<ul>
+<li><strong>Tests global exploration</strong>: Can algorithms escape flat regions and find the center?</li>
+<li><strong>Detects local optimum entrapment</strong>: Poor exploration algorithms get stuck in shallow wells</li>
+<li><strong>Multimodal challenge</strong>: Population diversity is critical</li>
+<li><strong>Non-informative gradients</strong>: Gradient-based methods perform poorly</li>
+</ul>
+<h3 id="when-to-use_2">When to Use</h3>
+<ul>
+<li>✓ Evaluating global exploration ability</li>
+<li>✓ Testing multimodal landscape performance</li>
+<li>✓ Assessing population diversity maintenance</li>
+<li>✓ Benchmarking on hard problems (high difficulty)</li>
+</ul>
+<hr />
+<h2 id="schwefel-12-function">Schwefel 1.2 Function</h2>
+<h3 id="mathematical-definition_3">Mathematical Definition</h3>
+<div class="arithmatex">\[F(\mathbf{x}) = \sum_{i=1}^{d} \left(\sum_{j=1}^{i} x_j\right)^2\]</div>
+<h3 id="properties_3">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search Domain</strong></td>
+<td><span class="arithmatex">\([-40, 60]^d\)</span> (typical, asymmetric)</td>
+</tr>
+<tr>
+<td><strong>Global Optimum</strong></td>
+<td><span class="arithmatex">\(\mathbf{x}^* = (0, 0, \ldots, 0)\)</span></td>
+</tr>
+<tr>
+<td><strong>Optimum Value</strong></td>
+<td><span class="arithmatex">\(F(\mathbf{x}^*) = 0\)</span></td>
+</tr>
+<tr>
+<td><strong>Separability</strong></td>
+<td><strong>Completely non-separable</strong> (total variable coupling)</td>
+</tr>
+<tr>
+<td><strong>Modality</strong></td>
+<td><strong>Unimodal</strong> (no local minima)</td>
+</tr>
+<tr>
+<td><strong>Convexity</strong></td>
+<td><strong>Convex</strong> (quadratic structure)</td>
+</tr>
+<tr>
+<td><strong>Variable Coupling</strong></td>
+<td><strong>Total</strong> (every variable depends on all previous ones)</td>
+</tr>
+<tr>
+<td><strong>Conditioning</strong></td>
+<td><strong>Ill-conditioned</strong> (high Hessian eigenvalue ratio)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage_3">Usage</h3>
+<pre><code class="language-python">from evobench.benchmarks import schwefel
+
+# Direct call
+fitness = schwefel(x)
+
+# In optimizer
+from evobench.algorithms import EDA
+
+bounds = [(-100, 100)] * 10
+optimizer = EDA(schwefel, bounds)
+best_solution, best_fitness = optimizer.run()
+</code></pre>
+<h3 id="variable-interdependence">Variable Interdependence</h3>
+<p>The sum structure creates <strong>total interdependence</strong>:</p>
+<div class="arithmatex">\[F = x_1^2 + (x_1 + x_2)^2 + (x_1 + x_2 + x_3)^2 + \cdots\]</div>
+<p>Changing dimension 1 affects all subsequent terms. Variables <strong>cannot be optimized independently</strong>. This structure tests:</p>
+<ul>
+<li>Ability to discover and exploit variable correlations</li>
+<li>Handling of highly-coupled optimization problems</li>
+<li>Convergence on ill-conditioned (difficult conditioning number) problems</li>
+</ul>
+<h3 id="benchmark-qualities_3">Benchmark Qualities</h3>
+<ul>
+<li><strong>Tests correlation detection</strong>: Can algorithms identify variable dependencies?</li>
+<li><strong>Coupling challenge</strong>: Changing one variable affects many terms</li>
+<li><strong>Ill-conditioning</strong>: High Hessian eigenvalue ratio slows gradient-based methods</li>
+<li><strong>Structure preservation</strong>: Population diversity helps maintain search structure</li>
+</ul>
+<h3 id="when-to-use_3">When to Use</h3>
+<ul>
+<li>✓ Evaluating performance on fully-coupled problems</li>
+<li>✓ Testing handling of variable correlations</li>
+<li>✓ Assessing convergence on ill-conditioned problems</li>
+<li>✓ Comparing algorithms on intermediate-difficulty benchmarks</li>
+</ul>
+<hr />
+<h2 id="trid-function">Trid Function</h2>
+<h3 id="mathematical-definition_4">Mathematical Definition</h3>
+<div class="arithmatex">\[F(\mathbf{x}) = \sum_{i=1}^{d} (x_i - i)^2 - \sum_{i=2}^{d} x_i \cdot x_{i-1}\]</div>
+<h3 id="global-optimum-dimension-dependent">Global Optimum (Dimension-Dependent)</h3>
+<div class="arithmatex">\[x_i^* = i(d + 1 - i) \quad \text{for } i = 1, 2, \ldots, d\]</div>
+<div class="arithmatex">\[F(\mathbf{x}^*) = -\frac{d(d+4)(d-1)}{6}\]</div>
+<h3 id="example-optimal-values">Example Optimal Values</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Optimal Solution</th>
+<th><span class="arithmatex">\(F(\mathbf{x}^*)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td><span class="arithmatex">\((2, 2)\)</span></td>
+<td><span class="arithmatex">\(-4\)</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="arithmatex">\((3, 4, 3)\)</span></td>
+<td><span class="arithmatex">\(-12\)</span></td>
+</tr>
+<tr>
+<td>5</td>
+<td><span class="arithmatex">\((5, 8, 9, 8, 5)\)</span></td>
+<td><span class="arithmatex">\(-50\)</span></td>
+</tr>
+<tr>
+<td>10</td>
+<td><span class="arithmatex">\((10, 18, 24, 28, 30, 30, 28, 24, 18, 10)\)</span></td>
+<td><span class="arithmatex">\(-440\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="properties_4">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Search Domain</strong></td>
+<td><span class="arithmatex">\([-d^2, d^2]^d\)</span> (dimension-dependent)</td>
+</tr>
+<tr>
+<td><strong>Global Optimum</strong></td>
+<td>Dimension-dependent formula above</td>
+</tr>
+<tr>
+<td><strong>Optimum Value</strong></td>
+<td>Negative (decreases with dimension)</td>
+</tr>
+<tr>
+<td><strong>Separability</strong></td>
+<td><strong>Completely non-separable</strong> (all variables interact)</td>
+</tr>
+<tr>
+<td><strong>Modality</strong></td>
+<td><strong>Unimodal</strong> (no local minima)</td>
+</tr>
+<tr>
+<td><strong>Convexity</strong></td>
+<td><strong>Non-convex</strong> (variable curvature)</td>
+</tr>
+<tr>
+<td><strong>Gradient Reliability</strong></td>
+<td>Misleading (gradients don't guide well)</td>
+</tr>
+<tr>
+<td><strong>Structure</strong></td>
+<td>Highly interdependent, symmetric optimum</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage_4">Usage</h3>
+<pre><code class="language-python">from evobench.benchmarks import trid
+
+# Direct call (optimum dimension-dependent)
+fitness = trid(x)
+
+# In optimizer
+from evobench.algorithms import EDA
+
+bounds = [(-100, 100)] * 10
+optimizer = EDA(trid, bounds, max_iterations=300)
+best_solution, best_fitness = optimizer.run()
+</code></pre>
+<h3 id="landscape-features_1">Landscape Features</h3>
+<p>Trid presents a unique challenge:</p>
+<ol>
+<li><strong>No local minima</strong>: The landscape is unimodal in structure</li>
+<li><strong>Complex topology</strong>: Multiple coupled terms create non-obvious pathways to optimum</li>
+<li><strong>Symmetric optimum</strong>: Solution values follow a symmetric pattern</li>
+<li><strong>Interdependence</strong>: Each variable couples with its neighbors</li>
+<li><strong>Misleading gradients</strong>: Steepest descent directions don't lead to global optimum</li>
+</ol>
+<h3 id="benchmark-qualities_4">Benchmark Qualities</h3>
+<ul>
+<li><strong>Tests correlation exploitation</strong>: Algorithm must discover optimal variable relationships</li>
+<li><strong>No local trap guarantee</strong>: Useful for testing robust convergence</li>
+<li><strong>Dimension-dependent difficulty</strong>: Increases with problem size</li>
+<li><strong>Deceptive geometry</strong>: Structure optimization, not gradient descent</li>
+</ul>
+<h3 id="when-to-use_4">When to Use</h3>
+<ul>
+<li>✓ Evaluating exploitation of variable structure</li>
+<li>✓ Testing on dimension-dependent problems</li>
+<li>✓ Assessing convergence on non-convex interdependent landscapes</li>
+<li>✓ Benchmarking difficult problems (high difficulty)</li>
+</ul>
+<hr />
+<h2 id="comparative-difficulty-ranking">Comparative Difficulty Ranking</h2>
+<h3 id="summary-table">Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Separability</th>
+<th>Modality</th>
+<th>Convexity</th>
+<th>Difficulty</th>
+<th>Coupling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sphere</strong></td>
+<td>✓ Separable</td>
+<td>Unimodal</td>
+<td>Convex</td>
+<td><strong>Very Low</strong></td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Rosenbrock</strong></td>
+<td>✗ Non-sep</td>
+<td>Unimodal</td>
+<td>Non-convex</td>
+<td><strong>Medium-High</strong></td>
+<td>Pairwise</td>
+</tr>
+<tr>
+<td><strong>Ackley</strong></td>
+<td>✗ Non-sep</td>
+<td><strong>Multimodal</strong></td>
+<td>Non-convex</td>
+<td><strong>High</strong></td>
+<td>Low</td>
+</tr>
+<tr>
+<td><strong>Schwefel 1.2</strong></td>
+<td>✗ Non-sep</td>
+<td>Unimodal</td>
+<td>Convex</td>
+<td><strong>Medium</strong></td>
+<td><strong>Total</strong></td>
+</tr>
+<tr>
+<td><strong>Trid</strong></td>
+<td>✗ Non-sep</td>
+<td>Unimodal</td>
+<td>Non-convex</td>
+<td><strong>High</strong></td>
+<td><strong>Total</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommended-evaluation-sequence">Recommended Evaluation Sequence</h3>
+<p>Progress from simple to complex:</p>
+<ol>
+<li><strong>Sphere</strong>: Baseline validation (very low difficulty)</li>
+<li><strong>Rosenbrock</strong>: Valley navigation (medium-high difficulty)</li>
+<li><strong>Ackley</strong>: Global exploration (high difficulty, multimodal)</li>
+<li><strong>Schwefel 1.2</strong>: Variable coupling (medium difficulty, total coupling)</li>
+<li><strong>Trid</strong>: Structure exploitation (high difficulty, symmetric optimum)</li>
+</ol>
+<hr />
+<h2 id="selection-guide">Selection Guide</h2>
+<h3 id="choose-sphere-when">Choose Sphere When:</h3>
+<ul>
+<li>✓ Validating algorithm implementation correctness</li>
+<li>✓ Measuring baseline convergence speed</li>
+<li>✓ Quick algorithm testing (low computational cost)</li>
+</ul>
+<h3 id="choose-rosenbrock-when">Choose Rosenbrock When:</h3>
+<ul>
+<li>✓ Testing refinement in non-convex spaces</li>
+<li>✓ Evaluating exploitation in narrow regions</li>
+<li>✓ Intermediate-difficulty benchmark needed</li>
+</ul>
+<h3 id="choose-ackley-when">Choose Ackley When:</h3>
+<ul>
+<li>✓ Testing global exploration capability</li>
+<li>✓ Evaluating multimodal landscape performance</li>
+<li>✓ Benchmarking robustness on hard problems</li>
+</ul>
+<h3 id="choose-schwefel-12-when">Choose Schwefel 1.2 When:</h3>
+<ul>
+<li>✓ Testing variable coupling detection</li>
+<li>✓ Evaluating performance on fully-coupled problems</li>
+<li>✓ Assessing ill-conditioning handling</li>
+</ul>
+<h3 id="choose-trid-when">Choose Trid When:</h3>
+<ul>
+<li>✓ Testing exploitation of problem structure</li>
+<li>✓ Evaluating dimension-dependent difficulty</li>
+<li>✓ Benchmarking on highly complex landscapes</li>
+</ul>
+<hr />
+<h2 id="example-complete-benchmark-suite">Example: Complete Benchmark Suite</h2>
+<pre><code class="language-python">import numpy as np
+from evobench.benchmarks import sphere, rosenbrock, ackley, schwefel, trid, BENCHMARK_REGISTRY
+from evobench.algorithms import PSO, EDA, ABC
+
+# Problem definitions
+problems = {
+    'sphere': {
+        'func': sphere,
+        'bounds': [(-5.12, 5.12)] * 10,
+        'difficulty': 'Very Low'
+    },
+    'rosenbrock': {
+        'func': rosenbrock,
+        'bounds': [(-2.048, 2.048)] * 10,
+        'difficulty': 'Medium-High'
+    },
+    'ackley': {
+        'func': ackley,
+        'bounds': [(-32.768, 32.768)] * 10,
+        'difficulty': 'High'
+    },
+    'schwefel': {
+        'func': schwefel,
+        'bounds': [(-100, 100)] * 10,
+        'difficulty': 'Medium'
+    },
+    'trid': {
+        'func': trid,
+        'bounds': [(-400, 400)] * 10,
+        'difficulty': 'High'
+    }
+}
+
+algorithms = [PSO, EDA, ABC]
+
+# Run comprehensive evaluation
+print(&quot;Algorithm Performance Across Benchmark Suite&quot;)
+print(&quot;=&quot; * 70)
+
+for prob_name, prob_info in problems.items():
+    print(f&quot;\n{prob_name.upper()} (Difficulty: {prob_info['difficulty']})&quot;)
+    print(&quot;-&quot; * 70)
+
+    for AlgoClass in algorithms:
+        results = []
+        for _ in range(10):
+            optimizer = AlgoClass(
+                prob_info['func'],
+                prob_info['bounds'],
+                max_iterations=300
+            )
+            _, best_fit = optimizer.run()
+            results.append(best_fit)
+
+        mean_fit = np.mean(results)
+        std_fit = np.std(results)
+
+        print(f&quot;{AlgoClass.__name__:5} | &quot;
+              f&quot;Mean: {mean_fit:12.6f} | Std: {std_fit:12.6f}&quot;)
+</code></pre>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../">Algorithm Reference</a></li>
+<li><a href="../algorithms/pso/">PSO Documentation</a></li>
+<li><a href="../algorithms/eda/">EDA Documentation</a></li>
+<li><a href="../algorithms/abc/">ABC Documentation</a></li>
+<li><a href="../../theory/benchmark-functions.md">Benchmark Theory</a></li>
+<li><a href="../../theory/statistical-testing.md">Statistical Analysis</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

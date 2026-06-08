@@ -1,0 +1,3295 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+        <link rel="prev" href="../benchmark-functions/">
+      
+      
+        <link rel="next" href="../../reference/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Statistical Methodology - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#statistical-testing-and-hypothesis-testing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Statistical Methodology
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fundamental-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fundamental Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fundamental Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametric-vs-non-parametric-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametric vs. Non-Parametric Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parametric vs. Non-Parametric Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametric-tests-anova" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametric Tests (ANOVA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-parametric-tests-kruskal-wallis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Parametric Tests (Kruskal-Wallis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Which
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-evobench-decision-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The evobench Decision Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The evobench Decision Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Decision Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-normality-testing-shapiro-wilk-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1: Normality Testing (Shapiro-Wilk Test)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 1: Normality Testing (Shapiro-Wilk Test)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Foundation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mathematical Foundation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypotheses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypotheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-caveat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Caveat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-primary-hypothesis-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2: Primary Hypothesis Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 2: Primary Hypothesis Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-a-all-groups-are-normal-use-anova" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case A: All Groups Are Normal → Use ANOVA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case A: All Groups Are Normal → Use ANOVA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypotheses_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypotheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-b-not-all-groups-are-normal-use-kruskal-wallis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case B: Not All Groups Are Normal → Use Kruskal-Wallis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case B: Not All Groups Are Normal → Use Kruskal-Wallis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypotheses_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypotheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-formulation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-post-hoc-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3: Post-Hoc Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 3: Post-Hoc Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-hoc-for-anova-tukeys-honest-significant-difference-hsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Hoc for ANOVA: Tukey's Honest Significant Difference (HSD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Hoc for ANOVA: Tukey&#39;s Honest Significant Difference (HSD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-hoc-for-kruskal-wallis-dunns-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Hoc for Kruskal-Wallis: Dunn's Test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Hoc for Kruskal-Wallis: Dunn&#39;s Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonferroni-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bonferroni Correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretation-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation Guidelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpretation Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-a-all-normal-anova-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario A: All Normal + ANOVA Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-b-not-all-normal-kruskal-wallis-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario B: Not All Normal + Kruskal-Wallis Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-c-all-normal-anova-not-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario C: All Normal + ANOVA Not Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-d-not-all-normal-kruskal-wallis-not-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario D: Not All Normal + Kruskal-Wallis Not Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#effect-size-and-practical-significance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effect Size and Practical Significance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Effect Size and Practical Significance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cohens-d-for-comparing-two-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cohen's d (for comparing two groups)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cohen&#39;s d (for comparing two groups)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpretation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-example-from-data-to-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example: From Data to Conclusion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Example: From Data to Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-collect-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Collect Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Test Normality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-primary-hypothesis-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Primary Hypothesis Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-post-hoc-testing-dunn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Post-Hoc Testing (Dunn)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-report-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Report Findings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-in-evobench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation in evobench
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DO ✓
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DON'T ✗
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applied-to-evolutionary-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applied to Evolutionary Computation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fundamental-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fundamental Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fundamental Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametric-vs-non-parametric-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametric vs. Non-Parametric Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parametric vs. Non-Parametric Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parametric-tests-anova" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametric Tests (ANOVA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-parametric-tests-kruskal-wallis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Parametric Tests (Kruskal-Wallis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Use Which
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-evobench-decision-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The evobench Decision Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The evobench Decision Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#complete-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Decision Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-normality-testing-shapiro-wilk-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1: Normality Testing (Shapiro-Wilk Test)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 1: Normality Testing (Shapiro-Wilk Test)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-foundation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Foundation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mathematical Foundation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypotheses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypotheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-caveat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Caveat
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-primary-hypothesis-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2: Primary Hypothesis Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 2: Primary Hypothesis Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#case-a-all-groups-are-normal-use-anova" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case A: All Groups Are Normal → Use ANOVA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case A: All Groups Are Normal → Use ANOVA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypotheses_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypotheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-b-not-all-groups-are-normal-use-kruskal-wallis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case B: Not All Groups Are Normal → Use Kruskal-Wallis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case B: Not All Groups Are Normal → Use Kruskal-Wallis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hypotheses_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hypotheses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-formulation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-post-hoc-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3: Post-Hoc Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 3: Post-Hoc Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-hoc-for-anova-tukeys-honest-significant-difference-hsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Hoc for ANOVA: Tukey's Honest Significant Difference (HSD)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Hoc for ANOVA: Tukey&#39;s Honest Significant Difference (HSD)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-hoc-for-kruskal-wallis-dunns-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-Hoc for Kruskal-Wallis: Dunn's Test
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Post-Hoc for Kruskal-Wallis: Dunn&#39;s Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bonferroni-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bonferroni Correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpretation-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation Guidelines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpretation Guidelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-a-all-normal-anova-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario A: All Normal + ANOVA Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-b-not-all-normal-kruskal-wallis-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario B: Not All Normal + Kruskal-Wallis Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-c-all-normal-anova-not-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario C: All Normal + ANOVA Not Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-d-not-all-normal-kruskal-wallis-not-significant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario D: Not All Normal + Kruskal-Wallis Not Significant
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#effect-size-and-practical-significance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effect Size and Practical Significance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Effect Size and Practical Significance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cohens-d-for-comparing-two-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cohen's d (for comparing two groups)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cohen&#39;s d (for comparing two groups)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpretation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#complete-example-from-data-to-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Complete Example: From Data to Conclusion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Complete Example: From Data to Conclusion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-collect-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Collect Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-test-normality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Test Normality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-primary-hypothesis-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Primary Hypothesis Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-post-hoc-testing-dunn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Post-Hoc Testing (Dunn)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-5-report-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Report Findings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-in-evobench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation in evobench
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DO ✓
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DON'T ✗
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statistical-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applied-to-evolutionary-computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applied to Evolutionary Computation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="statistical-testing-and-hypothesis-testing">Statistical Testing and Hypothesis Testing</h1>
+<h2 id="overview">Overview</h2>
+<p>Comparing evolutionary algorithms requires rigorous statistical methodology to ensure that observed performance differences are not merely artifacts of stochastic variation. This document outlines the <strong>complete decision flow</strong> implemented in evobench for multi-algorithm hypothesis testing.</p>
+<p>The framework ensures:</p>
+<p>✓ <strong>Rigor</strong>: Decisions based on formal statistical tests, not subjective judgment<br />
+✓ <strong>Reproducibility</strong>: Consistent methodology across studies<br />
+✓ <strong>Interpretability</strong>: Clear understanding of what results mean<br />
+✓ <strong>Validity</strong>: Tests appropriate to data properties  </p>
+<hr />
+<h2 id="fundamental-concepts">Fundamental Concepts</h2>
+<h3 id="parametric-vs-non-parametric-testing">Parametric vs. Non-Parametric Testing</h3>
+<p>When comparing multiple algorithms, we must determine whether observed fitness differences are statistically significant.</p>
+<h4 id="parametric-tests-anova">Parametric Tests (ANOVA)</h4>
+<p><strong>Assumptions</strong>:
+- Data are normally distributed
+- Variances are homogeneous across groups
+- Observations are independent</p>
+<p><strong>Advantages</strong>:
+- More powerful (higher probability of detecting true differences)
+- Well-established theory and software support</p>
+<p><strong>Disadvantages</strong>:
+- Sensitive to assumption violations
+- May produce invalid conclusions if assumptions fail</p>
+<p><strong>Examples</strong>: ANOVA, t-test, Tukey's HSD</p>
+<h4 id="non-parametric-tests-kruskal-wallis">Non-Parametric Tests (Kruskal-Wallis)</h4>
+<p><strong>Assumptions</strong>:
+- Data are independent
+- <strong>No normality assumption</strong> (more robust)
+- <strong>No homogeneity of variance assumption</strong></p>
+<p><strong>Advantages</strong>:
+- Robust to distribution violations
+- Don't assume any particular distribution form
+- Based on ranks (outlier-resistant)</p>
+<p><strong>Disadvantages</strong>:
+- Slightly less powerful than parametric tests when assumptions hold
+- Different null hypothesis (tests medians/distributions rather than means)</p>
+<p><strong>Examples</strong>: Kruskal-Wallis, Mann-Whitney U, Dunn's test</p>
+<h3 id="when-to-use-which">When to Use Which</h3>
+<p><strong>Use ANOVA when</strong>:
+- Data appear normally distributed
+- Variances are similar across groups
+- You want to test for differences in means</p>
+<p><strong>Use Kruskal-Wallis when</strong>:
+- Data violate normality
+- Variances are unequal
+- You want a more robust test</p>
+<p><strong>Best Practice</strong>: Always check assumptions first, then choose appropriately.</p>
+<hr />
+<h2 id="the-evobench-decision-flow">The evobench Decision Flow</h2>
+<h3 id="complete-decision-tree">Complete Decision Tree</h3>
+<pre><code>Start: Obtain Results from Multiple Algorithm Runs
+            ↓
+     Normality Testing
+   (Shapiro-Wilk test)
+            ↓
+    ┌───────────────────────────────┐
+    │                               │
+All Groups        Not All Groups
+    Normal?           Normal?
+    │                 │
+    ├─→ YES      NO ←─┤
+    │                 │
+    ↓                 ↓
+ ANOVA          Kruskal-Wallis
+(Parametric)     (Non-parametric)
+    │                 │
+    └─────────────────┘
+           ↓
+    Check p-value
+    against α = 0.05
+           ↓
+    ┌───────────────────────────────┐
+    │                               │
+ Significant?             Not Significant?
+ p &lt; 0.05                   p ≥ 0.05
+    │                               │
+    ├─→ YES ──→ Post-Hoc Tests    NO ←─┤
+    │          (Pairwise Comp.)       │
+    │                                 │
+    └─────────────────────────────────┘
+           ↓
+    Final Conclusion
+</code></pre>
+<hr />
+<h2 id="stage-1-normality-testing-shapiro-wilk-test">Stage 1: Normality Testing (Shapiro-Wilk Test)</h2>
+<h3 id="purpose">Purpose</h3>
+<p>Before applying parametric tests, we must verify that the normality assumption holds for each algorithm's results.</p>
+<p>The <strong>Shapiro-Wilk test</strong> is the most powerful test for normality detection across sample sizes typical in evolutionary benchmarking (20–100 runs per algorithm).</p>
+<h3 id="mathematical-foundation">Mathematical Foundation</h3>
+<p>The Shapiro-Wilk statistic is defined as:</p>
+<div class="arithmatex">\[W = \frac{\left(\sum_{i=1}^{n} a_i x_{(i)}\right)^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2}\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(x_{(1)} \leq x_{(2)} \leq \cdots \leq x_{(n)}\)</span> are the <strong>order statistics</strong> (sorted values)</li>
+<li><span class="arithmatex">\(a_i\)</span> are <strong>coefficients</strong> derived from order statistic properties (dependent on <span class="arithmatex">\(n\)</span>)</li>
+<li><span class="arithmatex">\(\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i\)</span> is the sample mean</li>
+<li><span class="arithmatex">\(n\)</span> is the sample size</li>
+</ul>
+<h4 id="interpretation">Interpretation</h4>
+<table>
+<thead>
+<tr>
+<th><span class="arithmatex">\(W\)</span> Value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(W \approx 1\)</span></td>
+<td>Strong evidence for normality</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(W \approx 0.95\)</span></td>
+<td>Likely normal</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(W &lt; 0.90\)</span></td>
+<td>Likely non-normal; investigate</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(W &lt; 0.85\)</span></td>
+<td>Strong evidence against normality</td>
+</tr>
+</tbody>
+</table>
+<h3 id="procedure">Procedure</h3>
+<p>For each algorithm's fitness results (vector of 30 independent runs):</p>
+<ol>
+<li><strong>Compute order statistics</strong>: Sort values from smallest to largest</li>
+<li><strong>Calculate Shapiro-Wilk <span class="arithmatex">\(W\)</span> statistic</strong> using the formula above</li>
+<li><strong>Determine p-value</strong>: Use lookup tables or software</li>
+<li><strong>Make decision</strong>:</li>
+<li>If <span class="arithmatex">\(p &gt; 0.05\)</span>: Fail to reject <span class="arithmatex">\(H_0\)</span> (assume normal)</li>
+<li>If <span class="arithmatex">\(p \leq 0.05\)</span>: Reject <span class="arithmatex">\(H_0\)</span> (conclude non-normal)</li>
+</ol>
+<h3 id="hypotheses">Hypotheses</h3>
+<div class="arithmatex">\[H_0: \text{The data are normally distributed}$$
+$$H_1: \text{The data are not normally distributed}\]</div>
+<h3 id="example-interpretation">Example Interpretation</h3>
+<pre><code class="language-python">from scipy.stats import shapiro
+import numpy as np
+
+# Fitness results from 30 PSO runs
+pso_results = np.array([1.234, 1.245, ..., 1.256])
+
+statistic, p_value = shapiro(pso_results)
+
+print(f&quot;W-statistic: {statistic:.4f}&quot;)
+print(f&quot;p-value: {p_value:.6f}&quot;)
+
+if p_value &gt; 0.05:
+    print(&quot;✓ PSO results appear normally distributed&quot;)
+else:
+    print(&quot;✗ PSO results are NOT normally distributed&quot;)
+</code></pre>
+<h3 id="important-caveat">Important Caveat</h3>
+<p>With large sample sizes (<span class="arithmatex">\(n &gt; 50\)</span>), even tiny deviations from normality become statistically significant. <strong>Practical significance</strong> may matter more than statistical significance.</p>
+<p><strong>Recommendation</strong>: If <span class="arithmatex">\(p\)</span> is slightly below 0.05 but histogram looks reasonably normal, consider using ANOVA with caution or increasing robustness of interpretation.</p>
+<hr />
+<h2 id="stage-2-primary-hypothesis-testing">Stage 2: Primary Hypothesis Testing</h2>
+<h3 id="case-a-all-groups-are-normal-use-anova">Case A: All Groups Are Normal → Use ANOVA</h3>
+<h4 id="purpose_1">Purpose</h4>
+<p>Test whether the <strong>mean fitness values</strong> differ significantly across algorithms.</p>
+<h4 id="hypotheses_1">Hypotheses</h4>
+<div class="arithmatex">\[H_0: \mu_1 = \mu_2 = \cdots = \mu_k \quad \text{(all algorithm means are equal)}$$
+$$H_1: \text{At least one } \mu_i \text{ differs from the others}\]</div>
+<h4 id="mathematical-formulation">Mathematical Formulation</h4>
+<p>ANOVA decomposes total variance into between-group and within-group components:</p>
+<div class="arithmatex">\[\text{Total Sum of Squares (SST)} = \sum_{i=1}^{k} \sum_{j=1}^{n_i} (x_{ij} - \bar{x})^2\]</div>
+<p>where:
+- <span class="arithmatex">\(k\)</span> = number of algorithms
+- <span class="arithmatex">\(n_i\)</span> = number of runs for algorithm <span class="arithmatex">\(i\)</span>
+- <span class="arithmatex">\(x_{ij}\)</span> = fitness of algorithm <span class="arithmatex">\(i\)</span>, run <span class="arithmatex">\(j\)</span>
+- <span class="arithmatex">\(\bar{x}\)</span> = grand mean across all runs</p>
+<p><strong>Between-Group Sum of Squares (SSB)</strong>:
+$<span class="arithmatex">\(\text{SSB} = \sum_{i=1}^{k} n_i (\bar{x}_i - \bar{x})^2\)</span>$</p>
+<p>where <span class="arithmatex">\(\bar{x}_i\)</span> is the mean for algorithm <span class="arithmatex">\(i\)</span>.</p>
+<p><strong>Within-Group Sum of Squares (SSW)</strong>:
+$<span class="arithmatex">\(\text{SSW} = \sum_{i=1}^{k} \sum_{j=1}^{n_i} (x_{ij} - \bar{x}_i)^2\)</span>$</p>
+<p><strong>F-statistic</strong>:
+$<span class="arithmatex">\(F = \frac{\text{MS}_{\text{between}}}{\text{MS}_{\text{within}}} = \frac{\text{SSB} / (k-1)}{\text{SSW} / (N-k)}\)</span>$</p>
+<p>where:
+- <span class="arithmatex">\(\text{MS}_{\text{between}}\)</span> = mean square between groups
+- <span class="arithmatex">\(\text{MS}_{\text{within}}\)</span> = mean square within groups
+- <span class="arithmatex">\(N = \sum_{i=1}^{k} n_i\)</span> = total observations
+- Degrees of freedom: numerator <span class="arithmatex">\((k-1)\)</span>, denominator <span class="arithmatex">\((N-k)\)</span></p>
+<h4 id="interpretation_1">Interpretation</h4>
+<p>The F-statistic follows an F-distribution under <span class="arithmatex">\(H_0\)</span>. The p-value is:</p>
+<div class="arithmatex">\[p\text{-value} = P(F &gt; F_{\text{observed}} | H_0)\]</div>
+<p><strong>Decision</strong>:
+- If <span class="arithmatex">\(p &lt; 0.05\)</span>: <strong>Reject <span class="arithmatex">\(H_0\)</span></strong> (significant difference exists)
+- If <span class="arithmatex">\(p \geq 0.05\)</span>: <strong>Fail to reject <span class="arithmatex">\(H_0\)</span></strong> (no significant difference)</p>
+<h4 id="example">Example</h4>
+<pre><code class="language-python">from scipy.stats import f_oneway
+
+# Fitness results: 30 runs per algorithm
+pso_results = [1.234, 1.245, ..., 1.256]  # length 30
+eda_results = [2.345, 2.456, ..., 2.567]  # length 30
+abc_results = [3.456, 3.567, ..., 3.678]  # length 30
+
+f_statistic, p_value = f_oneway(pso_results, eda_results, abc_results)
+
+print(f&quot;F-statistic: {f_statistic:.4f}&quot;)
+print(f&quot;p-value: {p_value:.6f}&quot;)
+
+if p_value &lt; 0.05:
+    print(&quot;✓ Significant difference among algorithms&quot;)
+else:
+    print(&quot;✗ No significant difference&quot;)
+</code></pre>
+<hr />
+<h3 id="case-b-not-all-groups-are-normal-use-kruskal-wallis">Case B: Not All Groups Are Normal → Use Kruskal-Wallis</h3>
+<h4 id="purpose_2">Purpose</h4>
+<p>Test whether the <strong>distributions</strong> of results differ across algorithms (non-parametric alternative to ANOVA).</p>
+<h4 id="hypotheses_2">Hypotheses</h4>
+<div class="arithmatex">\[H_0: \text{All algorithm distributions are identical}$$
+$$H_1: \text{At least one algorithm's distribution differs}\]</div>
+<h4 id="mathematical-formulation_1">Mathematical Formulation</h4>
+<p>The Kruskal-Wallis test operates on <strong>ranks</strong> rather than raw values.</p>
+<p><strong>Step 1</strong>: Combine all fitness values and rank them from 1 to <span class="arithmatex">\(N\)</span>.</p>
+<p><strong>Step 2</strong>: Calculate the sum of ranks for each algorithm:</p>
+<div class="arithmatex">\[R_i = \sum_{j=1}^{n_i} r_{ij}\]</div>
+<p>where <span class="arithmatex">\(r_{ij}\)</span> is the rank of the <span class="arithmatex">\(j\)</span>-th observation from algorithm <span class="arithmatex">\(i\)</span>.</p>
+<p><strong>Step 3</strong>: Compute H-statistic:</p>
+<div class="arithmatex">\[H = \frac{12}{N(N+1)} \sum_{i=1}^{k} \frac{R_i^2}{n_i} - 3(N+1)\]</div>
+<p>where:
+- <span class="arithmatex">\(N = \sum n_i\)</span> (total observations)
+- <span class="arithmatex">\(k\)</span> = number of algorithms</p>
+<h4 id="distribution">Distribution</h4>
+<p>Under <span class="arithmatex">\(H_0\)</span>, <span class="arithmatex">\(H\)</span> approximately follows a chi-squared distribution with <span class="arithmatex">\(df = k - 1\)</span> degrees of freedom for large <span class="arithmatex">\(N\)</span> (typically <span class="arithmatex">\(N \geq 30\)</span>).</p>
+<h4 id="example_1">Example</h4>
+<pre><code class="language-python">from scipy.stats import kruskal
+
+pso_results = [1.234, 1.245, ..., 1.256]
+eda_results = [2.345, 2.456, ..., 2.567]
+abc_results = [3.456, 3.567, ..., 3.678]
+
+h_statistic, p_value = kruskal(pso_results, eda_results, abc_results)
+
+print(f&quot;H-statistic: {h_statistic:.4f}&quot;)
+print(f&quot;p-value: {p_value:.6f}&quot;)
+
+if p_value &lt; 0.05:
+    print(&quot;✓ Significant difference in distributions&quot;)
+else:
+    print(&quot;✗ No significant difference&quot;)
+</code></pre>
+<hr />
+<h2 id="stage-3-post-hoc-testing">Stage 3: Post-Hoc Testing</h2>
+<p>When the primary test is significant (<span class="arithmatex">\(p &lt; 0.05\)</span>), we conduct <strong>pairwise comparisons</strong> to identify which specific algorithm pairs differ significantly.</p>
+<h3 id="post-hoc-for-anova-tukeys-honest-significant-difference-hsd">Post-Hoc for ANOVA: Tukey's Honest Significant Difference (HSD)</h3>
+<h4 id="purpose_3">Purpose</h4>
+<p>Compare all pairs of algorithms while controlling the <strong>family-wise error rate</strong> (probability of making any type I error across all comparisons).</p>
+<h4 id="procedure_1">Procedure</h4>
+<p>For each pair of algorithms <span class="arithmatex">\((i, j)\)</span>:</p>
+<div class="arithmatex">\[|(\bar{x}_i - \bar{x}_j)| \stackrel{?}{&gt;} q_{\alpha,k,df} \sqrt{\frac{\text{MS}_{\text{within}}}{2} \left(\frac{1}{n_i} + \frac{1}{n_j}\right)}\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(q_{\alpha,k,df}\)</span> = critical value from the <strong>studentized range distribution</strong></li>
+<li>Depends on: significance level <span class="arithmatex">\(\alpha\)</span>, number of groups <span class="arithmatex">\(k\)</span>, error degrees of freedom <span class="arithmatex">\(df = N - k\)</span></li>
+<li>Typically <span class="arithmatex">\(\alpha = 0.05\)</span></li>
+<li><span class="arithmatex">\(\text{MS}_{\text{within}}\)</span> = mean square within groups (from ANOVA)</li>
+<li><span class="arithmatex">\(n_i, n_j\)</span> = sample sizes for algorithms <span class="arithmatex">\(i\)</span> and <span class="arithmatex">\(j\)</span></li>
+</ul>
+<h4 id="decision">Decision</h4>
+<p>If the inequality holds: <strong>Algorithms <span class="arithmatex">\(i\)</span> and <span class="arithmatex">\(j\)</span> differ significantly</strong></p>
+<h4 id="example_2">Example</h4>
+<pre><code class="language-python">from scipy.stats import tukey_hsd
+import numpy as np
+
+# Fitness results
+pso = np.array([1.234, 1.245, ..., 1.256])
+eda = np.array([2.345, 2.456, ..., 2.567])
+abc = np.array([3.456, 3.567, ..., 3.678])
+
+# Tukey HSD test
+res = tukey_hsd(pso, eda, abc)
+
+print(f&quot;Pairwise p-values:\n{res.pvalue}&quot;)
+# Typical output:
+#        pso      eda      abc
+# pso  1.000  0.000032  0.000001
+# eda  0.000032  1.000  0.045267
+# abc  0.000001  0.045267  1.000
+
+print(f&quot;Confidence intervals:\n{res.confidence_interval()}&quot;)
+</code></pre>
+<h3 id="post-hoc-for-kruskal-wallis-dunns-test">Post-Hoc for Kruskal-Wallis: Dunn's Test</h3>
+<h4 id="purpose_4">Purpose</h4>
+<p>Perform rank-based pairwise comparisons with Bonferroni correction to control family-wise error.</p>
+<h4 id="procedure_2">Procedure</h4>
+<p>For each pair of algorithms <span class="arithmatex">\((i, j)\)</span>:</p>
+<div class="arithmatex">\[\left| \bar{R}_i - \bar{R}_j \right| \stackrel{?}{&gt;} z_{\alpha'} \sqrt{\frac{N(N+1)}{12} \left(\frac{1}{n_i} + \frac{1}{n_j}\right)}\]</div>
+<p>where:</p>
+<ul>
+<li><span class="arithmatex">\(\bar{R}_i = \frac{R_i}{n_i}\)</span> = mean rank for algorithm <span class="arithmatex">\(i\)</span></li>
+<li><span class="arithmatex">\(z_{\alpha'}\)</span> = critical value from standard normal distribution</li>
+<li><span class="arithmatex">\(\alpha' = \frac{\alpha}{m}\)</span> = Bonferroni-corrected significance level</li>
+<li><span class="arithmatex">\(m = \binom{k}{2}\)</span> = number of pairwise comparisons</li>
+<li><span class="arithmatex">\(N\)</span> = total sample size</li>
+</ul>
+<h4 id="bonferroni-correction">Bonferroni Correction</h4>
+<p>To maintain family-wise error rate <span class="arithmatex">\(\alpha = 0.05\)</span> across <span class="arithmatex">\(m\)</span> comparisons:</p>
+<div class="arithmatex">\[\alpha' = \frac{0.05}{m}\]</div>
+<p><strong>Example</strong>: With 3 algorithms, <span class="arithmatex">\(m = 3\)</span> comparisons, so <span class="arithmatex">\(\alpha' = 0.05/3 \approx 0.0167\)</span> for each comparison.</p>
+<h4 id="example_3">Example</h4>
+<pre><code class="language-python">from scipy.stats import mannwhitneyu
+
+pso = [1.234, 1.245, ..., 1.256]
+eda = [2.345, 2.456, ..., 2.567]
+abc = [3.456, 3.567, ..., 3.678]
+
+# Bonferroni-corrected alpha for 3 comparisons
+alpha_corrected = 0.05 / 3
+
+# Pairwise Mann-Whitney U tests (rank-based)
+comparisons = [
+    (&quot;PSO vs EDA&quot;, pso, eda),
+    (&quot;PSO vs ABC&quot;, pso, abc),
+    (&quot;EDA vs ABC&quot;, eda, abc)
+]
+
+for name, group1, group2 in comparisons:
+    stat, p = mannwhitneyu(group1, group2)
+    significant = &quot;✓&quot; if p &lt; alpha_corrected else &quot;✗&quot;
+    print(f&quot;{name}: p={p:.6f} {significant}&quot;)
+</code></pre>
+<hr />
+<h2 id="interpretation-guidelines">Interpretation Guidelines</h2>
+<h3 id="scenario-a-all-normal-anova-significant">Scenario A: All Normal + ANOVA Significant</h3>
+<p><strong>What It Means</strong>:
+- Data are normally distributed
+- Parametric assumptions are satisfied
+- At least one algorithm performs significantly differently</p>
+<p><strong>What To Do</strong>:
+1. Examine Tukey HSD results to identify specific differences
+2. Compare means (not medians) as summary statistics
+3. Report mean ± std dev for each algorithm</p>
+<p><strong>Example Report</strong>:</p>
+<pre><code>&quot;ANOVA revealed significant differences in performance (F = 45.32, p &lt; 0.001).
+Post-hoc Tukey HSD testing showed PSO significantly outperformed both EDA
+(p &lt; 0.001) and ABC (p = 0.002), while EDA and ABC were not significantly
+different (p = 0.145).&quot;
+</code></pre>
+<h3 id="scenario-b-not-all-normal-kruskal-wallis-significant">Scenario B: Not All Normal + Kruskal-Wallis Significant</h3>
+<p><strong>What It Means</strong>:
+- Data violate normality assumptions
+- Non-parametric methods are appropriate
+- Distributions differ significantly</p>
+<p><strong>What To Do</strong>:
+1. Examine Dunn's test results for pairwise differences
+2. Report medians (not means) as summary statistics
+3. Consider visualizing distributions (boxplots)</p>
+<p><strong>Example Report</strong>:</p>
+<pre><code>&quot;Kruskal-Wallis test revealed significant differences (H = 38.91, p &lt; 0.001).
+Dunn's test (Bonferroni-corrected) showed PSO had significantly lower median
+fitness than EDA (p &lt; 0.001) and ABC (p = 0.003). EDA and ABC medians did
+not differ significantly (p = 0.089).&quot;
+</code></pre>
+<h3 id="scenario-c-all-normal-anova-not-significant">Scenario C: All Normal + ANOVA Not Significant</h3>
+<p><strong>What It Means</strong>:
+- No statistically significant differences detected
+- Algorithms are empirically equivalent (on this benchmark, this dimension)</p>
+<p><strong>What To Do</strong>:
+1. Report descriptive statistics (means, std devs)
+2. Calculate effect sizes (Cohen's d) for practical significance
+3. Discuss computational costs (is faster algorithm better despite same fitness?)</p>
+<p><strong>Example Report</strong>:</p>
+<pre><code>&quot;ANOVA showed no significant difference in mean fitness across algorithms
+(F = 1.45, p = 0.241). PSO, EDA, and ABC achieved statistically equivalent
+performance on the Sphere function. However, PSO required 30% fewer function
+evaluations, making it the most efficient choice for this problem.&quot;
+</code></pre>
+<h3 id="scenario-d-not-all-normal-kruskal-wallis-not-significant">Scenario D: Not All Normal + Kruskal-Wallis Not Significant</h3>
+<p><strong>What It Means</strong>:
+- Data violate normality
+- Non-parametric test finds no significant differences</p>
+<p><strong>What To Do</strong>:
+1. Report medians and ranks as summary statistics
+2. Emphasize robustness (non-parametric test is conservative)
+3. Consider sample size adequacy</p>
+<p><strong>Example Report</strong>:</p>
+<pre><code>&quot;Kruskal-Wallis test found no significant differences (H = 2.33, p = 0.312),
+indicating empirical equivalence of algorithms on this benchmark. Descriptive
+statistics (median fitness: PSO=1.234, EDA=1.245, ABC=1.256) confirm close
+performance.&quot;
+</code></pre>
+<hr />
+<h2 id="effect-size-and-practical-significance">Effect Size and Practical Significance</h2>
+<p>While p-values tell us about <strong>statistical</strong> significance, <strong>effect size</strong> measures the <strong>magnitude</strong> of differences.</p>
+<h3 id="cohens-d-for-comparing-two-groups">Cohen's d (for comparing two groups)</h3>
+<div class="arithmatex">\[d = \frac{\bar{x}_1 - \bar{x}_2}{s_p}\]</div>
+<p>where <span class="arithmatex">\(s_p\)</span> is the pooled standard deviation:</p>
+<div class="arithmatex">\[s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}\]</div>
+<h4 id="interpretation_2">Interpretation</h4>
+<p>| <span class="arithmatex">\(|d|\)</span> Value | Magnitude |
+|-------------|-----------|
+| <span class="arithmatex">\(&lt; 0.2\)</span> | Negligible |
+| <span class="arithmatex">\(0.2 - 0.5\)</span> | Small |
+| <span class="arithmatex">\(0.5 - 0.8\)</span> | Medium |
+| <span class="arithmatex">\(&gt; 0.8\)</span> | Large |</p>
+<h4 id="example_4">Example</h4>
+<pre><code class="language-python">from scipy.stats import norm
+
+def cohens_d(group1, group2):
+    n1, n2 = len(group1), len(group2)
+    var1, var2 = np.var(group1, ddof=1), np.var(group2, ddof=1)
+    s_p = np.sqrt(((n1-1)*var1 + (n2-1)*var2) / (n1 + n2 - 2))
+    return (np.mean(group1) - np.mean(group2)) / s_p
+
+pso = [1.234, 1.245, ..., 1.256]
+eda = [2.345, 2.456, ..., 2.567]
+
+d = cohens_d(pso, eda)
+print(f&quot;Cohen's d (PSO vs EDA): {d:.3f}&quot;)
+
+if abs(d) &lt; 0.2:
+    print(&quot;  → Negligible effect&quot;)
+elif abs(d) &lt; 0.5:
+    print(&quot;  → Small effect&quot;)
+elif abs(d) &lt; 0.8:
+    print(&quot;  → Medium effect&quot;)
+else:
+    print(&quot;  → Large effect&quot;)
+</code></pre>
+<hr />
+<h2 id="complete-example-from-data-to-conclusion">Complete Example: From Data to Conclusion</h2>
+<h3 id="step-1-collect-results">Step 1: Collect Results</h3>
+<pre><code class="language-python">from evobench.algorithms import PSO, EDA, ABC
+from evobench.benchmarks import sphere
+
+bounds = [(-5, 5)] * 10
+
+# Run 30 independent trials
+pso_results = [PSO(sphere, bounds).run()[1] for _ in range(30)]
+eda_results = [EDA(sphere, bounds).run()[1] for _ in range(30)]
+abc_results = [ABC(sphere, bounds).run()[1] for _ in range(30)]
+</code></pre>
+<h3 id="step-2-test-normality">Step 2: Test Normality</h3>
+<pre><code class="language-python">from scipy.stats import shapiro
+
+for name, results in [(&quot;PSO&quot;, pso_results), (&quot;EDA&quot;, eda_results), (&quot;ABC&quot;, abc_results)]:
+    stat, p = shapiro(results)
+    print(f&quot;{name}: W={stat:.4f}, p={p:.6f}&quot;, 
+          &quot;✓ Normal&quot; if p &gt; 0.05 else &quot;✗ Non-normal&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>PSO: W=0.9812, p=0.841234 ✓ Normal
+EDA: W=0.9734, p=0.523456 ✓ Normal
+ABC: W=0.9201, p=0.001234 ✗ Non-normal
+</code></pre>
+<p><strong>Decision</strong>: Not all normal → Use Kruskal-Wallis</p>
+<h3 id="step-3-primary-hypothesis-test">Step 3: Primary Hypothesis Test</h3>
+<pre><code class="language-python">from scipy.stats import kruskal
+
+h_stat, p_val = kruskal(pso_results, eda_results, abc_results)
+print(f&quot;Kruskal-Wallis: H={h_stat:.4f}, p={p_val:.6f}&quot;)
+
+if p_val &lt; 0.05:
+    print(&quot;✓ Significant difference detected → Proceed to post-hoc tests&quot;)
+else:
+    print(&quot;✗ No significant difference → Algorithms are empirically equivalent&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>Kruskal-Wallis: H=45.3210, p=0.000001
+✓ Significant difference detected
+</code></pre>
+<h3 id="step-4-post-hoc-testing-dunn">Step 4: Post-Hoc Testing (Dunn)</h3>
+<pre><code class="language-python"># Simplified Dunn's test using pairwise Mann-Whitney
+from scipy.stats import mannwhitneyu
+
+alpha_corrected = 0.05 / 3  # 3 pairwise comparisons
+
+comparisons = [
+    (&quot;PSO vs EDA&quot;, pso_results, eda_results),
+    (&quot;PSO vs ABC&quot;, pso_results, abc_results),
+    (&quot;EDA vs ABC&quot;, eda_results, abc_results)
+]
+
+for name, group1, group2 in comparisons:
+    stat, p = mannwhitneyu(group1, group2)
+    sig = &quot;✓&quot; if p &lt; alpha_corrected else &quot;✗&quot;
+    print(f&quot;{name}: p={p:.6f} {sig}&quot;)
+</code></pre>
+<p><strong>Output</strong>:</p>
+<pre><code>PSO vs EDA: p=0.000032 ✓ Significant
+PSO vs ABC: p=0.000001 ✓ Significant
+EDA vs ABC: p=0.045267 ✗ Not significant
+</code></pre>
+<h3 id="step-5-report-findings">Step 5: Report Findings</h3>
+<pre><code class="language-python">print(&quot;=&quot;*60)
+print(&quot;FINAL CONCLUSION&quot;)
+print(&quot;=&quot;*60)
+print(f&quot;&quot;&quot;
+PSO achieved significantly lower fitness than both EDA and ABC
+on the 10D Sphere function. The difference between EDA and ABC
+was not statistically significant.
+
+Algorithm Performance (Median ± IQR):
+  - PSO: {np.median(pso_results):.6f} ± {np.percentile(pso_results, 75) - np.percentile(pso_results, 25):.6f}
+  - EDA: {np.median(eda_results):.6f} ± {np.percentile(eda_results, 75) - np.percentile(eda_results, 25):.6f}
+  - ABC: {np.median(abc_results):.6f} ± {np.percentile(abc_results, 75) - np.percentile(abc_results, 25):.6f}
+
+Recommendation: PSO is the best choice for this problem.
+&quot;&quot;&quot;)
+</code></pre>
+<hr />
+<h2 id="implementation-in-evobench">Implementation in evobench</h2>
+<p>All this methodology is automated in the <code>analyze()</code> function:</p>
+<pre><code class="language-python">from evobench.stats import analyze, stat_report
+
+results = analyze(
+    func_name=&quot;sphere&quot;,
+    result_list=[pso_results, eda_results, abc_results],
+    algorithm_names=[&quot;PSO&quot;, &quot;EDA&quot;, &quot;ABC&quot;],
+    alpha=0.05
+)
+
+print(stat_report(results))
+</code></pre>
+<p>Output is automatically formatted with all statistical details and appropriate interpretation.</p>
+<hr />
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="do">DO ✓</h3>
+<ul>
+<li>Run at least 20–30 independent trials per algorithm per function</li>
+<li>Check normality assumptions before choosing tests</li>
+<li>Report both statistical significance AND effect sizes</li>
+<li>Use appropriate post-hoc tests when significant</li>
+<li>Document all decisions and parameters</li>
+<li>Make results reproducible (fix random seeds for documentation)</li>
+</ul>
+<h3 id="dont">DON'T ✗</h3>
+<ul>
+<li>Use p-values alone to interpret results (without effect sizes)</li>
+<li>Perform multiple tests without correction for multiple comparisons</li>
+<li>Assume normal distribution without testing</li>
+<li>Cherry-pick benchmarks based on preferred algorithm</li>
+<li>Report only mean values; variance matters!</li>
+<li>Ignore practical significance when p &lt; 0.05</li>
+</ul>
+<hr />
+<h2 id="references">References</h2>
+<h3 id="statistical-testing">Statistical Testing</h3>
+<ul>
+<li>
+<p>Shapiro, S. S., &amp; Wilk, M. B. (1965). "An analysis of variance test for normality." <em>Biometrika</em>, 52(3-4), 591–611.</p>
+</li>
+<li>
+<p>Kruskal, W. H., &amp; Wallis, W. A. (1952). "Use of ranks in one-criterion variance analysis." <em>Journal of the American Statistical Association</em>, 47(260), 583–621.</p>
+</li>
+<li>
+<p>Tukey, J. W. (1949). "Comparing individual means in the analysis of variance." <em>Biometrics</em>, 5(2), 99–114.</p>
+</li>
+</ul>
+<h3 id="applied-to-evolutionary-computation">Applied to Evolutionary Computation</h3>
+<ul>
+<li>
+<p>Derrac, J., García, S., Molina, D., &amp; Herrera, F. (2011). "A practical tutorial on the use of nonparametric statistical tests as a methodology for comparing evolutionary and swarm intelligence algorithms." <em>Swarm and Evolutionary Computation</em>, 1(1), 3–18.</p>
+</li>
+<li>
+<p>García, S., Molina, D., Lozano, M., &amp; Herrera, F. (2009). "A study on the use of non-parametric tests for analyzing the evolutionary algorithms' behaviour." <em>Journal of Heuristics</em>, 15(6), 617–644.</p>
+</li>
+</ul>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../benchmark-functions/">Benchmark Function Theory</a></li>
+<li><a href="../../reference/#statistics">Statistical Analysis API</a></li>
+<li><a href="../guide/index.md">Practical Guides</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

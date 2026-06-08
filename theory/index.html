@@ -1,0 +1,1953 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+        <link rel="prev" href="../EXAMPLES_GALLERY/">
+      
+      
+        <link rel="next" href="benchmark-functions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Overview - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#theory-concepts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Topics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-testing-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Testing Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolutionary-algorithm-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evolutionary Algorithm Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-reading-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Reading Path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended Reading Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-practitioners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Practitioners
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-researchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Researchers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-educators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Educators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts Glossary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Concepts Glossary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#population-based-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Population-Based Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landscape-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm-Specific
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-evobench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with evobench
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with evobench">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-theory-to-guide-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Theory to Guide Practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theory-design-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theory → Design → Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions-further-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions &amp; Further Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Questions &amp; Further Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-study-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Study Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Topics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-testing-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Testing Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolutionary-algorithm-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evolutionary Algorithm Principles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-reading-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Reading Path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Recommended Reading Path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#for-practitioners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Practitioners
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-researchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Researchers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for-educators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        For Educators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-concepts-glossary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Concepts Glossary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Concepts Glossary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#population-based-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Population-Based Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#landscape-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Important References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithm-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm-Specific
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-evobench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with evobench
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration with evobench">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-theory-to-guide-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Theory to Guide Practice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theory-design-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theory → Design → Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions-further-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions &amp; Further Learning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Questions &amp; Further Learning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-study-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Study Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="theory-concepts">Theory &amp; Concepts</h1>
+<h2 id="overview">Overview</h2>
+<p>This section provides the theoretical foundation and scientific background for understanding evolutionary algorithms and benchmarking methodology. It covers:</p>
+<ul>
+<li><strong>Benchmark Function Theory</strong>: Mathematical properties and evaluation criteria</li>
+<li><strong>Statistical Testing</strong>: Rigorous hypothesis testing framework for algorithm comparison</li>
+<li><strong>Evolutionary Algorithm Fundamentals</strong>: Core concepts and convergence principles</li>
+<li><strong>Convergence Analysis</strong>: Understanding optimization dynamics</li>
+</ul>
+<p>The material here is intended for <strong>researchers, practitioners, and educators</strong> who want to understand <em>why</em> algorithms work the way they do and <em>how</em> to interpret experimental results rigorously.</p>
+<hr />
+<h2 id="key-topics">Key Topics</h2>
+<h3 id="benchmark-functions">Benchmark Functions</h3>
+<p>Benchmark functions are far more than random test cases—they represent specific optimization problem classes with well-studied properties.</p>
+<p><strong>→ Full Reference</strong>: <a href="benchmark-functions/">Benchmark Function Theory</a></p>
+<p>Key topics include:
+- Mathematical properties (separability, modality, convexity)
+- Landscape topology and difficulty assessment
+- Theoretical optima and convergence guarantees
+- Function selection strategies</p>
+<h3 id="statistical-testing-framework">Statistical Testing Framework</h3>
+<p>Comparing evolutionary algorithms requires rigorous statistical methodology. The decision flow implemented in evobench ensures that performance differences are not merely artifacts of stochastic variation.</p>
+<p><strong>→ Full Reference</strong>: <a href="statistical-testing/">Statistical Testing and Hypothesis Testing</a></p>
+<p>Key topics include:
+- Normality testing (Shapiro-Wilk test)
+- Primary hypothesis tests (ANOVA, Kruskal-Wallis)
+- Post-hoc pairwise comparisons (Tukey, Dunn)
+- Interpretation guidelines and common scenarios</p>
+<h3 id="evolutionary-algorithm-principles">Evolutionary Algorithm Principles</h3>
+<p>Understanding the fundamental mechanisms and dynamics of population-based optimization.</p>
+<p><strong>Topics covered</strong>:
+- Selection mechanisms (fitness-based, rank-based, tournament)
+- Variation operators (crossover, mutation, recombination)
+- Population diversity and convergence pressure
+- Exploration vs. exploitation tradeoff</p>
+<h3 id="convergence-analysis">Convergence Analysis</h3>
+<p>Tools and techniques for analyzing how algorithms approach optimal solutions.</p>
+<p><strong>Topics covered</strong>:
+- Convergence curves and their interpretation
+- Early stopping criteria and stagnation detection
+- Convergence rate measurement
+- Performance metrics and comparative analysis</p>
+<hr />
+<h2 id="document-structure">Document Structure</h2>
+<pre><code>theory/
+├── index.md                          ← You are here
+├── benchmark-functions.md            # Detailed benchmark theory
+└── statistical-testing.md            # Hypothesis testing methodology
+</code></pre>
+<hr />
+<h2 id="recommended-reading-path">Recommended Reading Path</h2>
+<h3 id="for-practitioners">For Practitioners</h3>
+<ol>
+<li><strong><a href="benchmark-functions/">Benchmark Functions</a></strong>: Understand test landscapes</li>
+<li><strong><a href="statistical-testing/">Statistical Testing</a></strong>: Learn to interpret results rigorously</li>
+<li><strong>Guides</strong>: Read practical tutorials in the "Guide" section</li>
+</ol>
+<h3 id="for-researchers">For Researchers</h3>
+<ol>
+<li><strong>Evolutionary Algorithm Principles</strong>: Understand EA taxonomy and dynamics</li>
+<li><strong><a href="benchmark-functions/">Benchmark Functions</a></strong>: Deep dive into function properties</li>
+<li><strong><a href="statistical-testing/">Statistical Testing</a></strong>: Design rigorous experiments</li>
+<li><strong>Convergence Analysis</strong>: Analyze algorithm behavior quantitatively</li>
+</ol>
+<h3 id="for-educators">For Educators</h3>
+<ol>
+<li><strong><a href="benchmark-functions/">Benchmark Functions</a></strong>: Teach landscape diversity</li>
+<li><strong>Evolutionary Algorithm Principles</strong>: Teach EA mechanisms</li>
+<li><strong><a href="statistical-testing/">Statistical Testing</a></strong>: Teach experimental design</li>
+<li><strong>Example studies</strong>: Use provided examples in courses</li>
+</ol>
+<hr />
+<h2 id="key-concepts-glossary">Key Concepts Glossary</h2>
+<h3 id="population-based-optimization">Population-Based Optimization</h3>
+<ul>
+<li><strong>Individual</strong>: A candidate solution <span class="arithmatex">\(\mathbf{x} = (x_1, x_2, \ldots, x_d)\)</span></li>
+<li><strong>Population</strong>: Set of individuals <span class="arithmatex">\(\{\mathbf{x}^{(1)}, \mathbf{x}^{(2)}, \ldots, \mathbf{x}^{(n)}\}\)</span></li>
+<li><strong>Fitness</strong>: Objective function value <span class="arithmatex">\(f(\mathbf{x})\)</span> (lower is better for minimization)</li>
+<li><strong>Generation/Iteration</strong>: One complete cycle of selection, variation, evaluation</li>
+</ul>
+<h3 id="landscape-properties">Landscape Properties</h3>
+<ul>
+<li><strong>Separability</strong>: Whether dimensions can be optimized independently</li>
+<li><strong>Modality</strong>: Number of local optima (unimodal vs. multimodal)</li>
+<li><strong>Convexity</strong>: Whether all local optima are global</li>
+<li><strong>Conditioning</strong>: Ratio of steepest to gentlest descent directions</li>
+</ul>
+<h3 id="algorithm-properties">Algorithm Properties</h3>
+<ul>
+<li><strong>Exploration</strong>: Search across diverse regions (broad sampling)</li>
+<li><strong>Exploitation</strong>: Refine solutions in promising regions (intense sampling)</li>
+<li><strong>Convergence</strong>: Progress toward better solutions over time</li>
+<li><strong>Premature Convergence</strong>: Convergence to local optimum before finding global best</li>
+</ul>
+<h3 id="statistical-terms">Statistical Terms</h3>
+<ul>
+<li><strong>Hypothesis Test</strong>: Decision procedure for comparing groups</li>
+<li><strong>p-value</strong>: Probability of observing data if null hypothesis is true</li>
+<li><strong>Significance Level (<span class="arithmatex">\(\alpha\)</span>)</strong>: Threshold for rejecting null hypothesis (typically 0.05)</li>
+<li><strong>Power</strong>: Ability to detect true differences when they exist</li>
+<li><strong>Effect Size</strong>: Magnitude of difference between groups</li>
+</ul>
+<hr />
+<h2 id="important-references">Important References</h2>
+<h3 id="foundational-works">Foundational Works</h3>
+<ul>
+<li>
+<p>Hansen, N., Auger, A., &amp; Ros, R. (2016). "Benchmarking optimization problems". In <em>CEC 2016 Proceedings</em>.</p>
+</li>
+<li>
+<p>Derrac, J., García, S., Molina, D., &amp; Herrera, F. (2011). "A practical tutorial on the use of nonparametric statistical tests". <em>Swarm and Evolutionary Computation</em>, 1(1), 3–18.</p>
+</li>
+</ul>
+<h3 id="algorithm-specific">Algorithm-Specific</h3>
+<ul>
+<li>
+<p>Kennedy, J., &amp; Eberhart, R. (1995). "Particle Swarm Optimization". In <em>ICNN'95 Proceedings</em>.</p>
+</li>
+<li>
+<p>Karaboga, D., &amp; Basturk, B. (2007). "A powerful and efficient algorithm for numerical function optimization: artificial bee colony (ABC)". <em>Journal of Global Optimization</em>, 39(3), 459–471.</p>
+</li>
+</ul>
+<hr />
+<h2 id="integration-with-evobench">Integration with evobench</h2>
+<h3 id="using-theory-to-guide-practice">Using Theory to Guide Practice</h3>
+<p>All the theoretical concepts here are <strong>operationalized</strong> in evobench's code:</p>
+<pre><code class="language-python"># Statistical testing framework (theory → practice)
+from evobench.stats import analyze, stat_report
+
+results = analyze(
+    func_name=&quot;sphere&quot;,
+    result_list=[pso_results, eda_results, abc_results],
+    algorithm_names=[&quot;PSO&quot;, &quot;EDA&quot;, &quot;ABC&quot;],
+    alpha=0.05  # Significance level from statistical theory
+)
+
+# Interpreting results through theory
+print(stat_report(results))  # Hypothesis testing decision
+</code></pre>
+<h3 id="theory-design-implementation">Theory → Design → Implementation</h3>
+<p>The evobench framework embodies these principles:</p>
+<ol>
+<li><strong>Benchmark selection</strong>: Based on desired problem properties (separability, modality, etc.)</li>
+<li><strong>Algorithm comparison</strong>: Using rigorous statistical hypothesis testing</li>
+<li><strong>Result interpretation</strong>: Via convergence analysis and effect sizes</li>
+<li><strong>Reproducibility</strong>: Through careful documentation and seeding</li>
+</ol>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><strong><a href="../reference/">API Reference</a></strong>: Detailed technical documentation</li>
+<li><strong><a href="../guide/index.md">Guides &amp; Tutorials</a></strong>: Practical how-to instructions</li>
+<li><strong><a href="../examples/index.md">Examples</a></strong>: Runnable code samples</li>
+</ul>
+<hr />
+<h2 id="questions-further-learning">Questions &amp; Further Learning</h2>
+<h3 id="common-questions">Common Questions</h3>
+<p><strong>Q: Why use multiple hypothesis tests?</strong><br />
+A: Different tests make different assumptions. Shapiro-Wilk checks normality; ANOVA vs. Kruskal-Wallis choice depends on the result.</p>
+<p><strong>Q: How many runs do I need?</strong><br />
+A: Generally 20–30 independent runs per condition. More runs increase statistical power; fewer runs reduce computational cost.</p>
+<p><strong>Q: What's a "significant" difference?</strong><br />
+A: Statistically, when <span class="arithmatex">\(p &lt; \alpha\)</span> (typically 0.05). Practically, even statistically significant differences may be negligible if effect sizes are small.</p>
+<p><strong>Q: Can I use gradient-based optimization on these benchmarks?</strong><br />
+A: For smooth landscapes (Sphere, Rosenbrock), yes. For multimodal landscapes (Ackley, Trid), no—gradients are either missing or misleading.</p>
+<h3 id="recommended-study-path">Recommended Study Path</h3>
+<ol>
+<li><strong>Week 1</strong>: Read <a href="benchmark-functions/">Benchmark Functions</a></li>
+<li><strong>Week 2</strong>: Read <a href="statistical-testing/">Statistical Testing</a></li>
+<li><strong>Week 3</strong>: Study provided examples and run experiments</li>
+<li><strong>Week 4</strong>: Design and conduct your own benchmarking study</li>
+</ol>
+<hr />
+<p><strong>Last Updated</strong>: 2026-05-06<br />
+<strong>Version</strong>: evobench 0.1.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

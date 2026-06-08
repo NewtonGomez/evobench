@@ -1,0 +1,2467 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+        <link rel="prev" href="../pso/">
+      
+      
+        <link rel="next" href="../abc/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Estimation of Distribution (EDA) - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#estimation-of-distribution-algorithm-eda" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Estimation of Distribution (EDA)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathematical-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mathematical Formulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-elite-selection-via-tournament" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Elite Selection via Tournament
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gaussian-model-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Gaussian Model Estimation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sampling-new-population" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Sampling New Population
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-boundary-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Boundary Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inherited-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inherited Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyperparameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hyperparameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effect-on-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effect on Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pseudocode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pseudocode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-iteration-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Iteration Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-comparison-with-pso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Comparison with PSO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-runs-with-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Runs with Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-separable-problem-advantage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Separable Problem Advantage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strengths-weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strengths &amp; Weaknesses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strengths &amp; Weaknesses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✓ Strengths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✗ Weaknesses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-suited-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Suited For
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-benchmark-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Benchmark Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variant-univariate-marginal-distribution-algorithm-umda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variant: Univariate Marginal Distribution Algorithm (UMDA)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#literature-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literature References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Literature References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Papers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variants-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants &amp; Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-with-pso-and-abc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with PSO and ABC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-characteristics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Characteristics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mathematical-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mathematical Formulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-elite-selection-via-tournament" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Elite Selection via Tournament
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-gaussian-model-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Gaussian Model Estimation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sampling-new-population" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Sampling New Population
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-boundary-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Boundary Constraints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constructor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constructor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inherited-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inherited Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperparameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyperparameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hyperparameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effect-on-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effect on Behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algorithm-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm Flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithm Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pseudocode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pseudocode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detailed-iteration-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Iteration Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-comparison-with-pso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Comparison with PSO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-runs-with-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Runs with Analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-separable-problem-advantage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-Separable Problem Advantage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strengths-weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strengths &amp; Weaknesses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strengths &amp; Weaknesses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#strengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✓ Strengths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✗ Weaknesses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-suited-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Suited For
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-benchmark-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Benchmark Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variant-univariate-marginal-distribution-algorithm-umda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variant: Univariate Marginal Distribution Algorithm (UMDA)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#literature-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Literature References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Literature References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#foundational-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Foundational Papers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variants-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variants &amp; Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-with-pso-and-abc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with PSO and ABC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="estimation-of-distribution-algorithm-eda">Estimation of Distribution Algorithm (EDA)</h1>
+<h2 id="overview">Overview</h2>
+<p><strong>Estimation of Distribution Algorithm</strong> is a model-based evolutionary approach that learns probabilistic models of promising regions in the search space and uses these models to generate new candidate solutions.</p>
+<p>Unlike traditional evolutionary algorithms that explicitly apply variation operators (crossover, mutation), EDA learns statistical distributions from elite solutions and samples new candidates by drawing from these distributions. This provides systematic exploration with strong theoretical grounding in statistical learning.</p>
+<p><strong>Location</strong>: <code>evobench.algorithms.EDA</code></p>
+<p><strong>Inspiration</strong>: Probabilistic learning from population structure</p>
+<p><strong>Key Characteristic</strong>: Model-based generation of candidate solutions through learned distributions</p>
+<hr />
+<h2 id="algorithm-characteristics">Algorithm Characteristics</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Population Type</strong></td>
+<td>Continuous real vectors</td>
+</tr>
+<tr>
+<td><strong>Learning Mechanism</strong></td>
+<td>Gaussian distribution estimation</td>
+</tr>
+<tr>
+<td><strong>Selection Strategy</strong></td>
+<td>Tournament selection of elite individuals</td>
+</tr>
+<tr>
+<td><strong>Exploration Bias</strong></td>
+<td>High (diverse sampling from model)</td>
+</tr>
+<tr>
+<td><strong>Exploitation Bias</strong></td>
+<td>Moderate (model concentrates on promising regions)</td>
+</tr>
+<tr>
+<td><strong>Computational Complexity</strong></td>
+<td><span class="arithmatex">\(O(n \cdot d^2)\)</span> per iteration (quadratic in dimension for covariance)</td>
+</tr>
+<tr>
+<td><strong>Convergence Pattern</strong></td>
+<td>Steady, gradual</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mathematical-formulation">Mathematical Formulation</h2>
+<h3 id="core-components">Core Components</h3>
+<h4 id="1-elite-selection-via-tournament">1. Elite Selection via Tournament</h4>
+<p>Tournament selection identifies <span class="arithmatex">\(\tau\)</span> elite individuals from the population of <span class="arithmatex">\(N\)</span> individuals. For each tournament round:</p>
+<div class="arithmatex">\[\text{winner} = \arg\min_{i \in \text{random sample}} f(x_i)\]</div>
+<p>where <span class="arithmatex">\(f(x_i)\)</span> is the fitness of individual <span class="arithmatex">\(i\)</span>.</p>
+<h4 id="2-gaussian-model-estimation">2. Gaussian Model Estimation</h4>
+<p>From elite solutions <span class="arithmatex">\(\{x_1^{\text{elite}}, \ldots, x_{\tau}^{\text{elite}}\}\)</span>, estimate mean and covariance:</p>
+<div class="arithmatex">\[\boldsymbol{\mu} = \frac{1}{\tau} \sum_{k=1}^{\tau} \mathbf{x}_k^{\text{elite}}\]</div>
+<div class="arithmatex">\[\boldsymbol{\Sigma} = \frac{1}{\tau} \sum_{k=1}^{\tau} (\mathbf{x}_k^{\text{elite}} - \boldsymbol{\mu})(\mathbf{x}_k^{\text{elite}} - \boldsymbol{\mu})^T\]</div>
+<h4 id="3-sampling-new-population">3. Sampling New Population</h4>
+<p>Generate new candidates by sampling from the learned multivariate Gaussian:</p>
+<div class="arithmatex">\[\mathbf{x}_i^{\text{new}} \sim \mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})\]</div>
+<p>Applied element-wise for efficiency (univariate approximation):</p>
+<div class="arithmatex">\[x_{i,j}^{\text{new}} \sim \mathcal{N}(\mu_j, \sigma_j^2)\]</div>
+<h4 id="4-boundary-constraints">4. Boundary Constraints</h4>
+<p>New candidates are clipped to satisfy search domain constraints:</p>
+<div class="arithmatex">\[x_{i,j}^{\text{new}} = \text{clip}(x_{i,j}^{\text{new}}, L_j, U_j)\]</div>
+<hr />
+<h2 id="constructor">Constructor</h2>
+<h3 id="signature">Signature</h3>
+<pre><code class="language-python">class EDA(EvolutionaryAlgorithm):
+    def __init__(
+        self,
+        objective_function: Callable[[np.ndarray], float],
+        bounds: List[Tuple[float, float]],
+        population_size: int = 50,
+        max_iterations: int = 100
+    ) -&gt; None
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>objective_function</code></td>
+<td><code>Callable</code></td>
+<td>Required</td>
+<td>Continuous optimization function to minimize</td>
+</tr>
+<tr>
+<td><code>bounds</code></td>
+<td><code>List[Tuple[float, float]]</code></td>
+<td>Required</td>
+<td>Search domain boundaries; list of <code>(lower, upper)</code> tuples</td>
+</tr>
+<tr>
+<td><code>population_size</code></td>
+<td><code>int</code></td>
+<td>50</td>
+<td>Population size (number of individuals)</td>
+</tr>
+<tr>
+<td><code>max_iterations</code></td>
+<td><code>int</code></td>
+<td>100</td>
+<td>Maximum number of generations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="inherited-attributes">Inherited Attributes</h3>
+<p>From <code>EvolutionaryAlgorithm</code>:</p>
+<ul>
+<li><code>objective_function</code>: Reference to benchmark function</li>
+<li><code>bounds</code>: Search space boundaries</li>
+<li><code>population_size</code>: Number of individuals</li>
+<li><code>max_iterations</code>: Iteration budget</li>
+<li><code>dimension</code>: Problem dimensionality</li>
+<li><code>best_individual</code>: Best solution found</li>
+<li><code>best_fitness</code>: Fitness of best solution</li>
+<li><code>fitness_history</code>: Best fitness per generation</li>
+</ul>
+<hr />
+<h2 id="hyperparameters">Hyperparameters</h2>
+<p>EDA's behavior is controlled by the <strong>elite ratio</strong>, determining how many individuals contribute to model estimation.</p>
+<h3 id="default-configuration">Default Configuration</h3>
+<pre><code class="language-python">elite_ratio = 0.2             # Fraction of population used for model
+elite_size = int(population_size * elite_ratio)  # ~10 individuals per 50
+</code></pre>
+<h3 id="effect-on-behavior">Effect on Behavior</h3>
+<ul>
+<li><strong>Small elite ratio (~0.1)</strong>: Faster convergence, risk of premature convergence</li>
+<li><strong>Large elite ratio (~0.5)</strong>: Slower convergence, better exploration</li>
+<li><strong>Default (0.2)</strong>: Balanced compromise</li>
+</ul>
+<hr />
+<h2 id="algorithm-flow">Algorithm Flow</h2>
+<h3 id="pseudocode">Pseudocode</h3>
+<pre><code>Algorithm: EDA (Estimation of Distribution Algorithm)
+Input: objective_function, bounds, population_size, max_iterations
+Output: best_individual, best_fitness
+
+1. Initialize population randomly within bounds
+2. Evaluate all individuals
+3. Identify global best
+4. 
+5. For generation = 1 to max_iterations:
+    6. Select elite individuals via tournament selection
+    7. Estimate Gaussian model (mean and covariance) from elite
+    8. Generate new population by sampling from model
+    9. Apply boundary constraints to new population
+    10. Evaluate new population
+    11. Update global best if improvement found
+    12. Record best fitness in fitness_history
+13. 
+14. Return best_individual, best_fitness
+</code></pre>
+<h3 id="detailed-iteration-logic">Detailed Iteration Logic</h3>
+<pre><code class="language-python">def run(self):
+    population = self._initialize_population()
+    fitness = np.array([self.objective_function(ind) for ind in population])
+
+    self.best_individual = population[np.argmin(fitness)].copy()
+    self.best_fitness = np.min(fitness)
+
+    for generation in range(self.max_iterations):
+        # Step 1: Tournament selection for elite
+        elite_indices = self._tournament_selection(fitness)
+        elite = population[elite_indices]
+
+        # Step 2: Estimate Gaussian model
+        mean = np.mean(elite, axis=0)
+        std = np.std(elite, axis=0) + 1e-8  # Avoid zero variance
+
+        # Step 3: Sample new population
+        population = np.zeros_like(population)
+        for i in range(self.population_size):
+            for d in range(self.dimension):
+                population[i, d] = np.random.normal(mean[d], std[d])
+
+        # Step 4: Apply boundary constraints
+        population = self._apply_boundary_constraints(population)
+
+        # Step 5: Evaluate and update
+        fitness = np.array([self.objective_function(ind) for ind in population])
+
+        best_idx = np.argmin(fitness)
+        if fitness[best_idx] &lt; self.best_fitness:
+            self.best_fitness = fitness[best_idx]
+            self.best_individual = population[best_idx].copy()
+
+        self.fitness_history.append(self.best_fitness)
+
+    return self.best_individual, self.best_fitness
+</code></pre>
+<hr />
+<h2 id="usage-examples">Usage Examples</h2>
+<h3 id="basic-optimization">Basic Optimization</h3>
+<pre><code class="language-python">from evobench.algorithms import EDA
+from evobench.benchmarks import schwefel
+
+# Define search domain
+bounds = [(-100, 100)] * 10
+
+# Create EDA instance
+optimizer = EDA(
+    objective_function=schwefel,
+    bounds=bounds,
+    population_size=40,
+    max_iterations=150
+)
+
+# Run optimization
+best_solution, best_fitness = optimizer.run()
+
+print(f&quot;Best Fitness: {best_fitness:.6f}&quot;)
+print(f&quot;Solution: {best_solution}&quot;)
+</code></pre>
+<h3 id="convergence-comparison-with-pso">Convergence Comparison with PSO</h3>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+from evobench.algorithms import EDA, PSO
+from evobench.benchmarks import ackley
+
+bounds = [(-32.768, 32.768)] * 8
+
+# Run both algorithms
+eda_opt = EDA(ackley, bounds, max_iterations=500)
+pso_opt = PSO(ackley, bounds, max_iterations=500)
+
+eda_opt.run()
+pso_opt.run()
+
+# Plot convergence
+plt.figure(figsize=(12, 6))
+plt.semilogy(eda_opt.fitness_history, 'r-', label='EDA', linewidth=2)
+plt.semilogy(pso_opt.fitness_history, 'b-', label='PSO', linewidth=2)
+plt.xlabel('Generation')
+plt.ylabel('Best Fitness (log scale)')
+plt.title('EDA vs PSO Convergence on Ackley Function')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+</code></pre>
+<h3 id="multiple-runs-with-analysis">Multiple Runs with Analysis</h3>
+<pre><code class="language-python">import numpy as np
+from evobench.algorithms import EDA
+from evobench.benchmarks import trid
+
+bounds = [(-400, 400)] * 10
+num_runs = 30
+
+results = []
+convergence_curves = []
+
+for run in range(num_runs):
+    optimizer = EDA(trid, bounds, max_iterations=300)
+    _, best_fit = optimizer.run()
+    results.append(best_fit)
+    convergence_curves.append(optimizer.fitness_history)
+
+# Summary statistics
+print(f&quot;Mean Fitness: {np.mean(results):.6f}&quot;)
+print(f&quot;Median Fitness: {np.median(results):.6f}&quot;)
+print(f&quot;Std Dev: {np.std(results):.6f}&quot;)
+print(f&quot;Min Fitness: {np.min(results):.6f}&quot;)
+print(f&quot;Max Fitness: {np.max(results):.6f}&quot;)
+
+# Average convergence curve
+avg_convergence = np.mean(convergence_curves, axis=0)
+plt.figure(figsize=(10, 6))
+plt.semilogy(avg_convergence, 'g-', linewidth=2)
+plt.xlabel('Generation')
+plt.ylabel('Best Fitness (log scale)')
+plt.title('EDA Average Convergence over 30 Runs')
+plt.grid(True, alpha=0.3)
+plt.show()
+</code></pre>
+<h3 id="non-separable-problem-advantage">Non-Separable Problem Advantage</h3>
+<pre><code class="language-python">from evobench.algorithms import EDA, PSO
+from evobench.stats import analyze, stat_report
+
+# Rosenbrock: non-separable, valley-shaped
+bounds = [(-2.048, 2.048)] * 5
+
+eda_results = [EDA(rosenbrock, bounds).run()[1] for _ in range(30)]
+pso_results = [PSO(rosenbrock, bounds).run()[1] for _ in range(30)]
+
+analysis = analyze(
+    func_name=&quot;rosenbrock&quot;,
+    result_list=[eda_results, pso_results],
+    algorithm_names=[&quot;EDA&quot;, &quot;PSO&quot;],
+    alpha=0.05
+)
+
+print(stat_report(analysis))
+</code></pre>
+<hr />
+<h2 id="strengths-weaknesses">Strengths &amp; Weaknesses</h2>
+<h3 id="strengths">✓ Strengths</h3>
+<table>
+<thead>
+<tr>
+<th>Advantage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Non-Separable Problems</strong></td>
+<td>Excellent on problems with variable dependencies</td>
+</tr>
+<tr>
+<td><strong>Robust Exploration</strong></td>
+<td>Systematic sampling prevents premature convergence</td>
+</tr>
+<tr>
+<td><strong>Model Interpretability</strong></td>
+<td>Learned distributions reveal problem structure</td>
+</tr>
+<tr>
+<td><strong>Diversity Maintenance</strong></td>
+<td>Population diversity naturally preserved through sampling</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Works well as dimensionality increases (≥ 20D)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="weaknesses">✗ Weaknesses</h3>
+<table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Convergence Speed</strong></td>
+<td>Generally slower than PSO on smooth landscapes</td>
+</tr>
+<tr>
+<td><strong>Computational Cost</strong></td>
+<td>Computing mean/covariance costs <span class="arithmatex">\(O(n \cdot d^2)\)</span></td>
+</tr>
+<tr>
+<td><strong>Multimodal Challenges</strong></td>
+<td>Gaussian model may not capture multimodal structure</td>
+</tr>
+<tr>
+<td><strong>Model Degeneracy</strong></td>
+<td>Covariance matrix can become singular if population clusters</td>
+</tr>
+<tr>
+<td><strong>Limited Exploitation</strong></td>
+<td>Wide variance early on may slow convergence</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="best-suited-for">Best Suited For</h2>
+<ul>
+<li>✓ <strong>Non-separable optimization problems</strong> (variables interact)</li>
+<li>✓ <strong>Problems with variable correlations</strong></li>
+<li>✓ <strong>Seeking diverse high-quality solutions</strong></li>
+<li>✓ <strong>High-dimensional continuous optimization</strong></li>
+<li>✓ <strong>Problems where model learning is valuable</strong></li>
+</ul>
+<hr />
+<h2 id="recommended-benchmark-functions">Recommended Benchmark Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Difficulty</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Schwefel 1.2</strong></td>
+<td>Medium</td>
+<td>Fully coupled variables; tests dependency handling</td>
+</tr>
+<tr>
+<td><strong>Trid</strong></td>
+<td>High</td>
+<td>Highly interdependent; structured correlations</td>
+</tr>
+<tr>
+<td><strong>Ackley</strong></td>
+<td>High</td>
+<td>Multimodal; tests exploration robustness</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="variant-univariate-marginal-distribution-algorithm-umda">Variant: Univariate Marginal Distribution Algorithm (UMDA)</h2>
+<p>The current implementation uses <strong>univariate</strong> Gaussian estimation (independent dimensions). The multivariate form (learning full covariance matrix) would capture variable correlations but increases computational cost from <span class="arithmatex">\(O(n \cdot d)\)</span> to <span class="arithmatex">\(O(n \cdot d^2)\)</span>.</p>
+<p>For high-dimensional problems, the univariate approximation is often preferable.</p>
+<hr />
+<h2 id="literature-references">Literature References</h2>
+<h3 id="foundational-papers">Foundational Papers</h3>
+<ol>
+<li>
+<p><strong>Mühlenbein, H., &amp; Paass, G. (1996).</strong> "From Recombination of Genes to the Estimation of Distributions I: Binary Parameters." <em>Lecture Notes in Computer Science</em>, 1141, 178–187.</p>
+</li>
+<li>
+<p><strong>Larrañaga, P., &amp; Lozano, J. A. (Eds.). (2002).</strong> <em>Estimation of Distribution Algorithms: A New Tool for Evolutionary Computation</em>. Kluwer Academic Publishers.</p>
+</li>
+<li>
+<p><strong>Larranaga, P., Etxeberria, R., Lozano, J. A., &amp; Peña, J. M. (2000).</strong> "Optimization in Continuous Domains by Learning and Simulating Gaussian Bayesian Networks." <em>IEEE Transactions on Evolutionary Computation</em>, 4(2), 120–130.</p>
+</li>
+</ol>
+<h3 id="variants-extensions">Variants &amp; Extensions</h3>
+<ul>
+<li>Multivariate EDA (MEDA)</li>
+<li>Bayesian Optimization Algorithm (BOA)</li>
+<li>Real-coded EDA</li>
+<li>Adaptive EDA with dynamic elite ratio</li>
+</ul>
+<hr />
+<h2 id="comparison-with-pso-and-abc">Comparison with PSO and ABC</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>EDA</th>
+<th>PSO</th>
+<th>ABC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model Type</strong></td>
+<td>Probabilistic</td>
+<td>Velocity-based</td>
+<td>Bee phases</td>
+</tr>
+<tr>
+<td><strong>Exploration</strong></td>
+<td>Systematic sampling</td>
+<td>Attracted to best</td>
+<td>Probabilistic choice</td>
+</tr>
+<tr>
+<td><strong>Non-Separable</strong></td>
+<td>Excellent</td>
+<td>Good</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>Multimodal</strong></td>
+<td>Moderate</td>
+<td>Moderate</td>
+<td>Good</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td>Moderate</td>
+<td>Fast</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td><span class="arithmatex">\(O(n \cdot d^2)\)</span></td>
+<td><span class="arithmatex">\(O(n \cdot d)\)</span></td>
+<td><span class="arithmatex">\(O(n \cdot d)\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../">Algorithm Comparison</a></li>
+<li><a href="../../benchmarks/">Benchmark Functions</a></li>
+<li><a href="../../../theory/statistical-testing/">Statistical Analysis</a></li>
+<li><a href="../pso/">PSO Documentation</a></li>
+<li><a href="../abc/">ABC Documentation</a></li>
+<li><a href="../../base/">Base Class Documentation</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

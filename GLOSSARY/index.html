@@ -1,0 +1,2648 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Glossary of Evolutionary Computation Terms - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#glossary-of-evolutionary-computation-terms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Glossary of Evolutionary Computation Terms
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="A">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#artificial-bee-colony-abc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artificial Bee Colony (ABC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bounds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cognitive-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cognitive Component
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convergence-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convergence Curve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dimension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dimension
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distribution-probabilistic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distribution (Probabilistic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="E">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elitism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elitism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#estimation-of-distribution-algorithm-eda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estimation of Distribution Algorithm (EDA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evolutionary-algorithm-ea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evolutionary Algorithm (EA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploitation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="F">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fitness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fitness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fitness-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fitness Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fitness-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fitness History
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#g" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        G
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="G">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genetic-algorithm-ga" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Genetic Algorithm (GA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-best" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Best
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-optimum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Optimum
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#h" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        H
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="H">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hyperparameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyperparameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inertia-weight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inertia Weight
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#individual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Individual
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#j" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        J
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="J">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-standard-ea-terms-starting-with-j" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (No standard EA terms starting with J)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#k" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="K">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k-means-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        K-means Clustering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#l" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#landscape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Landscape
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Learning Rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit-abc-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limit (ABC Specific)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-best-personal-best" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Best / Personal Best
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-optimum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Optimum
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#m" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        M
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="M">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metaheuristic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metaheuristic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        N
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="N">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#niche-niching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Niche / Niching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-separable-non-separability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-separable / Non-separability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#o" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        O
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="O">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objective-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objective Function
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimum-optimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimum / Optimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        P
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="P">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-tuning-hyperparameter-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Tuning / Hyperparameter Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#particle-pso-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particle (PSO Specific)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#particle-swarm-optimization-pso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particle Swarm Optimization (PSO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#population" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Population
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#population-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Population-based
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-hoc-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Post-hoc Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Q">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quadratic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quadratic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="R">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registry-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registry (Pattern)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replacement-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replacement Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="S">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#separability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separability
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-pressure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection Pressure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-ratio-eda-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selection Ratio (EDA Specific)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#significant-significance-statistical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Significant / Significance (Statistical)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#social-component-pso-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Social Component (PSO Specific)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stagnation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stagnation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stochastic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stochastic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        T
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="T">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tournament-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tournament Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#u" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        U
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="U">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unimodal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unimodal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variance-standard-deviation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variance / Standard Deviation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variation-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variation Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#velocity-pso-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Velocity (PSO Specific)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#w" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        W
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="W">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#weighted-average-weighted-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weighted Average / Weighted Selection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        X
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="X">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-standard-ea-terms-starting-with-x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (No standard EA terms starting with X)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Y
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Y">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-standard-ea-terms-starting-with-y" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (No standard EA terms starting with Y)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Z
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Z">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-standard-ea-terms-starting-with-z" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (No standard EA terms starting with Z)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notation-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notation Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-and-further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References and Further Reading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References and Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classic-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Classic Papers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Statistical Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="glossary-of-evolutionary-computation-terms">Glossary of Evolutionary Computation Terms</h1>
+<p>This glossary provides formal definitions of terminology used throughout evobench and the broader field of evolutionary computation. This is designed to be accessible to newcomers while maintaining scientific rigor for researchers.</p>
+<hr />
+<h2 id="a">A</h2>
+<h3 id="algorithm">Algorithm</h3>
+<p>A step-by-step procedure for solving a problem. In evolutionary computation, an algorithm specifies the sequence of operations (initialization, evaluation, selection, variation, replacement) applied to a population of candidate solutions.</p>
+<h3 id="artificial-bee-colony-abc">Artificial Bee Colony (ABC)</h3>
+<p>A swarm intelligence metaheuristic inspired by the foraging behavior of honeybees. The population is divided into three types: <strong>employed bees</strong> (exploiting known solutions), <strong>onlooker bees</strong> (probabilistically selecting solutions based on quality), and <strong>scout bees</strong> (exploring new regions). See <a href="../reference/algorithms/abc.md">reference/algorithms/abc.md</a>.</p>
+<h3 id="attraction">Attraction</h3>
+<p>In swarm intelligence, the tendency of particles or agents to move toward promising solutions. In PSO, particles are attracted to their <strong>personal best</strong> and the <strong>global best</strong>.</p>
+<hr />
+<h2 id="b">B</h2>
+<h3 id="benchmark-function">Benchmark Function</h3>
+<p>A mathematical function used to evaluate algorithm performance. Benchmark functions have known properties (global optimum, landscape structure) that allow rigorous comparison. Examples: Sphere, Ackley, Rosenbrock. See <a href="../reference/benchmarks.md">reference/benchmarks.md</a>.</p>
+<h3 id="bounds">Bounds</h3>
+<p>The acceptable range of values for each decision variable. Typically expressed as <span class="arithmatex">\([\mathbf{L}, \mathbf{U}]\)</span> where <span class="arithmatex">\(L_i\)</span> and <span class="arithmatex">\(U_i\)</span> are lower and upper limits for dimension <span class="arithmatex">\(i\)</span>. Also called <strong>search domain</strong> or <strong>feasible region</strong>.</p>
+<p>Example: <code>bounds = [(-5, 5)] * 10</code> for a 10-dimensional problem with each variable in <span class="arithmatex">\([-5, 5]\)</span>.</p>
+<hr />
+<h2 id="c">C</h2>
+<h3 id="cognitive-component">Cognitive Component</h3>
+<p>In PSO, the term modeling the particle's attraction to its own personal best solution. Controlled by the <strong>cognitive parameter</strong> <span class="arithmatex">\(c_1\)</span>. Represents the particle's "memory" of past success.</p>
+<h3 id="convergence">Convergence</h3>
+<p>The process by which a population transitions from diversity (exploring the search space) to homogeneity (concentrating around promising regions). Ideally, convergence leads to the global optimum or a high-quality solution.</p>
+<h3 id="convergence-curve">Convergence Curve</h3>
+<p>A plot of fitness over generations, showing how algorithm performance improves (or stagnates) over time. Also called <strong>convergence trajectory</strong> or <strong>fitness history</strong>.</p>
+<h3 id="convexity">Convexity</h3>
+<p>A property of a function where any line segment between two points on the function lies above the function curve. Convex functions have a single global minimum; non-convex functions may have local minima.</p>
+<hr />
+<h2 id="d">D</h2>
+<h3 id="dimension">Dimension</h3>
+<p>The number of decision variables in an optimization problem. A 10-dimensional problem has 10 variables to optimize. Also called <strong>problem dimensionality</strong> or <strong>problem size</strong>.</p>
+<h3 id="distribution-probabilistic">Distribution (Probabilistic)</h3>
+<p>In model-based algorithms like EDA, a probability distribution (typically Gaussian) estimated from elite solutions and used to generate new candidates. Allows systematic exploration of promising regions.</p>
+<hr />
+<h2 id="e">E</h2>
+<h3 id="elitism">Elitism</h3>
+<p>A selection strategy that guarantees the best solution(s) found so far are preserved in the population for future generations. Ensures monotonic (non-decreasing) fitness improvement.</p>
+<h3 id="estimation-of-distribution-algorithm-eda">Estimation of Distribution Algorithm (EDA)</h3>
+<p>A model-based evolutionary algorithm that estimates a probabilistic distribution from elite solutions and samples new candidates from this distribution. Unlike traditional GA, it doesn't use explicit crossover/mutation. See <a href="../reference/algorithms/eda.md">reference/algorithms/eda.md</a>.</p>
+<h3 id="evolutionary-algorithm-ea">Evolutionary Algorithm (EA)</h3>
+<p>A population-based metaheuristic inspired by Darwinian evolution. Uses mechanisms of <strong>selection</strong>, <strong>variation</strong> (mutation/crossover), and <strong>replacement</strong> to evolve a population toward optimal solutions.</p>
+<h3 id="exploitation">Exploitation</h3>
+<p>The process of intensively searching within a promising region. Exploitation refines solutions but may converge prematurely to local optima. Opposite of <strong>exploration</strong>.</p>
+<h3 id="exploration">Exploration</h3>
+<p>The process of sampling diverse regions of the search space. Exploration discovers new promising areas but may miss local refinements. Opposite of <strong>exploitation</strong>.</p>
+<hr />
+<h2 id="f">F</h2>
+<h3 id="fitness">Fitness</h3>
+<p>A scalar value quantifying how well a candidate solution solves the problem. Algorithms minimize (or maximize) fitness. In evobench, fitness is always <strong>minimized</strong>.</p>
+<h3 id="fitness-function">Fitness Function</h3>
+<p>See <strong>objective function</strong>.</p>
+<h3 id="fitness-history">Fitness History</h3>
+<p>A list of the best fitness values found at each generation, tracked during optimization. Used for analysis and visualization of convergence behavior.</p>
+<hr />
+<h2 id="g">G</h2>
+<h3 id="generation">Generation</h3>
+<p>One complete cycle of the evolutionary algorithm: evaluation of all individuals, selection, variation (mutation/crossover), and replacement. Also called <strong>iteration</strong>.</p>
+<h3 id="genetic-algorithm-ga">Genetic Algorithm (GA)</h3>
+<p>A traditional evolutionary algorithm using <strong>crossover</strong> (recombination of parent solutions) and <strong>mutation</strong> (random perturbation) as variation operators. Originally designed for discrete/binary problems.</p>
+<h3 id="global-best">Global Best</h3>
+<p>The best solution found by the entire population. In PSO and some variants of ABC, particles/bees are attracted to this global reference point. Also called <strong>global optimum</strong> (if it's the true optimum) or <strong>population best</strong>.</p>
+<h3 id="global-optimum">Global Optimum</h3>
+<p>The absolute best solution to an optimization problem, theoretically achieving the minimum (or maximum) objective function value. See <span class="arithmatex">\(\mathbf{x}^*\)</span> in mathematical notation.</p>
+<hr />
+<h2 id="h">H</h2>
+<h3 id="hyperparameter">Hyperparameter</h3>
+<p>A parameter that controls algorithm behavior, set by the user before optimization. Examples in evobench:
+- <code>population_size</code>: Number of individuals
+- <code>max_iterations</code>: Number of generations
+- <code>inertia_weight</code> (PSO): Momentum control
+- <code>selection_ratio</code> (EDA): Fraction of elite solutions</p>
+<hr />
+<h2 id="i">I</h2>
+<h3 id="inertia-weight">Inertia Weight</h3>
+<p>In PSO, a coefficient <span class="arithmatex">\(w\)</span> that controls the influence of previous velocity on future movement. High inertia (w &gt; 0.7) encourages exploration; low inertia (w &lt; 0.4) encourages exploitation.</p>
+<h3 id="individual">Individual</h3>
+<p>A single candidate solution in a population. Represented as a vector of decision variables <span class="arithmatex">\(\mathbf{x} = [x_1, x_2, \ldots, x_d]\)</span>.</p>
+<hr />
+<h2 id="j">J</h2>
+<h3 id="no-standard-ea-terms-starting-with-j">(No standard EA terms starting with J)</h3>
+<hr />
+<h2 id="k">K</h2>
+<h3 id="k-means-clustering">K-means Clustering</h3>
+<p>A clustering algorithm sometimes used to partition populations in niching strategies, maintaining diversity by partitioning the population into subgroups that optimize different regions.</p>
+<hr />
+<h2 id="l">L</h2>
+<h3 id="landscape">Landscape</h3>
+<p>The geometric structure of an objective function's fitness values across the search space. Key properties include <strong>modality</strong> (number of local minima), <strong>separability</strong> (independence of variables), and <strong>convexity</strong>.</p>
+<h3 id="learning-rate">Learning Rate</h3>
+<p>In continuous optimization, a parameter controlling the step size of solution updates. High learning rates enable rapid movement but risk overshooting; low learning rates enable fine-tuning but converge slowly.</p>
+<h3 id="limit-abc-specific">Limit (ABC Specific)</h3>
+<p>In ABC, the maximum number of unsuccessful trial improvements allowed before a food source (candidate solution) is abandoned by a scout bee. See <a href="../reference/algorithms/abc.md">reference/algorithms/abc.md</a>.</p>
+<h3 id="local-best-personal-best">Local Best / Personal Best</h3>
+<p>In PSO, the best solution ever found by an individual particle. Each particle maintains memory of <span class="arithmatex">\(pbest_i\)</span> and is attracted toward it.</p>
+<h3 id="local-optimum">Local Optimum</h3>
+<p>A solution better than all nearby solutions but not globally optimal. Local optima are "traps" that algorithms may converge to prematurely. See <strong>multimodal</strong>.</p>
+<hr />
+<h2 id="m">M</h2>
+<h3 id="metaheuristic">Metaheuristic</h3>
+<p>A high-level algorithmic framework for solving difficult optimization problems. Metaheuristics (PSO, GA, SA, etc.) provide general-purpose problem-solving strategies without problem-specific knowledge.</p>
+<h3 id="modality">Modality</h3>
+<p>The number of local minima in a function. <strong>Unimodal</strong>: single global minimum (no local traps). <strong>Multimodal</strong>: multiple local minima (challenging for algorithms).</p>
+<h3 id="mutation">Mutation</h3>
+<p>A variation operator that randomly perturbs a solution. In continuous spaces, mutation often adds Gaussian noise: <span class="arithmatex">\(\mathbf{x}' = \mathbf{x} + \mathcal{N}(0, \sigma^2)\)</span>.</p>
+<hr />
+<h2 id="n">N</h2>
+<h3 id="niche-niching">Niche / Niching</h3>
+<p>A population strategy that maintains diversity by partitioning the population into subgroups that specialize in different regions. Helps escape local optima.</p>
+<h3 id="non-separable-non-separability">Non-separable / Non-separability</h3>
+<p>A function property where variables interact (cannot be optimized independently). Non-separable functions are harder because changing one variable affects the fitness impact of changing others. See <strong>separability</strong>.</p>
+<hr />
+<h2 id="o">O</h2>
+<h3 id="objective-function">Objective Function</h3>
+<p>The mathematical function being optimized. In evobench, this is the <code>objective_function</code> passed to algorithms. Algorithms minimize this function.</p>
+<p>Example:</p>
+<pre><code class="language-python">def sphere(x):
+    &quot;&quot;&quot;Objective function (Sphere).&quot;&quot;&quot;
+    return float(np.sum(x**2))
+</code></pre>
+<h3 id="optimum-optimal">Optimum / Optimal</h3>
+<p>The best solution to an optimization problem, achieving the minimum (minimum problem) or maximum (maximum problem) objective function value. See <strong>global optimum</strong> and <strong>local optimum</strong>.</p>
+<h3 id="optimization">Optimization</h3>
+<p>The process of finding the best (or near-best) solution to a problem. Evolutionary algorithms are one approach to black-box optimization.</p>
+<hr />
+<h2 id="p">P</h2>
+<h3 id="parameter-tuning-hyperparameter-optimization">Parameter Tuning / Hyperparameter Optimization</h3>
+<p>The process of selecting appropriate algorithm hyperparameters for a specific problem. Example: choosing <code>inertia_weight=0.9</code> vs. <code>0.4</code> for PSO.</p>
+<h3 id="particle-pso-specific">Particle (PSO Specific)</h3>
+<p>In PSO, an individual candidate solution. The term "particle" emphasizes movement through the solution space (velocity-based updates).</p>
+<h3 id="particle-swarm-optimization-pso">Particle Swarm Optimization (PSO)</h3>
+<p>A swarm intelligence metaheuristic inspired by bird flocking. Each particle moves through the search space influenced by its velocity, personal best, and the global best. See <a href="../reference/algorithms/pso.md">reference/algorithms/pso.md</a>.</p>
+<h3 id="population">Population</h3>
+<p>The set of candidate solutions maintained by the algorithm. In evobench, represented as a matrix of shape (population_size, dimension).</p>
+<h3 id="population-based">Population-based</h3>
+<p>An algorithm that maintains and evolves a population of solutions (as opposed to single-solution methods like local search or simulated annealing).</p>
+<h3 id="post-hoc-test">Post-hoc Test</h3>
+<p>A statistical test applied after a primary hypothesis test (e.g., ANOVA) to identify which groups differ. Common post-hoc tests: Tukey's HSD, Dunn's test.</p>
+<hr />
+<h2 id="q">Q</h2>
+<h3 id="quadratic">Quadratic</h3>
+<p>A mathematical function containing terms of degree 2, e.g., <span class="arithmatex">\(f(x) = ax^2 + bx + c\)</span>. Quadratic functions (like Sphere) are unimodal and convex.</p>
+<hr />
+<h2 id="r">R</h2>
+<h3 id="registry-pattern">Registry (Pattern)</h3>
+<p>A design pattern for dynamically discovering and loading implementations. In evobench, <code>BENCHMARK_REGISTRY</code> is a dictionary mapping benchmark names to functions, enabling configuration-driven access without hardcoding imports.</p>
+<h3 id="replacement-strategy">Replacement Strategy</h3>
+<p>The mechanism for deciding which individuals survive to the next generation. Common strategies: <strong>elitism</strong> (keep best), <strong>tournament selection</strong> (probabilistic selection based on fitness), <strong>truncation</strong> (keep top-ranked).</p>
+<h3 id="reproducibility">Reproducibility</h3>
+<p>The ability to obtain identical results by rerunning an experiment with the same seed and code. Essential for scientific validity and debugging.</p>
+<hr />
+<h2 id="s">S</h2>
+<h3 id="search-domain">Search Domain</h3>
+<p>The feasible region of the optimization problem, defined by <strong>bounds</strong> on each variable. Also called <strong>search space</strong> or <strong>feasible region</strong>.</p>
+<h3 id="search-space">Search Space</h3>
+<p>See <strong>search domain</strong>.</p>
+<h3 id="separability">Separability</h3>
+<p>A function property where variables can be optimized independently. Example: Sphere function <span class="arithmatex">\(F(x) = \sum x_i^2\)</span> is fully separable because each term depends on only one variable.</p>
+<h3 id="selection">Selection</h3>
+<p>The mechanism for choosing which individuals become parents for the next generation. Fitness-better individuals have higher probability of selection. Common methods: <strong>tournament</strong>, <strong>fitness-proportional</strong>, <strong>rank-based</strong>.</p>
+<h3 id="selection-pressure">Selection Pressure</h3>
+<p>The strength of selection—how strongly the algorithm favors better solutions. High pressure accelerates convergence but risks premature termination. Low pressure maintains diversity but converges slowly.</p>
+<h3 id="selection-ratio-eda-specific">Selection Ratio (EDA Specific)</h3>
+<p>In EDA, the fraction of the population selected as elite for estimating the probabilistic distribution. Higher ratio = weaker selection = more diversity. See <a href="../reference/algorithms/eda.md">reference/algorithms/eda.md</a>.</p>
+<h3 id="significant-significance-statistical">Significant / Significance (Statistical)</h3>
+<p>A statistical result is significant (at level <span class="arithmatex">\(\alpha = 0.05\)</span>) if the p-value is less than <span class="arithmatex">\(\alpha\)</span>. Indicates that observed differences are unlikely due to random chance.</p>
+<h3 id="social-component-pso-specific">Social Component (PSO Specific)</h3>
+<p>In PSO, the term modeling the particle's attraction to the global best solution (population consensus). Controlled by the <strong>social parameter</strong> <span class="arithmatex">\(c_2\)</span>. Represents "following the swarm."</p>
+<h3 id="stagnation">Stagnation</h3>
+<p>Lack of improvement in fitness over multiple generations. Indicates the algorithm has converged (reached a local/global optimum) or is stuck (premature convergence).</p>
+<h3 id="stochastic">Stochastic</h3>
+<p>Involving randomness. Evolutionary algorithms are stochastic: same input + different random seed = different output.</p>
+<hr />
+<h2 id="t">T</h2>
+<h3 id="tournament-selection">Tournament Selection</h3>
+<p>A selection mechanism where a random subset (tournament) of individuals is chosen, and the best is selected. Tournament size controls selection pressure.</p>
+<hr />
+<h2 id="u">U</h2>
+<h3 id="unimodal">Unimodal</h3>
+<p>A function with a single global minimum and no local minima. Unimodal functions are easier to optimize because any improving move can be continued.</p>
+<hr />
+<h2 id="v">V</h2>
+<h3 id="variance-standard-deviation">Variance / Standard Deviation</h3>
+<p>Statistical measures of spread. In experimental evaluation, high variance (large standard deviation) indicates inconsistent algorithm performance across runs.</p>
+<h3 id="variation-operators">Variation Operators</h3>
+<p>Mechanisms for generating new solutions from existing ones. Common operators: <strong>mutation</strong> (perturbation), <strong>crossover</strong> (recombination).</p>
+<h3 id="velocity-pso-specific">Velocity (PSO Specific)</h3>
+<p>In PSO, a vector representing the direction and magnitude of particle movement. Updated as: <span class="arithmatex">\(v_i^{t+1} = w \cdot v_i^t + c_1 r_1 (pbest_i - x_i^t) + c_2 r_2 (gbest - x_i^t)\)</span>.</p>
+<hr />
+<h2 id="w">W</h2>
+<h3 id="weighted-average-weighted-selection">Weighted Average / Weighted Selection</h3>
+<p>In tournament selection or fitness-proportional selection, solutions are chosen with probability proportional to their fitness (or rank). Better solutions are "weighted" more heavily.</p>
+<hr />
+<h2 id="x">X</h2>
+<h3 id="no-standard-ea-terms-starting-with-x">(No standard EA terms starting with X)</h3>
+<hr />
+<h2 id="y">Y</h2>
+<h3 id="no-standard-ea-terms-starting-with-y">(No standard EA terms starting with Y)</h3>
+<hr />
+<h2 id="z">Z</h2>
+<h3 id="no-standard-ea-terms-starting-with-z">(No standard EA terms starting with Z)</h3>
+<hr />
+<h2 id="notation-reference">Notation Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\mathbf{x}\)</span></td>
+<td>A candidate solution vector</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mathbf{x}^*\)</span></td>
+<td>The global optimum</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(f(\mathbf{x})\)</span></td>
+<td>Fitness of solution <span class="arithmatex">\(\mathbf{x}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(d\)</span></td>
+<td>Problem dimensionality</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(N\)</span></td>
+<td>Population size</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(t\)</span></td>
+<td>Generation/iteration counter</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(w\)</span></td>
+<td>Inertia weight (PSO)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(c_1, c_2\)</span></td>
+<td>Cognitive and social parameters (PSO)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(p_i\)</span></td>
+<td>Personal best of particle <span class="arithmatex">\(i\)</span> (PSO)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(g\)</span></td>
+<td>Global best (PSO)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(v_i\)</span></td>
+<td>Velocity of particle <span class="arithmatex">\(i\)</span> (PSO)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\alpha\)</span></td>
+<td>Significance level (typically 0.05)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(p\)</span></td>
+<td>p-value from hypothesis test</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\mu\)</span></td>
+<td>Mean of a distribution</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\sigma\)</span></td>
+<td>Standard deviation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="references-and-further-reading">References and Further Reading</h2>
+<h3 id="classic-papers">Classic Papers</h3>
+<ul>
+<li>Dorigo, M., &amp; Blum, C. (2005). "Ant Colony Optimization Theory." <em>Theoretical Computer Science</em>. (Foundation of metaheuristics)</li>
+<li>Kennedy, J., &amp; Eberhart, R. (1995). "Particle Swarm Optimization." <em>Proceedings of ICNN</em>. (Original PSO)</li>
+<li>Karaboga, D. (2005). "An Idea Based on Honey Bee Swarm for Numerical Optimization." (ABC algorithm)</li>
+</ul>
+<h3 id="benchmark-functions">Benchmark Functions</h3>
+<ul>
+<li>Suganthan, P. N., et al. (2005). "Problem Definitions and Evaluation Criteria for the CEC 2005." <em>Technical Report</em>. (Standard benchmark suite)</li>
+</ul>
+<h3 id="statistical-testing">Statistical Testing</h3>
+<ul>
+<li>Wilcoxon, F. (1945). "Individual Comparisons by Ranking Methods." <em>Biometrics</em>. (Non-parametric testing)</li>
+<li>Tukey, J. W. (1949). "Comparing Individual Means in the Analysis of Variance." <em>Biometrics</em>. (Post-hoc testing)</li>
+</ul>
+<hr />
+<p><strong>Last Updated</strong>: June 2026<br />
+<strong>evobench</strong>: 0.1.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

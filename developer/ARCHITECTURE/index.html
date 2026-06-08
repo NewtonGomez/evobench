@@ -1,0 +1,1987 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Benchmarking framework for evolutionary algorithms">
+      
+      
+        <meta name="author" content="Enrique Gómez & Victoria Galván">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Architecture and Design Patterns - evobench</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#architecture-and-design-patterns" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="evobench" class="md-header__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            evobench
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture and Design Patterns
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="evobench" class="md-nav__button md-logo" aria-label="evobench" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    evobench
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/SETUP_CONFIG/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EXAMPLES_GALLERY/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scientific Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scientific Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/benchmark-functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theory/statistical-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Methodology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithms
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithms
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/pso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Particle Swarm (PSO)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/eda/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estimation of Distribution (EDA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/algorithms/abc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artificial Bee Colony (ABC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project Info
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project Info
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/research_faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table of Contents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Philosophy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Philosophy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-scientific-rigor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Scientific Rigor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-user-centric-simplicity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. User-Centric Simplicity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-extensibility-first-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Extensibility-First Design
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modular-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modular Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modular Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#design-rationale" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Rationale
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pattern-1-facade-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 1: Facade API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-2-registry-pattern-for-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 2: Registry Pattern for Benchmarks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pattern-3-abstract-base-class-for-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pattern 3: Abstract Base Class for Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#component-1-evolutionaryalgorithm-base-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 1: EvolutionaryAlgorithm Base Class
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-2-algorithms-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 2: Algorithms Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-3-benchmarks-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 3: Benchmarks Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-4-statistics-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 4: Statistics Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-5-tools-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component 5: Tools Package
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extensibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extensibility
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extensibility">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending the Library
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending the Library">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scenario-1-add-a-new-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 1: Add a New Algorithm
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-2-add-a-new-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 2: Add a New Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenario-3-use-custom-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario 3: Use Custom Operators
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#numpy-vectorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NumPy Vectorization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Efficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reproducibility-via-seeding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducibility via Seeding
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-extensibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Extensibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="architecture-and-design-patterns">Architecture and Design Patterns</h1>
+<p>This document describes the architectural decisions, design patterns, and engineering principles behind evobench. Understanding this document is essential for contributors and advanced users who want to extend the library.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#project-philosophy">Project Philosophy</a></li>
+<li><a href="#modular-architecture">Modular Architecture</a></li>
+<li><a href="#design-patterns">Design Patterns</a></li>
+<li><a href="#core-components">Core Components</a></li>
+<li><a href="#extensibility">Extensibility</a></li>
+<li><a href="#performance-considerations">Performance Considerations</a></li>
+</ol>
+<hr />
+<h2 id="project-philosophy">Project Philosophy</h2>
+<p>evobench is built on three core principles:</p>
+<h3 id="1-scientific-rigor">1. <strong>Scientific Rigor</strong></h3>
+<p>Every component follows evidence-based evolutionary computation principles. The library enforces:
+- <strong>Standardized protocols</strong>: Reproducible, documented experiment workflows
+- <strong>Statistical validity</strong>: Built-in hypothesis testing and effect size calculation
+- <strong>Transparent implementation</strong>: All algorithms expose their hyperparameters; no magic</p>
+<h3 id="2-user-centric-simplicity">2. <strong>User-Centric Simplicity</strong></h3>
+<p>Despite scientific rigor, the API is intuitive:
+- <strong>Minimal boilerplate</strong>: Optimize in 5 lines of Python
+- <strong>Sensible defaults</strong>: Hyperparameters chosen for robustness, not obscurity
+- <strong>Progressive disclosure</strong>: Basic usage is simple; advanced features are discoverable</p>
+<h3 id="3-extensibility-first-design">3. <strong>Extensibility-First Design</strong></h3>
+<p>The library anticipates customization:
+- <strong>Abstract base classes</strong>: Easy to implement new algorithms
+- <strong>Plugin registry</strong>: Add benchmarks without modifying core code
+- <strong>Composable tools</strong>: Mix and match statistical tests, operators, utilities</p>
+<hr />
+<h2 id="modular-architecture">Modular Architecture</h2>
+<pre><code>evobench/
+├── algorithms/          # Population-based optimizers (PSO, EDA, ABC)
+├── benchmarks/          # Test functions (Sphere, Rosenbrock, Ackley, Schwefel, Trid)
+├── stats/               # Statistical analysis (hypothesis testing, post-hoc analysis)
+├── tools/               # Utilities (experiment orchestration, operators, plotting)
+├── base.py              # Abstract base class (EvolutionaryAlgorithm)
+└── __init__.py          # Public API (Facade)
+</code></pre>
+<h3 id="design-rationale">Design Rationale</h3>
+<p><strong>Why separate modules instead of monolithic file?</strong></p>
+<ol>
+<li><strong>Clarity</strong>: Each module has a single responsibility</li>
+<li><strong>Scalability</strong>: Easy to add new algorithms or benchmarks</li>
+<li><strong>Testing</strong>: Each module can be tested independently</li>
+<li><strong>Import efficiency</strong>: Users only load what they need</li>
+</ol>
+<p><strong>Why use subpackages instead of single files?</strong></p>
+<pre><code class="language-python"># ✓ Subpackage approach (current)
+from evobench.benchmarks import sphere
+from evobench.algorithms import PSO
+
+# ✗ Monolithic approach (abandoned)
+from evobench import benchmarks, algorithms  # Forces loading everything
+</code></pre>
+<hr />
+<h2 id="design-patterns">Design Patterns</h2>
+<h3 id="pattern-1-facade-api">Pattern 1: Facade API</h3>
+<p><strong>Purpose</strong>: Provide a clean, intuitive public interface while hiding implementation complexity.</p>
+<p><strong>Implementation</strong>:</p>
+<pre><code class="language-python"># src/evobench/__init__.py (root Facade)
+from .algorithms import PSO, EDA, ABC
+from .benchmarks import sphere, rosenbrock, ackley, schwefel, trid, get_benchmark
+from .stats import analyze, stat_report
+
+__all__ = [&quot;PSO&quot;, &quot;EDA&quot;, &quot;ABC&quot;, &quot;sphere&quot;, &quot;rosenbrock&quot;, ...]
+</code></pre>
+<p><strong>Benefit</strong>: Users see only the public API:</p>
+<pre><code class="language-python"># What users import (clean)
+from evobench.algorithms import PSO
+from evobench.benchmarks import sphere
+
+# What they don't see (internal)
+# from evobench.algorithms.pso import ParticleSwarmOptimization  ← Hidden
+# from evobench.benchmarks.unimodal import sphere_function       ← Hidden
+</code></pre>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-python">from evobench import PSO, sphere  # Clean and professional
+
+# vs.
+
+from evobench.algorithms.pso import ParticleSwarmOptimization  # Verbose
+from evobench.benchmarks.unimodal import sphere_function       # Internal names leak
+</code></pre>
+<h3 id="pattern-2-registry-pattern-for-benchmarks">Pattern 2: Registry Pattern for Benchmarks</h3>
+<p><strong>Purpose</strong>: Allow dynamic discovery and instantiation of benchmark functions without polluting the namespace.</p>
+<p><strong>Implementation</strong>:</p>
+<pre><code class="language-python"># src/evobench/benchmarks/__init__.py
+from .unimodal import sphere_function as sphere
+from .multimodal import ackley_function as ackley
+
+# Central registry (single source of truth)
+BENCHMARK_REGISTRY = {
+    &quot;sphere&quot;: sphere,
+    &quot;rosenbrock&quot;: rosenbrock,
+    &quot;ackley&quot;: ackley,
+    &quot;schwefel 1.2&quot;: schwefel,
+    &quot;trid&quot;: trid
+}
+
+def get_benchmark(name: str):
+    &quot;&quot;&quot;Retrieve benchmark by name.&quot;&quot;&quot;
+    search_name = name.lower()
+    if search_name not in BENCHMARK_REGISTRY:
+        raise ValueError(f&quot;Benchmark '{name}' is not implemented.&quot;)
+    return BENCHMARK_REGISTRY[search_name]
+</code></pre>
+<p><strong>Why Registry Pattern?</strong></p>
+<pre><code class="language-python"># ✗ Without registry: Must know all function names
+from evobench.benchmarks import sphere, rosenbrock, ackley, schwefel, trid
+
+# ✓ With registry: Dynamic lookup
+from evobench.benchmarks import get_benchmark, BENCHMARK_REGISTRY
+
+# Programmatic access
+for name in BENCHMARK_REGISTRY:
+    func = get_benchmark(name)
+    # Process dynamically
+
+# Configuration-driven access
+config = {&quot;benchmark&quot;: &quot;ackley&quot;}
+func = get_benchmark(config[&quot;benchmark&quot;])  # No hardcoding!
+</code></pre>
+<p><strong>Extensibility</strong>:</p>
+<p>To add a new benchmark without modifying core code:</p>
+<pre><code class="language-python"># User's custom_benchmarks.py
+from evobench.benchmarks import BENCHMARK_REGISTRY
+
+def my_benchmark(x):
+    &quot;&quot;&quot;Custom optimization landscape.&quot;&quot;&quot;
+    return sum(x**2) + 10 * sum(np.sin(x))
+
+# Register it
+BENCHMARK_REGISTRY[&quot;my_benchmark&quot;] = my_benchmark
+
+# Now use it
+from evobench.benchmarks import get_benchmark
+func = get_benchmark(&quot;my_benchmark&quot;)
+</code></pre>
+<h3 id="pattern-3-abstract-base-class-for-algorithms">Pattern 3: Abstract Base Class for Algorithms</h3>
+<p><strong>Purpose</strong>: Enforce a uniform interface across all algorithms while allowing algorithmic freedom.</p>
+<p><strong>Implementation</strong>:</p>
+<pre><code class="language-python"># src/evobench/base.py
+from abc import ABC, abstractmethod
+
+class EvolutionaryAlgorithm(ABC):
+    &quot;&quot;&quot;
+    Abstract base class defining the contract for all population-based
+    evolutionary algorithms in evobench.
+    &quot;&quot;&quot;
+
+    def __init__(self, objective_function, bounds, population_size=50, max_iterations=100):
+        &quot;&quot;&quot;Standard initialization contract.&quot;&quot;&quot;
+        self.objective_function = objective_function
+        self.bounds = np.array(bounds)
+        self.population_size = population_size
+        self.max_iterations = max_iterations
+        self.dimension = len(self.bounds)
+        self.best_individual = None
+        self.best_fitness = float('inf')
+        self.fitness_history = []
+
+    @abstractmethod
+    def run(self) -&gt; Tuple[np.ndarray, float]:
+        &quot;&quot;&quot;
+        Execute the optimization loop.
+
+        Must return:
+            - best_individual: shape (dimension,)
+            - best_fitness: scalar float
+        &quot;&quot;&quot;
+        pass
+
+    def _initialize_population(self) -&gt; np.ndarray:
+        &quot;&quot;&quot;Standard population initialization.&quot;&quot;&quot;
+        lower = self.bounds[:, 0]
+        upper = self.bounds[:, 1]
+        return np.random.uniform(lower, upper, (self.population_size, self.dimension))
+</code></pre>
+<p><strong>Inheritance Contract</strong>:</p>
+<pre><code class="language-python">class MyCustomAlgorithm(EvolutionaryAlgorithm):
+    &quot;&quot;&quot;Implement your own optimizer.&quot;&quot;&quot;
+
+    def __init__(self, objective_function, bounds, population_size=50, 
+                 max_iterations=100, my_param=0.5):
+        super().__init__(objective_function, bounds, population_size, max_iterations)
+        self.my_param = my_param
+
+    def run(self) -&gt; Tuple[np.ndarray, float]:
+        &quot;&quot;&quot;Implement core algorithm logic.&quot;&quot;&quot;
+        # Use inherited attributes
+        # self.objective_function
+        # self.bounds
+        # self.population_size
+        # self.max_iterations
+        # self.fitness_history
+
+        population = self._initialize_population()
+
+        for iteration in range(self.max_iterations):
+            # Algorithm-specific logic
+            fitness = np.apply_along_axis(self.objective_function, 1, population)
+
+            # Track best (inherited pattern)
+            best_idx = np.argmin(fitness)
+            if fitness[best_idx] &lt; self.best_fitness:
+                self.best_fitness = fitness[best_idx]
+                self.best_individual = population[best_idx].copy()
+
+            self.fitness_history.append(self.best_fitness)
+
+            # Population update (algorithm-specific)
+            population = self._update_population(population, fitness)
+
+        return self.best_individual, self.best_fitness
+
+    def _update_population(self, population, fitness):
+        &quot;&quot;&quot;Algorithm-specific update rule.&quot;&quot;&quot;
+        # Implementation here
+        return population
+</code></pre>
+<p><strong>Benefits of ABC Pattern</strong>:
+- ✓ Enforces consistent interface
+- ✓ <code>fitness_history</code> tracking guaranteed
+- ✓ Users know what to expect from any algorithm
+- ✓ Enables algorithm swapping in experiments</p>
+<hr />
+<h2 id="core-components">Core Components</h2>
+<h3 id="component-1-evolutionaryalgorithm-base-class">Component 1: EvolutionaryAlgorithm Base Class</h3>
+<p><strong>Location</strong>: <code>src/evobench/base.py</code></p>
+<p><strong>Responsibility</strong>: Define the contract for all algorithms.</p>
+<p><strong>Key Methods</strong>:
+- <code>__init__()</code>: Initialize hyperparameters and state
+- <code>run()</code>: Execute optimization (abstract; must be implemented)
+- <code>_initialize_population()</code>: Standard uniform initialization
+- <code>_apply_boundary_constraints()</code>: Optional boundary handling</p>
+<p><strong>State Tracking</strong>:</p>
+<pre><code class="language-python">class EvolutionaryAlgorithm(ABC):
+    # Tracked throughout optimization
+    best_individual: np.ndarray          # Best solution found
+    best_fitness: float                  # Fitness of best solution
+    fitness_history: List[float]         # Best fitness per generation
+</code></pre>
+<h3 id="component-2-algorithms-package">Component 2: Algorithms Package</h3>
+<p><strong>Location</strong>: <code>src/evobench/algorithms/</code></p>
+<p><strong>Implementations</strong>:
+- <strong>PSO</strong> (<code>pso.py</code>): Particle Swarm Optimization
+  - Velocity-based updates
+  - Personal best + global best attraction
+  - Inertia weight, cognitive/social coefficients tunable</p>
+<ul>
+<li><strong>EDA</strong> (<code>eda.py</code>): Estimation of Distribution Algorithm</li>
+<li>Probabilistic model-based search</li>
+<li>Gaussian distribution estimation</li>
+<li>
+<p>Selection ratio tunable</p>
+</li>
+<li>
+<p><strong>ABC</strong> (<code>bee.py</code>): Artificial Bee Colony</p>
+</li>
+<li>Three-phase (employed, onlooker, scout)</li>
+<li>Trial-counter mechanism</li>
+<li>Limit parameter (abandonment threshold) tunable</li>
+</ul>
+<p><strong>Common Pattern</strong>:</p>
+<pre><code class="language-python">class ParticleSwarmOptimization(EvolutionaryAlgorithm):
+    def __init__(self, objective_function, bounds, 
+                 population_size=50, max_iterations=100,
+                 inertia_weight=0.7, cognitive_constant=1.5, social_constant=1.5):
+        super().__init__(...)
+        # Algorithm-specific hyperparameters
+        self.w = inertia_weight
+        self.c1 = cognitive_constant
+        self.c2 = social_constant
+
+    def run(self) -&gt; Tuple[np.ndarray, float]:
+        # Implement PSO loop
+        pass
+</code></pre>
+<h3 id="component-3-benchmarks-package">Component 3: Benchmarks Package</h3>
+<p><strong>Location</strong>: <code>src/evobench/benchmarks/</code></p>
+<p><strong>Organization</strong>:
+- <code>unimodal.py</code>: Single-optimum functions (Sphere, Rosenbrock, Schwefel 1.2, Trid)
+- <code>multimodal.py</code>: Multiple local optima (Ackley)
+- <code>__init__.py</code>: Registry, <code>get_benchmark()</code> utility, aliases</p>
+<p><strong>Function Signature Convention</strong>:</p>
+<pre><code class="language-python">def sphere_function(x: np.ndarray) -&gt; float:
+    &quot;&quot;&quot;
+    Vectorized Sphere function.
+
+    Args:
+        x: Candidate solution (shape: (dimension,))
+
+    Returns:
+        Fitness value (scalar float)
+    &quot;&quot;&quot;
+    return float(np.sum(x**2))
+</code></pre>
+<p><strong>Why Vectorization Matters</strong>:</p>
+<pre><code class="language-python"># ✗ Slow: Loop-based (element-wise operations)
+def sphere_slow(x):
+    total = 0.0
+    for xi in x:
+        total += xi**2
+    return total
+
+# ✓ Fast: NumPy vectorized
+def sphere_fast(x):
+    return float(np.sum(x**2))
+
+# Speed comparison on x with 10000 dimensions:
+# sphere_slow:  ~1000 μs
+# sphere_fast:  ~10 μs (100× faster!)
+</code></pre>
+<h3 id="component-4-statistics-package">Component 4: Statistics Package</h3>
+<p><strong>Location</strong>: <code>src/evobench/stats/</code></p>
+<p><strong>Organization</strong>:
+- <code>core_tests.py</code>: Normality tests (Shapiro-Wilk), parametric/non-parametric tests
+- <code>analyzer.py</code>: Orchestrate statistical analysis workflow
+- <code>reporter.py</code>: Colored ANSI output with significance indicators
+- <code>post_hoc.py</code>: Pairwise comparisons (Tukey, Dunn)</p>
+<p><strong>Workflow</strong>:</p>
+<pre><code class="language-python">from evobench.stats import analyze
+
+# Input: Fitness vectors from multiple algorithms
+fitness_data = [
+    np.array([1.2, 1.1, 1.3, 1.15, 1.25]),  # PSO runs
+    np.array([0.9, 0.95, 0.88, 0.92, 0.87])  # EDA runs
+]
+
+# Automatic decision flow:
+# 1. Check normality (Shapiro-Wilk)
+# 2. If normal: ANOVA; else: Kruskal-Wallis
+# 3. If significant: Post-hoc (Tukey or Dunn)
+# 4. Calculate effect size (Cohen's d)
+result = analyze(&quot;Sphere&quot;, fitness_data, [&quot;PSO&quot;, &quot;EDA&quot;])
+</code></pre>
+<h3 id="component-5-tools-package">Component 5: Tools Package</h3>
+<p><strong>Location</strong>: <code>src/evobench/tools/</code></p>
+<p><strong>Modules</strong>:
+- <code>experiment_engine.py</code>: Orchestrate multi-algorithm, multi-benchmark studies
+- <code>operators.py</code>: Tournament selection, mutation operators (reusable)
+- <code>plotter.py</code>: Visualization utilities (convergence curves)</p>
+<p><strong>Experiment Engine</strong>:</p>
+<pre><code class="language-python">from evobench.tools import run_automated_experiment
+
+config = {
+    &quot;dimensions&quot;: 10,
+    &quot;population_size&quot;: 50,
+    &quot;max_iterations&quot;: 100,
+    &quot;independent_runs&quot;: 20,
+    &quot;benchmarks&quot;: [...],
+    &quot;algorithms&quot;: [...]
+}
+
+run_automated_experiment(config, output_file=&quot;results.json&quot;)
+# Produces:
+# - JSON with all results
+# - System metadata (for reproducibility)
+# - Timing information
+</code></pre>
+<hr />
+<h2 id="extensibility">Extensibility</h2>
+<h3 id="extending-the-library">Extending the Library</h3>
+<h4 id="scenario-1-add-a-new-algorithm">Scenario 1: Add a New Algorithm</h4>
+<pre><code class="language-python"># my_algorithm.py
+import numpy as np
+from evobench.base import EvolutionaryAlgorithm
+
+class DifferentialEvolution(EvolutionaryAlgorithm):
+    &quot;&quot;&quot;Differential Evolution for continuous optimization.&quot;&quot;&quot;
+
+    def __init__(self, objective_function, bounds, 
+                 population_size=50, max_iterations=100,
+                 F=0.8, CR=0.9):
+        super().__init__(objective_function, bounds, population_size, max_iterations)
+        self.F = F    # Mutation scale
+        self.CR = CR  # Crossover rate
+
+    def run(self):
+        population = self._initialize_population()
+
+        for generation in range(self.max_iterations):
+            fitness = np.apply_along_axis(self.objective_function, 1, population)
+
+            # DE mutation and crossover logic
+            # ...
+
+            # Track best
+            best_idx = np.argmin(fitness)
+            if fitness[best_idx] &lt; self.best_fitness:
+                self.best_fitness = fitness[best_idx]
+                self.best_individual = population[best_idx].copy()
+
+            self.fitness_history.append(self.best_fitness)
+
+        return self.best_individual, self.best_fitness
+
+# Use it immediately
+from evobench.benchmarks import sphere
+bounds = [(-5, 5)] * 10
+de = DifferentialEvolution(sphere, bounds, F=0.8, CR=0.9)
+best_sol, best_fit = de.run()
+</code></pre>
+<h4 id="scenario-2-add-a-new-benchmark">Scenario 2: Add a New Benchmark</h4>
+<pre><code class="language-python"># custom_benchmarks.py
+import numpy as np
+from evobench.benchmarks import BENCHMARK_REGISTRY
+
+def levy_function(x):
+    &quot;&quot;&quot;Lévy function: difficult multimodal landscape.&quot;&quot;&quot;
+    d = len(x)
+    w = 1 + (x - 1) / 4
+
+    term1 = np.sin(np.pi * w[0])**2
+    term2 = np.sum((w[:-1] - 1)**2 * (1 + 10 * np.sin(np.pi * w[:-1] + 1)**2))
+    term3 = (w[-1] - 1)**2 * (1 + np.sin(2 * np.pi * w[-1])**2)
+
+    return term1 + term2 + term3
+
+# Register it
+BENCHMARK_REGISTRY[&quot;levy&quot;] = levy_function
+
+# Use it
+from evobench.benchmarks import get_benchmark
+from evobench.algorithms import PSO
+
+levy = get_benchmark(&quot;levy&quot;)
+bounds = [(-10, 10)] * 10
+optimizer = PSO(levy, bounds)
+best_solution, best_fitness = optimizer.run()
+</code></pre>
+<h4 id="scenario-3-use-custom-operators">Scenario 3: Use Custom Operators</h4>
+<pre><code class="language-python"># custom_operators.py
+import numpy as np
+from evobench.tools.operators import tournament_selection
+
+def rank_selection(population, fitness, rank_pressure=2.0):
+    &quot;&quot;&quot;Rank-based selection (alternative to tournament).&quot;&quot;&quot;
+    n = len(fitness)
+    ranks = np.argsort(np.argsort(fitness))  # Lower fitness → higher rank
+
+    # Exponential rank pressure
+    weights = np.exp(-rank_pressure * (n - 1 - ranks) / n)
+    weights /= np.sum(weights)
+
+    idx = np.random.choice(n, p=weights)
+    return population[idx].copy()
+
+# Use in custom algorithm
+from evobench.base import EvolutionaryAlgorithm
+
+class CustomGA(EvolutionaryAlgorithm):
+    def run(self):
+        population = self._initialize_population()
+
+        for gen in range(self.max_iterations):
+            fitness = np.apply_along_axis(self.objective_function, 1, population)
+
+            # Use custom selection
+            new_pop = []
+            for _ in range(self.population_size):
+                parent = rank_selection(population, fitness)
+                new_pop.append(parent)
+
+            population = np.array(new_pop)
+
+            # Track best
+            best_idx = np.argmin(fitness)
+            if fitness[best_idx] &lt; self.best_fitness:
+                self.best_fitness = fitness[best_idx]
+                self.best_individual = population[best_idx].copy()
+
+            self.fitness_history.append(self.best_fitness)
+
+        return self.best_individual, self.best_fitness
+</code></pre>
+<hr />
+<h2 id="performance-considerations">Performance Considerations</h2>
+<h3 id="numpy-vectorization">NumPy Vectorization</h3>
+<p>All evobench algorithms rely on NumPy vectorization for speed:</p>
+<pre><code class="language-python"># Population: shape (population_size, dimension)
+population = np.random.rand(100, 50)  # 100 individuals, 50 dimensions
+
+# ✓ Vectorized (fast)
+fitness = np.apply_along_axis(sphere, 1, population)  # O(n*d)
+# vs.
+fitness = np.array([sphere(p) for p in population])   # Same speed but simpler
+
+# ✓ Vectorized operations
+population += 0.1 * best_solution  # Update all at once
+
+# ✗ Loop-based (slow, avoid)
+for i in range(len(population)):
+    fitness[i] = sphere(population[i])
+</code></pre>
+<h3 id="memory-efficiency">Memory Efficiency</h3>
+<pre><code class="language-python"># Problem: High-dimensional, large population
+DIMENSION = 10000
+POPULATION_SIZE = 1000
+
+# Memory footprint: 10000 × 1000 × 8 bytes = 80 MB per generation
+# For 100 iterations: 8 GB (problematic)
+
+# Solution: Batch processing or reduce population
+POPULATION_SIZE = 100  # 8 MB per generation; 800 MB for 100 iterations ✓
+
+# Or: Streaming evaluation (no history)
+for iteration in range(max_iterations):
+    fitness = np.apply_along_axis(objective_function, 1, population)
+    # Process and discard fitness values (don't accumulate)
+</code></pre>
+<h3 id="reproducibility-via-seeding">Reproducibility via Seeding</h3>
+<pre><code class="language-python">import numpy as np
+from numpy.random import Generator, PCG64
+
+# Modern NumPy API (3.9+)
+rng = Generator(PCG64(seed=42))
+
+# Use rng instead of np.random
+population = rng.uniform(-5, 5, (population_size, dimension))
+indices = rng.choice(population_size, size=tournament_size, replace=False)
+
+# Old API (still works but deprecated)
+# np.random.seed(42)
+# population = np.random.uniform(...)
+</code></pre>
+<hr />
+<h2 id="testing-architecture">Testing Architecture</h2>
+<pre><code>tests/
+├── test_base.py          # Tests for EvolutionaryAlgorithm contract
+├── test_algorithms.py    # PSO, EDA, ABC correctness
+├── test_benchmarks.py    # Benchmark properties (optima, bounds)
+├── test_statistics.py    # Statistical analysis accuracy
+└── test_integration.py   # End-to-end workflows
+</code></pre>
+<p><strong>Testing Principles</strong>:
+1. Unit tests for each component
+2. Integration tests for workflows
+3. Property-based tests (e.g., fitness always improves or stays same)
+4. Regression tests for known solutions</p>
+<hr />
+<h2 id="future-extensibility">Future Extensibility</h2>
+<p><strong>Planned (v0.2.0+)</strong>:
+- Discrete optimization algorithms (GA for binary/categorical problems)
+- Multi-objective optimization (NSGA-II, MOEA/D)
+- Hybrid algorithms (Local search + global optimization)
+- Parallel execution (Thread pool, multiprocessing, Ray)
+- Custom metrics and logging</p>
+<hr />
+<p><strong>Document Version</strong>: 1.0<br />
+<strong>Last Updated</strong>: June 2026<br />
+<strong>evobench</strong>: 0.1.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
